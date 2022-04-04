@@ -4,8 +4,8 @@
                 <v-card-title class="title_login">Login</v-card-title>
                 <v-card-text>
                     <form ref="form" @submit.prevent="loginFunc()">
-                        <input type="text" class="form_inputs mt-10" id="username" placeholder="Enter email...">
-                        <input type="text" class="form_inputs mt-10" id="username" placeholder="Password...">
+                        <input type="text" class="form_inputs mt-10" id="email" placeholder="Enter email...">
+                        <input type="text" class="form_inputs mt-10" id="password" placeholder="Password...">
 
                         <v-checkbox label="Remember me" class="check_box_login" color="white" ></v-checkbox>
                         <v-btn class="submit_login_btn">Login</v-btn>
@@ -14,8 +14,6 @@
                         </div>
                     </form>
                 </v-card-text>
-
-
         </v-card>
     </v-container>
 </template>
