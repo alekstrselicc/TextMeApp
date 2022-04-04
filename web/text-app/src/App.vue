@@ -29,10 +29,5 @@ export default Vue.extend({
     background-image: url('./assets/ozadje.jpg');
     background-size: cover;
   }
-  @media only screen and (max-width: 960px){
-    main{
-      background-size: 100% 50%; 
-    }
-  }
 
 </style>

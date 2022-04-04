@@ -12,7 +12,7 @@
 
     <v-layout column align-center>
       <div class="register_mobile hidden-md-and-up">
-        <p>Not a mmeber yet?</p>
+        <p>Not a memeber yet?</p>
         <p>What are you waiting for? Register now</p>
       </div>
         <v-btn class="hidden-md-and-up custom_button mt-8" rounded>Register</v-btn>
