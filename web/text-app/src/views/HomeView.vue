@@ -6,7 +6,7 @@
       <p class="mt-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem</p>
       </div>
 
-      <v-btn class="hidden-md-and-up custom_button mt-8" rounded>Login</v-btn>
+      <v-btn class="hidden-md-and-up custom_button mt-8" rounded to="/login">Login</v-btn>
 
     </v-layout>
 
@@ -15,7 +15,7 @@
         <p>Not a memeber yet?</p>
         <p>What are you waiting for? Register now</p>
       </div>
-        <v-btn class="hidden-md-and-up custom_button mt-8" rounded>Register</v-btn>
+        <v-btn class="hidden-md-and-up custom_button mt-8" rounded to="/register">Register</v-btn>
     </v-layout>
 
   </v-container>  

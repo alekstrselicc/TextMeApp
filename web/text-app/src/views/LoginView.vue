@@ -3,16 +3,16 @@
         <v-card class="login_card rounded-xl" color="rgb(41, 41, 41, 0.6)" >
                 <v-card-title class="title_login">Login</v-card-title>
                 <v-card-text>
-                    <form ref="form" @submit.prevent="loginFunc()">
-                        <input type="text" class="form_inputs mt-10" id="email" placeholder="Enter email...">
-                        <input type="text" class="form_inputs mt-10" id="password" placeholder="Password...">
+                    <v-form ref="form">
+                        <input type="text" class="form_inputs mt-10"  name="email" v-model="email" placeholder="Enter email...">
+                        <input type="password" class="form_inputs mt-10" name="password" v-model="password" placeholder="Password...">
 
                         <v-checkbox label="Remember me" class="check_box_login" color="white" ></v-checkbox>
-                        <v-btn class="submit_login_btn">Login</v-btn>
+                        <v-btn type="submit" class="submit_login_btn" v-on:click="loginFunc()" to="/main">Login</v-btn>
                         <div class="member_text">
-                        <p>Not a member yet?      <a href="#">Register</a></p>
+                        <p>Not a member yet?      <a href="/register">Register</a></p>
                         </div>
-                    </form>
+                    </v-form>
                 </v-card-text>
         </v-card>
     </v-container>
@@ -26,13 +26,15 @@
       name:"Login", 
       data() {
           return {
-              username: "", 
+              email: "", 
               password: "",
           };
       },
       methods: {
           loginFunc(){
-              const { username } = this; 
+              //getting data
+              console.log(this.email,this.password)
+             
           }
       }
   })

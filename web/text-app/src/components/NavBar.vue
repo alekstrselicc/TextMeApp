@@ -3,7 +3,7 @@
         <v-toolbar flat class="navbar_image">
             <v-toolbar-title class=" ml-10 display-1 white--text hidden-sm-and-down">TextMe</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn class="white--text custom_login_button" rounded>Login</v-btn>
+            <v-btn class="white--text custom_login_button" rounded to="/login">Login</v-btn>
         </v-toolbar>
     </nav>    
 </template>

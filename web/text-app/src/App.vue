@@ -29,5 +29,4 @@ export default Vue.extend({
     background-image: url('./assets/ozadje.jpg');
     background-size: cover;
   }
-
 </style>
