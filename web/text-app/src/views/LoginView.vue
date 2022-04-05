@@ -56,12 +56,12 @@
 
     .form_inputs{
         color: white;
-        background-color: rgba(58, 58, 58, 1);
+        background-color: rgb(29, 29, 29);
         width: 460px;
         height: 66px;
         border-radius: 10px;
         margin-left: 40px;
-        font-size: 28px;
+        font-size: 18px;
         padding: 10px;
     }
     .form_inputs::placeholder{
