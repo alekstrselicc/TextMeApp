@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavBar class="hidden-sm-and-down" />
+    <!--<NavBar class="hidden-sm-and-down" />-->
     <v-main>
       <router-view/>
     </v-main>
@@ -11,11 +11,11 @@
 
 
 import Vue from 'vue';
-import NavBar from '@/components/NavBar.vue'; 
+//import NavBar from '@/components/NavBar.vue'; 
 
 export default Vue.extend({
   name: 'App',
-  components: { NavBar },
+  components: { /*NavBar*/ },
   data: () => ({
     //
   }),

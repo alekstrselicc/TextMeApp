@@ -1,47 +1,30 @@
 <template>
-  <v-app id="inspire">
-    <v-main class="grey lighten-3">
-      <v-container>
+    <v-main>
+      <v-container class="fill-height justify-center">
         <v-row>
-          <v-col
-            cols="12"
-            sm="2"
-          >
-            <v-sheet
-              rounded="lg"
-              min-height="268"
-            >
-              <!--  -->
+          <!-- playgrounds -->
+          <v-col sm="3">
+            <v-sheet rounded="lg" min-height="100%" class="playground_sheet sheet_color">
             </v-sheet>
           </v-col>
 
-          <v-col
-            cols="12"
-            sm="8"
-          >
-            <v-sheet
-              min-height="70vh"
-              rounded="lg"
-            >
-              <!--  -->
+
+          <!-- chat -->
+          <v-col sm="7">
+            <v-sheet min-height="92vh" rounded="lg" class="chat_sheet sheet_color">   
             </v-sheet>
           </v-col>
 
-          <v-col
-            cols="12"
-            sm="2"
-          >
-            <v-sheet
-              rounded="lg"
-              min-height="268"
-            >
-              <!--  -->
+
+          <!-- friends -->
+          <v-col sm="2">
+            <v-sheet rounded="lg" min-height="100%" class="friends_sheet sheet_color">
+
             </v-sheet>
           </v-col>
         </v-row>
       </v-container>
     </v-main>
-  </v-app>
 </template>
 
 <script>
@@ -49,5 +32,13 @@
 </script>
 
 <style>
+
+
+  .sheet_color{
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+
+
 
 </style>
