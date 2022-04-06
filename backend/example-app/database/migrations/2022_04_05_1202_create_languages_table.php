@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('private_chats', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('languages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('language');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('private_chats');
+        Schema::dropIfExists('languages');
     }
 };
