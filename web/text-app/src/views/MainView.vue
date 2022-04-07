@@ -4,11 +4,47 @@
 
           <!-- This is for playgrounds -->
           <v-flex lg3 class="hidden-sm-and-down playground" sm3>
-            
+
+             
+              <v-list rounded color="transparent" class="mt-8 list_class">
+                <v-subheader class="white--text subheader_desktop" fixed>Playgrounds</v-subheader>
+    
+                <div class="group_items_bigger">
+                  <v-list-group v-for="item in items" :key="item.title" color="white" class="">
+                    <template v-slot:activator>
+                      <v-list-item-avatar>
+                        <v-img :src="item.avatar"></v-img>
+                      </v-list-item-avatar>          
+                        
+                      <v-list-item-content class="white--text">
+                        <v-list-item-title v-text="item.title" class="custom_playground_text"></v-list-item-title>
+                      </v-list-item-content>
+
+                    </template>
+                    
+                    <v-list-item v-for="child in item.items" :key="child.title" dense> 
+                    <v-list-item-icon>
+                      <v-icon v-text="child.action" color="white"></v-icon>
+                    </v-list-item-icon>  
+                        <v-list-item-content class="white--text">
+                          <v-list-item-title v-text="child.title" class="custom_child_bigger" >
+                          </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                  </v-list-group>
+                </div>
+              </v-list>
+           
+            <div class="add_playground_btn">
+                <v-btn class="white--text custom_btn_add_playground" color="black"><v-icon left>mdi-plus</v-icon>Add playground</v-btn>
+            </div>
           </v-flex>
 
+
+
+
           <!-- Playgrounds drawer -->
-          <v-navigation-drawer v-model="drawer1" app class="hidden-md-and-up playground_drawer" color="black">
+          <v-navigation-drawer v-model="drawer1" app class="hidden-md-and-up playground_drawer" color="black" width="300px">
             
             <!-- This is for the playgrounds list -->
             <!-- Adding images is still missing -->
@@ -17,22 +53,35 @@
               <v-list rounded>
                 
                 <v-subheader class="white--text playground_title_mobile" fixed>Playgrounds</v-subheader>
+                
+      
                 <div class="group_items">
-                <v-list-group v-for="item in items" :key="item.title" v-model="item.active" :prepend-icon="item.action" no-action class="white--text">
+                  <v-list-group v-for="item in items" :key="item.title" color="white" >
+                    <template v-slot:activator>
+                      <v-list-item-avatar>
+                        <v-img :src="item.avatar"></v-img>
+                      </v-list-item-avatar>          
+                        
+                      <v-list-item-content class="white--text">
+                        <v-list-item-title v-text="item.title" class="custom_playground_text"></v-list-item-title>
+                      </v-list-item-content>
 
-                  <template v-slot:activator>
-                    <v-list-item-content class="white--text">
-                      <v-list-item-title v-text="item.title" class="custom_playground_text"></v-list-item-title>
-                    </v-list-item-content>
-                  </template>
-
-                  <v-list-item v-for="child in item.items" :key="child.title">
-                    <v-list-item-content class="white--text">
-                      <v-list-item-title v-text="child.title" class="custom_child"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-group>
+                    </template>
+                    
+                    <v-list-item v-for="child in item.items" :key="child.title" dense> 
+                    <v-list-item-icon>
+                      <v-icon v-text="child.action" color="white"></v-icon>
+                    </v-list-item-icon>  
+                        <v-list-item-content class="white--text">
+                          <v-list-item-title v-text="child.title" class="custom_child" >
+                          </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                  </v-list-group>
                 </div>
+
+
+
               </v-list>
             </v-layout>
 
@@ -40,8 +89,6 @@
             <div class="add_playground_btn">
                 <v-btn class="white--text custom_btn_add_playground" color="black"><v-icon left>mdi-plus</v-icon>Add playground</v-btn>
             </div>
-
-
           </v-navigation-drawer>
 
 
@@ -87,107 +134,67 @@
       return {
         drawer1: false,
         drawer2: false,  
-        items: [
+      items: [
       {
-        action: 'mdi-ticket',
-        items: [{ title: 'List Item' }],
-        title: 'Attractions',
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        title: 'Gaming',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+      },
+    
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+        title: 'Summer BBQ',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+      },
+  
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+        title: 'Oui oui',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+
       },
       {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+        title: 'Birthday gift',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+
       },
       {
-        action: 'mdi-school',
-        items: [{ title: 'List Item' }],
-        title: 'Education',
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+        title: 'Recipe to try',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+      },      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        title: 'Gaming',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+      },
+    
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+        title: 'Summer BBQ',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+      },
+  
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+        title: 'Oui oui',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+
       },
       {
-        action: 'mdi-human-male-female-child',
-        items: [{ title: 'List Item' }],
-        title: 'Family',
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+        title: 'Birthday gift',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
+
       },
       {
-        action: 'mdi-bottle-tonic-plus',
-        items: [{ title: 'List Item' }],
-        title: 'Health',
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+        title: 'Recipe to try',
+        items: [ { title: "chill channel", action: 'mdi-message-text'},{ title: "Add channel", action: 'mdi-plus'}]
       },
-      {
-        action: 'mdi-briefcase',
-        items: [{ title: 'List Item' }],
-        title: 'Office',
-      },
-      {
-        action: 'mdi-tag',
-        items: [{ title: 'List Item' }],
-        title: 'Promotions',
-      },
-      {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
-      },
-      {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
-      },
-      {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
-      },
-      {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
-      },
-      {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
-      },
-      {
-        action: 'mdi-silverware-fork-knife',
-        active: true,
-        items: [
-          { title: 'Breakfast & brunch' },
-          { title: 'New American' },
-          { title: 'Sushi' },
-        ],
-        title: 'Dining',
-      },
+      
+      
+
     ],
       }
 
@@ -204,6 +211,25 @@
       max-width: 2500px !important;
     }
 
+    .subheader_desktop{
+      font-size: 40px !important;
+      font-weight: bold !important;
+    }
+    .group_items_bigger{
+      margin-top: 25px !important;
+      max-height: 1200px;
+
+    }
+    .list_class{
+      max-width: 600px;
+    }
+    .custom_child_bigger{
+      font-size: 20px !important;
+    }
+    .custom_playground_text{
+       font-size: 32px !important;
+    }
+
     .playground{
       border-radius: 30px;
       background-color: rgba(0, 0, 0, 0.4) !important;
@@ -218,14 +244,10 @@
       margin-left: 10px;
       background-color: rgba(0, 0, 0, 0.4) !important;
     }
-
     .small_bar{
       display: none;
     }
-    .add_playground_btn{
-      height: 50px;
-      margin-top: -50px;
-    }
+
     
 
     /* This is the small navbar in mobile mode */
@@ -237,10 +259,10 @@
         font-size: 30px !important;
       }
       .custom_playground_text{
-        font-size: 20px !important;
+        font-size: 21px !important;
       }
       .custom_child{
-        font-size: 14px !important;
+        font-size: 18px !important;
       } 
       .group_items{
         max-height: 600px !important;
@@ -250,7 +272,14 @@
         margin-left: 5px;
         font-size: 20px !important;
       }
-
+      .group_title{
+        font-size: 20px !important;
+      }
+      .add_playground_btn{
+        height: 50px;
+        margin-top: -50px;
+        margin-left: 10px;
+      }
 
     }
 
