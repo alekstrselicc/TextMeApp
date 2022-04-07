@@ -13,7 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('participants', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('created_at');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('private_chat_id');
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+          
+            $table->foreign('private_chat_id')->references('id')->on('private_chats')->onDelete('restrict');
+
+        });
     }
 
     /**
@@ -23,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('participants');
     }
 };

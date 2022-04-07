@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_types', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table) {
             $table->id();
-            $table->string('user_type');
+            $table->string('title');
+            $table->dateTime('created_at');
+            $table->unsignedBigInteger('playground_id');
+            
+            $table->foreign('playground_id')->references('id')->on('playgrounds')->onDelete('restrict');
+
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_types');
+        Schema::dropIfExists('channels');
     }
 };

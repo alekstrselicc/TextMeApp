@@ -13,7 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('towns', function (Blueprint $table) {
+            $table->id();
+            $table->string('town');
+            $table->unsignedBigInteger('country_id'); 
+
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
+                 
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('towns');
     }
 };

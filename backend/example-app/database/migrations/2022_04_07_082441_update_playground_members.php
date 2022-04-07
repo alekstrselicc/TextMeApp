@@ -13,7 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('playground_members', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('joined');
+            $table->dateTime('left');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('playground_id');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+
+            $table->foreign('playground_id')->references('id')->on('playgrounds')->onDelete('restrict');
+
+            
+        });
     }
 
     /**
@@ -23,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('playground_members');
     }
 };
