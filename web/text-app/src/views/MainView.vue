@@ -22,22 +22,17 @@
           <!-- Here is going to be the chat for mobile and desktop -->
           
           
-
-
           </v-flex>
-
+          
           <!-- Friends drawer -->
           <v-navigation-drawer v-model="drawer2" app right class="hidden-md-and-up friends_drawer" color="black">
-              friends
+              <FriendMobile />
           </v-navigation-drawer>
 
 
 
           <!-- This is for friends -->
-          <v-flex lg2 class="hidden-sm-and-down friends" sm2>
-            
-
-          </v-flex>
+          <Friend />
 
 
 
@@ -46,12 +41,16 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import Vue from 'vue'; 
   import Playground from "@/components/Playgrounds.vue"; 
-  import PlaygroundMobile from "@/components/Playground_mobile.vue"
+  import PlaygroundMobile from "@/components/Playground_mobile.vue"; 
+  import Friend from "@/components/Friends.vue"; 
+  import FriendMobile from "@/components/Friends_mobile.vue"; 
+
+
   export default Vue.extend({
     name: 'main', 
-    components: { Playground, PlaygroundMobile },
+    components: { Playground, PlaygroundMobile, Friend, FriendMobile },
     data(){
       return {
         drawer1: false,

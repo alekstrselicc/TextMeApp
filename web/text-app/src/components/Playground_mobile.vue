@@ -10,9 +10,11 @@
                 <div class="group_items">
                   <v-list-group v-for="item in items" :key="item.title" color="white" >
                     <template v-slot:activator>
-                      <v-list-item-avatar>
+                       
+                      <v-list-item-avatar size="50">
                         <v-img :src="item.avatar"></v-img>
-                      </v-list-item-avatar>          
+                      </v-list-item-avatar>  
+                            
                         
                       <v-list-item-content class="white--text">
                         <v-list-item-title v-text="item.title" class="custom_playground_text"></v-list-item-title>
