@@ -17,16 +17,13 @@ return new class extends Migration
             $table->id();
             $table->dateTime('joined');
             $table->dateTime('left');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('playground_id');
 
-            $table->foreignId('user_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
-            $table->foreignId('playground_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->foreign('playground_id')->references('id')->on('playgrounds')->onDelete('restrict');
+
             
         });
     }

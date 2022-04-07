@@ -17,16 +17,13 @@ return new class extends Migration
             $table->id();
             $table->dateTime('created_at');
             $table->longText('message');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('private_chat_id');
             
-            $table->foreignId('user_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
-            $table->foreignId('private_chat_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->foreign('private_chat_id')->references('id')->on('private_chats')->onDelete('restrict');
+
         });
     }
 

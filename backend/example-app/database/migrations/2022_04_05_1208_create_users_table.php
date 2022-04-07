@@ -31,19 +31,19 @@ return new class extends Migration
             $table->unsignedBigInteger('town_id');
             $table->unsignedBigInteger('theme_id');
 
-            $table->foreign('status_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
 
-            $table->foreign('gender_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('gender_id')->references('id')->on('genders')->onDelete('restrict');
 
-            $table->foreign('language_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('restrict');
 
-            $table->foreign('relationship_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('relationship_id')->references('id')->on('relationships')->onDelete('restrict');
 
-            $table->foreign('user_type_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('restrict');
 
-            $table->foreign('town_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('town_id')->references('id')->on('towns')->onDelete('restrict');
 
-            $table->foreign('theme_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('theme_id')->references('id')->on('themes')->onDelete('restrict');
 
         });
     }
