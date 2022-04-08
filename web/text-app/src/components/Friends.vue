@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <v-layout class="fill-height justify-center friends_layout">
@@ -6,6 +5,7 @@
         <v-subheader class="white--text friends_title_mobile"
           >Friends</v-subheader
         >
+        <v-divider color="white" class="divider_friends"></v-divider>
         <div class="group_items_friends">
           <v-list-item-group
             v-model="selectedItem"
@@ -35,14 +35,21 @@
           </v-list-item-group>
         </div>
       </v-list>
+
+      <!-- Here comes the profile linker -->
+      <ProfileButton />
+
+
     </v-layout>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import ProfileButton from "@/components/profileButton.vue"; 
 
 export default Vue.extend({
+   components: { ProfileButton },
   data() {
     return {
       selectedItem: 1,
@@ -65,31 +72,34 @@ export default Vue.extend({
 </script>
 
 <style>
-
-
 /* destkop css */
 
-  .friends_title_mobile {
-    font-size: 50px !important;
-    margin-left: 40px;
-    margin-top: 25px;
-  }
+.friends_title_mobile {
+  font-size: 50px !important;
+  margin-left: 40px;
+  margin-top: 25px;
+}
 
-  .item_title{
-    font-size: 28px;
-  }
-  .list_item{
-    margin-top: 5px;
-  }
-  .group_items_friends{
-    margin-top: 30px;
-  }
-
+.item_title {
+  font-size: 28px;
+}
+.list_item {
+  margin-top: 5px;
+}
+.group_items_friends {
+  margin-top: 10px;
+}
+.divider_friends {
+  margin-top: 10px;
+}
 
 @media (max-width: 960px) {
   .friends_title_mobile {
     font-size: 30px !important;
     margin-left: 60px;
+  }
+  .divider_friends {
+    margin-top: 0px;
   }
   .item_group {
     width: 250px !important;
@@ -128,13 +138,13 @@ export default Vue.extend({
     text-decoration: none;
     color: white;
   }
-  .item_title{
+  .item_title {
     font-size: 18px;
   }
-  .list_item{
+  .list_item {
     margin-top: -5px;
   }
-  .group_items_friends{
+  .group_items_friends {
     margin-top: 5px;
   }
 }

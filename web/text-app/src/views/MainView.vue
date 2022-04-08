@@ -32,7 +32,7 @@
         </v-app-bar>
 
         <!-- Here is going to be the chat for mobile and desktop -->
-      </v-flex>
+      </v-flex> 
 
       <!-- Friends drawer -->
       <v-navigation-drawer
@@ -89,6 +89,9 @@ export default Vue.extend({
 }
 .small_bar {
   display: none;
+}
+.playground{
+  min-width: 400px;
 }
 
 /* This is the small navbar in mobile mode */

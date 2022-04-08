@@ -4,7 +4,7 @@
       <v-subheader class="white--text desktop_header mobile_header" fixed
         >Playgrounds</v-subheader
       >
-
+      
       <div class="group_items_bigger">
         <v-list-group
           v-for="item in items"
@@ -192,9 +192,9 @@ export default Vue.extend({
 }
 
 /* This if for mobile */
-@media only screen and (max-width: 960px) {
+@media (max-width: 960px) {
   .mobile_header {
-    font-size: 40px !important;
+    font-size: 30px !important;
   }
   .group_items_bigger {
     max-height: 600px !important;
@@ -209,6 +209,10 @@ export default Vue.extend({
     font-size: 20px !important;
   }
   .custom_btn_add_playground_bigger {
+    font-size: 20px !important;
+  }
+
+  .custom_playground_text{
     font-size: 20px !important;
   }
 }
