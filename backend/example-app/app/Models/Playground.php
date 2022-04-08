@@ -9,7 +9,7 @@ class Playground extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'playgrounds';
+    //protected $table = 'playgrounds';
     protected $fillable = [
         'title'
     ];
