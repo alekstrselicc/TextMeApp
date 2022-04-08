@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <v-list rounded color="transparent" class="mt-8 list_class">
       <v-subheader class="white--text desktop_header mobile_header" fixed
         >Playgrounds</v-subheader
@@ -46,8 +46,7 @@
         class="white--text custom_btn_add_playground_bigger"
         color="white"
         text
-        ><v-icon left class="icon_add">mdi-plus</v-icon>Add
-        playground</v-btn
+        ><v-icon left class="icon_add">mdi-plus</v-icon>Add playground</v-btn
       >
     </div>
   </div>
@@ -151,11 +150,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-
 /* new style */
 /* this is for the big screen */
-.desktop_header{
-  font-size: 50px !important;  
+.desktop_header {
+  font-size: 50px !important;
 }
 .list_class {
   max-width: 600px;
@@ -181,7 +179,7 @@ export default Vue.extend({
   margin-bottom: 40px;
   margin-left: 20px;
 }
-.icon_add{
+.icon_add {
   font-size: 30px !important;
 }
 .icon_plus {
@@ -193,28 +191,25 @@ export default Vue.extend({
   height: 50px !important;
 }
 
-/* This if for mobile */ 
+/* This if for mobile */
 @media only screen and (max-width: 960px) {
-  .mobile_header{
+  .mobile_header {
     font-size: 40px !important;
   }
-  .group_items_bigger{
+  .group_items_bigger {
     max-height: 600px !important;
     overflow: auto;
   }
-  .custom_button_bigger{
+  .custom_button_bigger {
     font-size: 10px !important;
     margin-left: 20px;
     margin-bottom: 10px;
   }
-  .icon_add{
+  .icon_add {
     font-size: 20px !important;
   }
-  .custom_btn_add_playground_bigger{
+  .custom_btn_add_playground_bigger {
     font-size: 20px !important;
   }
-
 }
-
-
 </style>

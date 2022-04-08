@@ -41,11 +41,14 @@
         right
         class="hidden-md-and-up friends_drawer"
       >
-        <FriendMobile />
+        <Friend />
       </v-navigation-drawer>
 
       <!-- This is for friends -->
-      <Friend />
+      <v-flex lg2 class="hidden-sm-and-down friends" sm2>
+        <Friend />
+      </v-flex>
+
     </v-layout>
   </v-container>
 </template>
@@ -53,7 +56,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Playground from "@/components/playgrounds.vue";
-import Friend from "@/components/Friends.vue";
+import Friend from "@/components/friends.vue";
 
 export default Vue.extend({
   name: "main",
@@ -81,6 +84,8 @@ export default Vue.extend({
   border-radius: 30px;
   margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.4) !important;
+  min-width: 300px;
+  max-width: 200px !important;
 }
 .small_bar {
   display: none;
