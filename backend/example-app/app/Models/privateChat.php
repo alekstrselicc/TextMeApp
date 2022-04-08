@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class privateChat extends Model
 {
-    use HasFactory;
+    use HasFactory;   
+    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'last_login'
+    ];
 }

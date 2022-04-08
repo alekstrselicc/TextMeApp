@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlaygroundController;
+use App\Http\Controllers\PrivateChatController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\playground;
@@ -33,4 +35,5 @@ Route::group(['middleware' => ['auth:api']], function () {
 //     route::delete('/playground/{id}', [PlaygroundController::class, 'destroy']);
 // });
         route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('privatechats', PrivateChatController::class)->only(['index','store','destroy']);
     });
