@@ -32,6 +32,8 @@
         </v-app-bar>
 
         <!-- Here is going to be the chat for mobile and desktop -->
+        <Chat />
+      
       </v-flex> 
 
       <!-- Friends drawer -->
@@ -57,10 +59,11 @@
 import Vue from "vue";
 import Playground from "@/components/playgrounds.vue";
 import Friend from "@/components/friends.vue";
+import Chat from "@/components/Chat/chat.vue"; 
 
 export default Vue.extend({
   name: "main",
-  components: { Playground, Friend },
+  components: { Playground, Friend, Chat },
   data() {
     return {
       drawer1: false,

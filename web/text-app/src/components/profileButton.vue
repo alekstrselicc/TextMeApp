@@ -74,7 +74,6 @@ export default Vue.extend({
 .btn_layout {
   position: absolute;
   bottom: 0;
-  border: 1px solid white;
   width: 230px;
   height: 90px;
   margin-right: 60px;

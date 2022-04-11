@@ -34,26 +34,23 @@
             </v-list-item>
           </v-list-item-group>
         </div>
+        <v-btn class="white--text custom_add_friend_button" color="white" text
+          ><v-icon left class="icon_add">mdi-plus</v-icon>Add friend</v-btn
+        >
       </v-list>
-      <!-- Here is the add friend button--> 
-      <div>
-
-      </div>
 
       <!-- Here comes the profile linker -->
       <ProfileButton />
-
-
     </v-layout>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import ProfileButton from "@/components/profileButton.vue"; 
+import ProfileButton from "@/components/profileButton.vue";
 
 export default Vue.extend({
-   components: { ProfileButton },
+  components: { ProfileButton },
   data() {
     return {
       selectedItem: 1,
@@ -62,6 +59,11 @@ export default Vue.extend({
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           title: "Janez_Novak",
           color: "red",
+        },
+        {
+          avatar: "https://picsum.photos/350/165?random",
+          title: "Mojca Mastnak",
+          color: "yellow",
         },
         {
           avatar: "https://picsum.photos/350/165?random",
@@ -95,6 +97,16 @@ export default Vue.extend({
 }
 .divider_friends {
   margin-top: 10px;
+}
+.custom_add_friend_button {
+  font-size: 28px !important;
+  text-transform: capitalize !important;
+  margin-top: 20px;
+  margin-left: 35px;
+  height: 50px !important;
+}
+.icon_add{
+  font-size: 40px !important;
 }
 
 @media (max-width: 960px) {
