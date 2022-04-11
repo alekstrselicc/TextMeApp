@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 import ProfileButton from "@/components/profileButton.vue";
 
 export default Vue.extend({
