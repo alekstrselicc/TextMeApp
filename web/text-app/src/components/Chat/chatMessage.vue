@@ -1,5 +1,6 @@
 <template>
-    <v-layout>
+    <v-layout justify-center>
+        
         
     </v-layout>
 </template>

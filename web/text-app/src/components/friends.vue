@@ -164,5 +164,13 @@ export default Vue.extend({
   .group_items_friends {
     margin-top: 5px;
   }
+  .custom_add_friend_button{
+    font-size: 24px !important;
+    text-transform: capitalize !important;
+    margin-top: 20px;
+    margin-left: 25px !important;
+    height: 50px !important;
+  }
+
 }
 </style>

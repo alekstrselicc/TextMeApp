@@ -11,16 +11,6 @@
             <v-btn icon><v-icon color="blue" large>mdi-wrench</v-icon></v-btn>
         </v-flex>
 
-        <v-flex class="search_box">
-            <v-text-field
-              outlined
-              label="Search"
-              prepend-inner-icon="mdi-magnify"
-              color="black"
-              class="white--text search_bar text-input-white"
-            ></v-text-field>
-        </v-flex>
-
     </v-layout>
 </template>
 
@@ -43,25 +33,6 @@ export default Vue.extend({
 
 <style>
 
-.main_layout{
-    min-width: 500px !important;
-}
-.search_box{
-    margin-left: 100%;
-    margin-top: 25px;
-}
-
-.search_bar input::placeholder{
-    color: white !important;
-}
-.v-text-field--outlined > .v-input__control > .v-input__slot{
-    background: white;
-    border-radius: 20px;
-    width: 250px !important;
-}
-.theme--light.v-application{
-    color: white !important;
-}
 
 .titles{
     height: 50px !important;

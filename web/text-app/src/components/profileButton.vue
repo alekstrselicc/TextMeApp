@@ -3,7 +3,7 @@
     <!-- Clickable icon -->
     <v-flex class="btn_icon">
       <v-btn icon>
-        <v-avatar size="70">
+        <v-avatar class="custom_avatar">
           <img src="https://randomuser.me/api/portraits/men/1.jpg" />
         </v-avatar>
       </v-btn>
@@ -126,7 +126,60 @@ export default Vue.extend({
   margin-bottom: 3px;
 }
 
+.custom_avatar{
+  width: 70px !important; 
+  height: 70px !important;
+}
+
 /* this if for the phone */
 @media (max-width: 960px) {
+  .btn_icon{
+    margin-left: 40px;
+    margin-top: 20px;
+    max-width: 70px !important;
+    height: 50px !important;
+  }
+  .btn_text_edit{
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 40px;
+    font-size: 20px !important;
+    width: 150px !important;
+  }
+  .custom_avatar{
+    width: 50px !important;
+    height: 50px !important;
+  }
+  /* This is all for status */
+  .btn_status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 4px;
+  }
+  .select_status{
+    color: white !important;
+    width: 125px !important;
+    font-size: 18px !important;
+  }
+
+  .image_status{
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .v-application .primary--text{
+    color: white !important;
+  }
+  .v-select__selections{
+    color: white !important;
+  }
+
+  /* This if for invites */
+  .btn_invites {
+    position: absolute;
+    margin-left: 220px;
+    margin-top: 24px;
+  }  
+
 }
 </style>
