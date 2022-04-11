@@ -1,0 +1,29 @@
+<template>
+    <v-container class="fill-height justify-center chat_main">
+    <!-- Here is going to show the title -->
+    <ChatTitle />
+    <!-- Chat log -->
+    <ChatLog />
+    <!-- Here is going to be the send message --> 
+    <ChatSend />
+    </v-container>
+</template>
+
+<script lang="ts">
+
+import ChatTitle from '@/components/Chat/chatTitle.vue'; 
+import ChatSend from '@/components/Chat/chatMessage.vue'; 
+import ChatLog from '@/components/Chat/chatLog.vue'; 
+
+import Vue from "vue"; 
+export default Vue.extend({
+  name: "chat",
+  components: { ChatTitle, ChatLog, ChatSend },
+  
+}); 
+
+</script>
+
+<style>
+
+</style>
