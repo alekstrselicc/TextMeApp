@@ -35,6 +35,10 @@
           </v-list-item-group>
         </div>
       </v-list>
+      <!-- Here is the add friend button--> 
+      <div>
+
+      </div>
 
       <!-- Here comes the profile linker -->
       <ProfileButton />
