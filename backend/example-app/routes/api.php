@@ -28,6 +28,7 @@ use App\Models\playground;
 route::post('/register', [AuthController::class, 'register']);
 route::get('/channels', [ChannelController::class, 'index']);
 route::get('/channels/{id}', [ChannelController::class, 'show']);
+route::post('/channels', [ChannelController::class, 'store']);
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {

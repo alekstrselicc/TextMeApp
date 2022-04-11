@@ -29,7 +29,12 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $channel = new Channel;
+        $channel->title = $request->input('title');
+        $channel->created_at = $request->input('created_at');
+        
+        $playground = Playground::find(1);
+        $playground->channels()->save($channel);
     }
 
     /**
