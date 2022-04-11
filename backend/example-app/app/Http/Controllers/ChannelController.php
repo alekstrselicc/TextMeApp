@@ -59,7 +59,9 @@ class ChannelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $channel = Channel::find($id);
+        $channel->update($request->all());
+        return $channel;
     }
 
     /**
@@ -70,6 +72,6 @@ class ChannelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $channel = Channel::destroy($id);
     }
 }

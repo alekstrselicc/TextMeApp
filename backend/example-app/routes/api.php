@@ -29,6 +29,8 @@ route::post('/register', [AuthController::class, 'register']);
 route::get('/channels', [ChannelController::class, 'index']);
 route::get('/channels/{id}', [ChannelController::class, 'show']);
 route::post('/channels', [ChannelController::class, 'store']);
+route::put('/channels/{id}', [ChannelController::class, 'update']);
+route::delete('/channels/{id}', [ChannelController::class, 'destroy']);
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
