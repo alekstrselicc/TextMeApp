@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\Playground;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -12,9 +13,12 @@ class ChannelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //GET all channels of playgrounds
     public function index()
     {
-        return Channel::all();
+        $playground = Playground::with('channels')->get();
+        return $playground;
+
     }
 
     /**
@@ -34,9 +38,11 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //GET all channels of particular playground
     public function show($id)
     {
-        //
+        $channels = Playground::find($id)->channels;
+        return $channels;
     }
 
     /**

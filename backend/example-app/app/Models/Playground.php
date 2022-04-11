@@ -13,4 +13,9 @@ class Playground extends Model
     protected $fillable = [
         'title'
     ];
+    
+    public function channels()
+    {
+         return $this->hasMany(Channel::class);
+    }
 }

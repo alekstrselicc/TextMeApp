@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Channel extends Model
 {
     use HasFactory;
+    public function playground()
+    {
+
+        return $this->belongsTo(Playground::class);
+
+    }
 }

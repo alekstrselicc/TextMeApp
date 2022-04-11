@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\PrivateChatController;
 
@@ -25,6 +26,8 @@ use App\Models\playground;
 //public routes
 //route::resource('playgrounds', PlaygroundController::class);
 route::post('/register', [AuthController::class, 'register']);
+route::get('/channels', [ChannelController::class, 'index']);
+route::get('/channels/{id}', [ChannelController::class, 'show']);
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
