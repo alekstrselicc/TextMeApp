@@ -77,6 +77,7 @@ export default Vue.extend({
 /* Main stuff for good looks */
 .first_main {
   max-width: 2500px !important;
+  max-height: 2000px !important;
 }
 .chat {
   border-radius: 30px;

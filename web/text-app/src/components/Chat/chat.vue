@@ -1,5 +1,5 @@
 <template>
-    <v-container class="fill-height justify-center chat_main">
+    <v-container class="fill-height chat_main">
     <!-- Here is going to show the title -->
     <ChatTitle />
     

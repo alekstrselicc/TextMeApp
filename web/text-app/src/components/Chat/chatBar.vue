@@ -29,7 +29,6 @@ export default Vue.extend({
 .main_layout_buttons{
     width: 150px;
     height: 40px !important;
-    margin-top: -100px;
     padding-left: 10px;
 }
 

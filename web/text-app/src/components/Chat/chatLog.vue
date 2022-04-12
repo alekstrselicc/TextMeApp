@@ -1,7 +1,10 @@
 <template>
-    <v-layout>
-        
-    </v-layout>
+    <v-flex class="main_chat">
+
+    <!-- Chat log need date, location, text, image of the person -->
+
+
+    </v-flex>
 </template>
 
 
@@ -16,5 +19,20 @@ export default Vue.extend({
 </script>
 
 <style>
+
+.main_chat{
+    border: 1px solid black; 
+    width: 100% !important;
+    height: 80%;  
+    margin-top: 15px !important;
+}
+
+@media (max-width: 960px) {
+    .main_chat{
+        height: 70%; 
+        margin-top: -100px !important; 
+    }
+}
+
 
 </style>

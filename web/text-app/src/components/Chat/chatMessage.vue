@@ -1,5 +1,6 @@
 <template>
-  <div class="main_layout">
+  <div class="main_send">
+      <ChatBar />
     <div class="main_box">
       <v-text-field
         class="search-input"
@@ -14,7 +15,6 @@
       ></v-text-field>
     </div>
     <!-- Here is the bar of button  -->
-    <ChatBar />
   </div>
 </template>
 
@@ -30,20 +30,11 @@ export default Vue.extend({
 
 <style>
 
-.main_layout{
+.main_send{
   width: 100% !important;
+  height: 100px;
 }
-.main_box{
-  margin-top: -50px;
-}
-.v-icon.outlined {
-  border: 1px solid #007abe !important;
-  background: #007abe !important;
-  border-radius: 50%;
-  height: 46px !important;
-  width: 46px !important;
-  position: absolute;
-}
+
 .main_box .v-input__icon--append .v-icon {
   color: white !important;
   font-size: 30px !important;
@@ -56,22 +47,14 @@ export default Vue.extend({
 .main_layout_buttons{
     width: 150px;
     height: 40px !important;
-    margin-top: -100px;
     margin-left: 5px;
 }
 
 
 @media (max-width: 960px) {
-  .main_box {
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 30px;
-    width: 88% !important;
-  }
   .main_layout_buttons{
       width: 150px;
       height: 40px !important;
-      margin-top: -160px;
       margin-left: 5px;
   }
 
