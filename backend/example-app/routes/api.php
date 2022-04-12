@@ -2,12 +2,19 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\GenderController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\PrivateChatController;
-
+use App\Http\Controllers\RelationshipController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\playground;
+use App\Models\userType;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +33,7 @@ use App\Models\playground;
 //public routes
 //route::resource('playgrounds', PlaygroundController::class);
 route::post('/register', [AuthController::class, 'register']);
-route::get('/channels', [ChannelController::class, 'index']);
-route::get('/channels/{id}', [ChannelController::class, 'show']);
-route::post('/channels', [ChannelController::class, 'store']);
-route::put('/channels/{id}', [ChannelController::class, 'update']);
-route::delete('/channels/{id}', [ChannelController::class, 'destroy']);
+
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
@@ -42,4 +45,12 @@ Route::group(['middleware' => ['auth:api']], function () {
 // });
         route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('privatechats', PrivateChatController::class)->only(['index','store','destroy']);
+        route::apiResource('usertype', UserTypeController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('channels', ChannelController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('status', StatusController::class)->only(['index','show','update']);
+        route::apiResource('relationship', RelationshipController::class)->only(['index','show','update']);
+        route::apiResource('language', LanguageController::class)->only(['index','show','store']);
+        route::apiResource('theme', ThemeController::class)->only(['index','show']);
+        route::apiResource('country', CountryController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('gender', GenderController::class)->only(['index','show','destroy']);
     });
