@@ -29,8 +29,7 @@ export default Vue.extend({
 
 @media (max-width: 960px) {
     .main_chat{
-        height: 70%; 
-        margin-top: -100px !important; 
+        height: 65%;
     }
 }
 

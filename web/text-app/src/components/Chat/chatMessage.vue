@@ -57,6 +57,9 @@ export default Vue.extend({
       height: 40px !important;
       margin-left: 5px;
   }
+  .main_send{
+    margin-bottom: 30px;
+  }
 
 }
 </style>

@@ -16,7 +16,7 @@
 
     <!-- Status menu -->
     <v-flex class="btn_status">
-      <v-select :items="items" class="white--text select_status">
+      <v-select v-model="select" :items="items" class="white--text select_status">
         <template v-slot:selection="{ item }">
           <img :src="item.image" class="image_status" />{{ item.name }}
         </template>
@@ -43,26 +43,27 @@ import Vue from "vue";
 export default Vue.extend({
   name: "profileButton",
   data: () => ({
+    select: { name: "Online", image: require('../assets/online.png') },
     items: [
       {
         name: "Online",
         image:
-          "https://www.gravatar.com/avatar/b17065ea1655f1e3283aac8d8fc16019?s=48&d=identicon&r=PG",
+          require('../assets/online.png'),
       },
       {
         name: "Away",
         image:
-          "https://www.gravatar.com/avatar/b17065ea1655f1e3283aac8d8fc16019?s=48&d=identicon&r=PG",
+          require('../assets/away.png'),
       },
       {
         name: "Busy",
         image:
-          "https://www.gravatar.com/avatar/b17065ea1655f1e3283aac8d8fc16019?s=48&d=identicon&r=PG",
+          require('../assets/busy.png'),
       },
       {
         name: "Offline",
         image:
-          "https://www.gravatar.com/avatar/b17065ea1655f1e3283aac8d8fc16019?s=48&d=identicon&r=PG",
+          require('../assets/offline.png'),
       },
     ],
   }),
@@ -129,6 +130,13 @@ export default Vue.extend({
 .custom_avatar{
   width: 70px !important; 
   height: 70px !important;
+}
+
+.v-application .primary--text{
+  color: black !important;
+}
+.v-select__selections{
+  color: white !important;
 }
 
 /* this if for the phone */
