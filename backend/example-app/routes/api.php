@@ -5,6 +5,7 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\PrivateChatController;
 use App\Http\Controllers\RelationshipController;
@@ -51,4 +52,5 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('country', CountryController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('gender', GenderController::class)->only(['index','show','destroy']);
         route::apiResource('user', UserController::class)->only(['index','show','update','destroy']);
+        route::apiResource('participants', ParticipantsController::class)->only(['index','show']);
     });

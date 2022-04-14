@@ -13,4 +13,8 @@ class privateChat extends Model
         'name',
         'last_login'
     ];
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'participants', 'user_id','private_chat_id');
+    }
 }

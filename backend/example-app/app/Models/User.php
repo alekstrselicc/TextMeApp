@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -71,5 +72,9 @@ class User extends Authenticatable
 
         return $this->belongsTo(Language::class);
 
+    }
+    public function private_chats()
+    {
+        return $this->BelongsToMany(privateChat::class,'participants','user_id','private_chat_id');
     }
 }
