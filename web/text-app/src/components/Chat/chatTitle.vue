@@ -30,12 +30,13 @@ export default Vue.extend({
 <style>
 .mains {
     height: 100px;
+    margin-top: -40px !important;
 }
 
 .titles {
   height: 50px !important;
   margin-left: 10px;
-  margin-top: 20px;
+  margin-top: -20px;
 }
 .settings_btn {
   position: absolute;

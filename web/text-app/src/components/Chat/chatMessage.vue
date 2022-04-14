@@ -31,8 +31,10 @@ export default Vue.extend({
 <style>
 
 .main_send{
-  width: 100% !important;
+  width: 98% !important;
   height: 100px;
+  position: absolute;
+  bottom: 0;
 }
 
 .main_box .v-input__icon--append .v-icon {
@@ -58,7 +60,8 @@ export default Vue.extend({
       margin-left: 5px;
   }
   .main_send{
-    margin-bottom: 30px;
+    margin-bottom: 60px;
+    width: 95% !important;
   }
 
 }

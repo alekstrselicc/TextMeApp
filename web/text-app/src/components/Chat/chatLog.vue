@@ -39,6 +39,7 @@ export default Vue.extend({
                 { user: "Ales", msg: "delat ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
                 { user: "Ales", msg: "delat ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
                 { user: "Ales", msg: "delat ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
+                { user: "Ales", msg: "hello, how are you? ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
         ],
 
       }
@@ -50,11 +51,12 @@ export default Vue.extend({
 <style>
 
 .main_chat{ 
+    border: 1px solid black; 
     width: 100% !important;
-    height: 80%; 
+    height: calc(100vh - 340px); 
     max-height: 900px;  
-    margin-top: 15px !important;
     overflow: auto;
+    margin-top: -150px;
 }
 .main_msg{
     margin-left: 20px;
@@ -92,7 +94,7 @@ export default Vue.extend({
 
 @media (max-width: 960px) {
     .main_chat{
-        height: 65%;
+        margin-bottom: 100px;
     }
 }
 

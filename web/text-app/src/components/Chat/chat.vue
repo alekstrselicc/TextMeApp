@@ -28,5 +28,8 @@ export default Vue.extend({
 </script>
 
 <style>
+.chat_main{
+  position: relative;
+}
 
 </style>
