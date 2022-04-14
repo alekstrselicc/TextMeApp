@@ -86,6 +86,13 @@ export default Vue.extend({
   margin-left: 40px;
   margin-top: 25px;
 }
+.friends {
+  border-radius: 30px;
+  margin-left: 10px;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  min-width: 300px;
+  max-width: 200px !important;
+}
 
 .item_title {
   font-size: 28px;

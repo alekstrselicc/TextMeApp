@@ -1,5 +1,5 @@
 <template>
-    <div class="main_chat">
+    <div class="main_chat" id="chat_id">
 
     <!-- Chat log need date, location, text, image of the person -->
         <v-row class="justify-start message_main">
@@ -16,6 +16,7 @@
 <script lang="ts">
 
 import Vue from "vue";
+
 
 export default Vue.extend({
   data() {
@@ -51,7 +52,6 @@ export default Vue.extend({
 <style>
 
 .main_chat{ 
-    border: 1px solid black; 
     width: 100% !important;
     height: calc(100vh - 340px); 
     max-height: 900px;  

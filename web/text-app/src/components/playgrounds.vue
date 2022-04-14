@@ -166,6 +166,7 @@ export default Vue.extend({
 .playground {
   border-radius: 30px;
   background-color: rgba(0, 0, 0, 0.4) !important;
+  min-width: 400px;
 }
 .custom_child_bigger {
   font-size: 20px !important;

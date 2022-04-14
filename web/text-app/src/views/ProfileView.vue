@@ -30,9 +30,9 @@
             ><v-icon>mdi-account</v-icon></v-app-bar-nav-icon
           >
         </v-app-bar>
+    
 
-        <!-- Here is going to be the chat for mobile and desktop -->
-         <Chat /> 
+        <Profile />
       
       </v-flex> 
 
@@ -59,11 +59,11 @@
 import Vue from "vue";
 import Playground from "@/components/playgrounds.vue";
 import Friend from "@/components/friends.vue";
-import Chat from "@/components/Chat/chat.vue"; 
+import Profile from "@/components/Profile/profile.vue"; 
 
 export default Vue.extend({
   name: "main",
-  components: { Playground, Friend, Chat },
+  components: { Playground, Friend, Profile},
   data() {
     return {
       drawer1: false,
@@ -74,7 +74,7 @@ export default Vue.extend({
 </script>
 
 <style>
-/* Main stuff for good looks */
+
 .first_main {
   max-width: 2500px !important;
   max-height: 2000px !important;
@@ -84,10 +84,10 @@ export default Vue.extend({
   margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
-
 .small_bar {
   display: none;
 }
+
 
 /* This is the small navbar in mobile mode */
 @media (max-width: 960px) {

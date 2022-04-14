@@ -30,6 +30,11 @@ const routes: Array<RouteConfig> = [
     name: 'main', 
     component: () => import( '../views/MainView.vue') 
   },
+  {
+    path: '/profile',
+    name: 'profile', 
+    component: () => import( '../views/ProfileView.vue') 
+  },
 
   { path: '*', redirect: '/' }
 
