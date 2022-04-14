@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Town extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    protected $fillable = [
+        'town'
+    ];
+    public function country()
+    {
+
+        return $this->belongsTo(Country::class);
+
+    }
+    public function users()
+    {
+         return $this->hasMany(User::class);
+    }
 }

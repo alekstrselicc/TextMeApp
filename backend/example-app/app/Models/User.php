@@ -16,6 +16,60 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'email',
-        'password'
+        'password',
+        'mobile',
+        'last_name',
+        'user_description',
+        'lastLogin',
+        'registeredAt',
+        'status_id',
+        'gender_id',
+        'language_id',
+        'relationship_id',
+        'user_type_id',
+        'town_id',
+        'theme_id',
     ];
+    public function status()
+    {
+
+        return $this->belongsTo(Status::class);
+
+    }
+    public function gender()
+    {
+
+        return $this->belongsTo(Gender::class);
+
+    }
+    public function town()
+    {
+
+        return $this->belongsTo(Town::class);
+
+    }
+    public function userType()
+    {
+
+        return $this->belongsTo(userType::class);
+
+    }
+    public function theme()
+    {
+
+        return $this->belongsTo(Theme::class);
+
+    }
+    public function relationship()
+    {
+
+        return $this->belongsTo(Relationship::class);
+
+    }
+    public function language()
+    {
+
+        return $this->belongsTo(Language::class);
+
+    }
 }

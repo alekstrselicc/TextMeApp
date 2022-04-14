@@ -12,4 +12,8 @@ class Relationship extends Model
     protected $fillable = [
         'relationship'
     ];
+    public function users()
+    {
+         return $this->hasMany(User::class);
+    }
 }

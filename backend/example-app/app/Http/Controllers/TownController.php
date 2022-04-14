@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Country;
+use App\Models\Town;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TownController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        $country = Country::with('towns')->get();
+        return $country;
     }
 
     /**
@@ -25,13 +27,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $first_name = $request->input('first_name');
-        // $last_name = $request->input('last_name');
-        // $mobile = $request->input('mobile');
-        // $user_description = $request->input('user_description');
-        // $last_login = $request->input('lastLogin');
-        // $registered_at = $request->input('registeredAt');
-        // return User::create($request->all());
+        $town = new Town();
+        $town->town = $request->input('town');
+
+            $country = Country::find(1);
+            $country->towns()->save($town);
+
     }
 
     /**
@@ -42,7 +43,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::find($id);
+        $towns = Country::find($id)->towns;
+        return $towns;
     }
 
     /**
@@ -54,9 +56,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->update($request->all());
-        return $user;
+        $town = Town::find($id);
+        $town->update($request->all());
+        return $town;
     }
 
     /**
@@ -67,6 +69,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::destroy($id);
+        $town = Town::destroy($id);
     }
 }

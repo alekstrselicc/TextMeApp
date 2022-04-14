@@ -12,4 +12,8 @@ class Status extends Model
     protected $fillable = [
         'status'
     ];
+    public function users()
+    {
+         return $this->hasMany(User::class);
+    }
 }
