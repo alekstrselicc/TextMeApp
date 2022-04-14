@@ -19,8 +19,7 @@ import Vue from "vue";
 
 
 export default Vue.extend({
-  data() {
-      return {
+    data: () => ({
           chat: [
                 { user: "Ales", msg: "hello there.", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg" },
                 { user: "Ales", msg: "hello, how are you? ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
@@ -41,10 +40,20 @@ export default Vue.extend({
                 { user: "Ales", msg: "delat ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
                 { user: "Ales", msg: "delat ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
                 { user: "Ales", msg: "hello, how are you? ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
+                { user: "Ales", msg: "Tole je nov msg ", subtitle: "13/02/2022 From maribor", avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
         ],
+        }),
+        methods: {
+            scrollToEnd(){
+                var cont = document.querySelector(".main_chat"); 
+                var scrolls = cont.scrollHeight; 
+                cont.scrollTop = scrolls; 
+            }
+        },
 
-      }
-  },
+        mounted(){
+            this.scrollToEnd();
+        },
 }); 
 
 </script>
@@ -55,9 +64,11 @@ export default Vue.extend({
     width: 100% !important;
     height: calc(100vh - 340px); 
     max-height: 900px;  
-    overflow: auto;
+    overflow-y: scroll;
     margin-top: -150px;
 }
+
+
 .main_msg{
     margin-left: 20px;
     margin-top: 20px;

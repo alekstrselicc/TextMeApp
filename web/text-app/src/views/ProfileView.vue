@@ -57,8 +57,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Playground from "@/components/playgrounds.vue";
-import Friend from "@/components/friends.vue";
+import Playground from "@/components/SideMenus/playgrounds.vue";
+import Friend from "@/components/SideMenus/friends.vue";
 import Profile from "@/components/Profile/profile.vue"; 
 
 export default Vue.extend({
