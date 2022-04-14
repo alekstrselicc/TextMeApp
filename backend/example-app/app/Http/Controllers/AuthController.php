@@ -32,4 +32,19 @@ class AuthController extends Controller
 
         return response($response, 201);
     }
+
+    public function login(Request $request)
+    {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+
+        //check if user credidentials are correct
+        if(auth()->attempt($credentials))
+        {
+            $token = auth()->user->createToken('keytoken')->accessToken;
+            return response()->json(['token'=> $token], 200);
+        }
+    }
 }
