@@ -19,4 +19,9 @@ class Channel extends Model
         return $this->belongsTo(Playground::class);
 
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'messages', 'user_id','channel_id')->withPivot('messages')->withTimestamps();;
+    }
 }

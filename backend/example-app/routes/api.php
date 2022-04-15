@@ -5,6 +5,7 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\PrivateChatController;
@@ -37,7 +38,14 @@ use App\Models\userType;
 //public routes
 //route::resource('playgrounds', PlaygroundController::class);
 route::post('/register', [AuthController::class, 'register']);
+
+//login in progress
+route::post('/login', [AuthController::class, 'login']);
+
+//in progress
 route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
+route::apiResource('messages', MessageController::class)->only(['index','store']);
+
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {

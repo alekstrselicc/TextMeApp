@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
-use App\Models\Town;
+use App\Models\Channel;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
-class TownController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +18,8 @@ class TownController extends Controller
      */
     public function index()
     {
-        $country = Country::with('towns')->get();
-        return $country;
+        $messages = Channel::with('users')->get();
+        return $messages;
     }
 
     /**
@@ -27,12 +30,8 @@ class TownController extends Controller
      */
     public function store(Request $request)
     {
-        $town = new Town();
-        $town->town = $request->input('town');
-        //attach data to country with id 1, upgrade that
-            $country = Country::find(1);
-            $country->towns()->save($town);
-
+        //trenutni datum
+        $currentDate = Carbon::now()->toDateString();
     }
 
     /**
@@ -43,8 +42,7 @@ class TownController extends Controller
      */
     public function show($id)
     {
-        $towns = Country::find($id)->towns;
-        return $towns;
+        //
     }
 
     /**
@@ -56,9 +54,7 @@ class TownController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $town = Town::find($id);
-        $town->update($request->all());
-        return $town;
+        //
     }
 
     /**
@@ -69,6 +65,6 @@ class TownController extends Controller
      */
     public function destroy($id)
     {
-        $town = Town::destroy($id);
+        //
     }
 }

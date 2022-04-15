@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -25,13 +26,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $first_name = $request->input('first_name');
-        // $last_name = $request->input('last_name');
-        // $mobile = $request->input('mobile');
-        // $user_description = $request->input('user_description');
-        // $last_login = $request->input('lastLogin');
-        // $registered_at = $request->input('registeredAt');
-        // return User::create($request->all());
+        //to attach user to a massage ??
+        // $user = User::create($request->all());
+        // $message = Message::find($request->get('messages'));
+        // $user->courses()->attach($message);
+        // return $user;
     }
 
     /**
