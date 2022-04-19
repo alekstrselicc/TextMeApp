@@ -44,7 +44,9 @@ Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
 //in progress
 route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
-route::apiResource('messages', MessageController::class)->only(['index','store']);
+route::apiResource('messages', MessageController::class)->only(['index']);
+//route::post('/user', [UserController::class, 'store']);
+route::post('/message/{id}/{user_id}', [MessageController::class, 'store']);
 
 
 //protected routes

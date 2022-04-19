@@ -10,7 +10,9 @@ class Message extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'town',
-        'created_at'
+        'messages',
+        'created_at',
+        'user_id',
+        'channel_id'
     ];
 }

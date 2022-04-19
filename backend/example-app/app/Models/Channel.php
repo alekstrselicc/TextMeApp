@@ -22,6 +22,6 @@ class Channel extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'messages', 'user_id','channel_id')->withPivot('messages');
+        return $this->belongsToMany(User::class,'messages', 'user_id','channel_id')->withPivot('messages', 'created_at');
     }
 }

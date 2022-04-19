@@ -29,7 +29,7 @@ class UserController extends Controller
         //to attach user to a massage ??
         // $user = User::create($request->all());
         // $message = Message::find($request->get('messages'));
-        // $user->courses()->attach($message);
+        // $user->channels()->attach($message);
         // return $user;
     }
 

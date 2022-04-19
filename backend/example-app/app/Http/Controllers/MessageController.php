@@ -28,10 +28,33 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id, $user_id)
     {
+        // $channel = new Channel();
+        // $channel->channel = $request->input('channel');
+        // $channel->save();
+        // $channel->users()->attach($id,$request->input('messages'));
+        $message = new Message();
+        $message->messages = $request->input('messages');
+        $message->save();
+
+        //$channel = Channel::find($id); //not sure, ask!
+        //$channel->save();
+
+        //$user_id = User::find($user_id); //not sure, ask!
+        
         //trenutni datum
         $currentDate = Carbon::now()->toDateString();
+        
+        $user = new User();
+        $user->channels()->attach(3,[
+            'messages' => $message,
+            'created_at' => $currentDate,
+            'user_id' => $user_id,
+            'channel_id' => $id
+          ]);
+          
+        //$user->channels()->attach($request->channels);
     }
 
     /**
