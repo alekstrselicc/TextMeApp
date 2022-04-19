@@ -79,6 +79,7 @@ export default Vue.extend({
   border-radius: 30px;
   margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.4) !important;
+  min-height: 500px !important;
 }
 
 .small_bar {

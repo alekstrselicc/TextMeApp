@@ -39,7 +39,7 @@
               class="back_btn_mobile"
               icon
               @click="hideCart()"
-              ><v-icon>mdi-arrow-left</v-icon></v-btn
+              ><v-icon class="arr_hiden">mdi-arrow-left</v-icon></v-btn
             >
             <div class="title_settings_changer">
               <h1>User profile</h1>
@@ -114,7 +114,9 @@
                 </v-row>
               </v-col>
             </v-row>
-            <v-btn class="btn_save">save</v-btn>
+            <v-row class="btn_row">
+              <v-btn class="btn_save justify-center" rounded>save</v-btn>
+            </v-row>
           </div>
         </v-col>
       </v-row>
@@ -167,40 +169,106 @@ export default Vue.extend({
   .col_settings {
     position: absolute;
   }
-  .mobile_settings {
-    display: none;
-    border: 1px solid black;
-    width: 100%;
-    position: absolute;
-    height: 80%;
-  }
-  .back_btn_mobile {
-    border: 1px solid #007abe !important;
-    background-color: #007abe !important;
-    margin-left: 15px;
-    margin-top: -15px;
-  }
-
-  .image_changer {
-    width: 100%;
-  }
 }
+
+.image_changer {
+  min-width: 270px !important;
+}
+.info_changer {
+  min-width: 270px !important;
+}
+
+.image_changer_img {
+  width: 100px !important;
+  height: 100px !important;
+  margin: 0 auto !important;
+}
+
+.btn_changer_img {
+  background-color: #007abe !important;
+  color: white !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  margin-left: 10px;
+}
+
 @media (max-width: 960px) {
   .settings_header {
     display: none;
   }
   .settings_div {
-    min-height: 600px !important;
+    margin-top: -15px !important;
+    height: calc(100vh - 100px);
+    min-height: 400px !important;
+  }
+  .info_row {
+    height: calc(100vh - 200px) !important;
+  }
+
+  .image_changer_img {
+    width: 90px !important;
+    height: 90px !important;
+    margin: auto !important;
+  }
+  .btn_changer_img {
+    background-color: #007abe !important;
+    color: white !important;
+    margin-top: 15px;
+    margin-left: 10px;
+    display: inline-block;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    position: absolute;
+  }
+  .image_changer {
+    min-width: 200px !important;
+    height: 100px;
+  }
+  .info_changer {
+    bottom: top;
+    position: absolute;
+    margin-top: 100px;
+  }
+  .btn_save {
+    background-color: #007abe !important;
+    color: white !important;
+    width: 150px !important;
+    margin: 0 auto;
+  }
+  .btn_row {
+    position: absolute;
+    bottom: 0;
   }
 }
-.btn_save {
-  position: absolute;
-  bottom: 0;
+
+.btn_row {
+  width: 100%;
+  height: 50px;
+  margin: 0;
+}
+
+.image_changer {
+  min-height: 100px !important;
 }
 
 .back_btn_mobile {
-  display: hidden;
+  border: 1px solid #007abe !important;
+  background-color: #007abe !important;
+  margin-left: 15px;
+  margin-top: -15px;
 }
+
+.info_row {
+  margin: 0;
+}
+
+.btn_save {
+  background-color: #007abe !important;
+  color: white !important;
+  width: 150px;
+  margin: 0 auto;
+}
+
 .info_text_field {
   height: 50px;
 }
@@ -212,28 +280,10 @@ export default Vue.extend({
 .rows_class {
   height: 50px;
 }
-.image_changer {
-  min-width: 200px !important;
-}
 
-.image_changer_img {
-  min-width: 150px !important;
-  height: 150px !important;
-  margin-left: 25%;
-}
-.btn_changer_img {
-  background-color: #007abe !important;
-  color: white !important;
-  margin-top: 10px;
-  margin-left: 25%;
-}
 .info_col_class_first {
   color: white;
   font-size: 20px;
-}
-
-.info_changer {
-  min-width: 300px !important;
 }
 
 .main_settings_div {
@@ -242,20 +292,12 @@ export default Vue.extend({
   position: relative;
 }
 
-.info_row {
-  margin: 0;
-  height: 400px !important;
-}
-.image_changer {
-  max-width: 45% !important;
-}
-
 .settings_div {
   width: 100% !important;
-  min-height: 500px;
   background-color: rgba(0, 0, 0, 1) !important;
   border-radius: 30px;
   margin: 0;
+  position: relative;
 }
 .title_settings_changer {
   height: 10%;

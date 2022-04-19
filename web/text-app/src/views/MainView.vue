@@ -32,9 +32,8 @@
         </v-app-bar>
 
         <!-- Here is going to be the chat for mobile and desktop -->
-         <Chat /> 
-      
-      </v-flex> 
+        <Chat />
+      </v-flex>
 
       <!-- Friends drawer -->
       <v-navigation-drawer
@@ -50,7 +49,6 @@
       <v-flex lg2 class="hidden-sm-and-down friends" sm2>
         <Friend />
       </v-flex>
-
     </v-layout>
   </v-container>
 </template>
@@ -59,7 +57,7 @@
 import Vue from "vue";
 import Playground from "@/components/SideMenus/playgrounds.vue";
 import Friend from "@/components/SideMenus/friends.vue";
-import Chat from "@/components/Chat/chat.vue"; 
+import Chat from "@/components/Chat/chat.vue";
 
 export default Vue.extend({
   name: "main",
@@ -67,7 +65,7 @@ export default Vue.extend({
   data() {
     return {
       drawer1: false,
-      drawer2: false, 
+      drawer2: false,
     };
   },
 });
@@ -80,6 +78,7 @@ export default Vue.extend({
   max-height: 2000px !important;
 }
 .chat {
+  position: relative;
   border-radius: 30px;
   margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.4) !important;
