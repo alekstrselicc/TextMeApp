@@ -79,6 +79,6 @@ class User extends Authenticatable
     }
     public function channels()
     {
-        return $this->BelongsToMany(Channel::class,'messages','user_id','channel_id')->withPivot('messages')->withTimestamps();
+        return $this->BelongsToMany(Channel::class,'messages','user_id','channel_id')->withPivot('messages');
     }
 }
