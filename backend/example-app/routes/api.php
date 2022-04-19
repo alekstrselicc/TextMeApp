@@ -39,9 +39,8 @@ use App\Models\userType;
 //route::resource('playgrounds', PlaygroundController::class);
 route::post('/register', [AuthController::class, 'register']);
 
-//login in progress
-route::post('/login', [AuthController::class, 'login']);
-
+//login
+Route::post('/login', 'App\Http\Controllers\AuthController@login');
 //in progress
 route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
 route::apiResource('messages', MessageController::class)->only(['index','store']);
@@ -61,4 +60,5 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('gender', GenderController::class)->only(['index','show','destroy']);
         route::apiResource('user', UserController::class)->only(['index','show','update','destroy']);
         route::apiResource('participants', ParticipantsController::class)->only(['index','show']);
+        Route::post('/logout', 'App\Http\Controllers\AuthController@logout');
     });

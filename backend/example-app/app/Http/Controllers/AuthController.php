@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Laravel\Passport\RefreshToken;
+use Laravel\Passport\Token;
 
 class AuthController extends Controller
 {
@@ -33,22 +36,34 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
-    public function login(Request $request)
-    {
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-
-        //check if user credidentials are correct
-        if(auth()->attempt($credentials))
+    public function login (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        if ($validator->fails())
         {
-            $token = auth()->user->createToken('keytoken')->accessToken;
-            return response()->json(['token'=> $token], 200);
+            return response(['errors'=>$validator->errors()->all()], 422);
         }
-        else
-        {
-            return response()->json(['error' => 'UnAuthorized user'], 401);
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $token = $user->createToken('keytoken')->accessToken;
+                $response = ['token' => $token];
+                return response($response, 200);
+            } else {
+                $response = ["message" => "Password mismatch"];
+                return response($response, 422);
+            }
+        } else {
+            $response = ["message" =>'User does not exist'];
+            return response($response, 422);
         }
+    }
+    public function logout (Request $request) {
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 }
