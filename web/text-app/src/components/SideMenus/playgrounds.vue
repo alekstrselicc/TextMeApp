@@ -4,7 +4,7 @@
       <v-subheader class="white--text desktop_header mobile_header" fixed
         >Playgrounds</v-subheader
       >
-      
+
       <div class="group_items_bigger">
         <v-list-group
           v-for="item in items"
@@ -40,22 +40,16 @@
         </v-list-group>
       </div>
     </v-list>
-
-    <div class="custom_button_bigger">
-      <v-btn
-        class="white--text custom_btn_add_playground_bigger"
-        color="white"
-        text
-        ><v-icon left class="icon_add">mdi-plus</v-icon>Add playground</v-btn
-      >
-    </div>
+    <AddMember />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import AddMember from "@/components/Dialogs/addPlayground.vue";
 
 export default Vue.extend({
+  components: { AddMember },
   data() {
     return {
       items: [
@@ -213,7 +207,7 @@ export default Vue.extend({
     font-size: 20px !important;
   }
 
-  .custom_playground_text{
+  .custom_playground_text {
     font-size: 20px !important;
   }
 }

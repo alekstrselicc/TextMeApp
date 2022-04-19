@@ -50,6 +50,8 @@
         <Friend />
       </v-flex>
     </v-layout>
+
+    <!-- Here are going to be the dialogs-->
   </v-container>
 </template>
 
