@@ -10,9 +10,10 @@
     </div>
 
     <div class="settings_main" v-if="this.visible_btn">
+      <!--<div class="mobile_settings" v-if="this.visible"></div>-->
       <v-row class="first_row">
         <v-col class="col_buttons">
-          <v-list color="transparent" rounded>
+          <v-list color="transparent" rounded class="list_settings_buttons">
             <v-list-item-group class="group_class">
               <v-list-item
                 v-for="(item, index) in settings"
@@ -31,11 +32,19 @@
           </v-list>
         </v-col>
 
-        <v-col class="col_settings"
-          ><div class="settings_div" v-if="this.visible">
+        <v-col class="col_settings">
+          <div class="settings_div" v-if="this.visible">
+            <v-btn
+              color="white"
+              class="back_btn_mobile"
+              icon
+              @click="hideCart()"
+              ><v-icon>mdi-arrow-left</v-icon></v-btn
+            >
             <div class="title_settings_changer">
-              <h1>User profile settings</h1>
+              <h1>User profile</h1>
             </div>
+            <!-- Here is the image changer -->
             <v-row class="info_row">
               <v-col class="image_changer">
                 <v-avatar class="image_changer_img"
@@ -45,7 +54,8 @@
                 ></v-avatar>
                 <v-btn class="btn_changer_img" rounded>change image</v-btn>
               </v-col>
-              <v-col class="info_changer">
+              <!-- Here is the info changer -->
+              <v-col class="info_changer" xs12>
                 <v-row class="rows_class">
                   <v-col class="info_col_class_first">Username:</v-col>
                   <v-col class="info_col_class">
@@ -57,6 +67,7 @@
                     ></v-text-field>
                   </v-col>
                 </v-row>
+
                 <v-row class="rows_class">
                   <v-col class="info_col_class_first">RelationShip:</v-col>
                   <v-col class="info_col_class">
@@ -103,6 +114,7 @@
                 </v-row>
               </v-col>
             </v-row>
+            <v-btn class="btn_save">save</v-btn>
           </div>
         </v-col>
       </v-row>
@@ -123,7 +135,13 @@ export default Vue.extend({
       { name: "User profile", action: "user_profile" },
       { name: "Logout", action: "logout_profile" },
     ],
-    profile: { username: "", relation: "", country: "", town: "", phone: "" },
+    profile: {
+      username: "Monika Bog",
+      relation: "Single",
+      country: "Slovenia",
+      town: "Maribor",
+      phone: "0654321321",
+    },
     visible: false,
     visible_btn: true,
   }),
@@ -132,24 +150,57 @@ export default Vue.extend({
       if (action === "user_profile") {
         this.showCart();
         console.log(VueScreenSize.vssWidth);
-      } else if (VueScreenSize.vssWidth > 400) {
-        console.log("treba delat");
       }
     },
     showCart() {
       this.visible = true;
+    },
+    hideCart() {
+      this.visible = false;
     },
   },
 });
 </script>
 
 <style>
-@media (max-width: 1600px) {
+@media (max-width: 1700px) {
   .col_settings {
+    position: absolute;
+  }
+  .mobile_settings {
     display: none;
+    border: 1px solid black;
+    width: 100%;
+    position: absolute;
+    height: 80%;
+  }
+  .back_btn_mobile {
+    border: 1px solid #007abe !important;
+    background-color: #007abe !important;
+    margin-left: 15px;
+    margin-top: -15px;
+  }
+
+  .image_changer {
+    width: 100%;
   }
 }
+@media (max-width: 960px) {
+  .settings_header {
+    display: none;
+  }
+  .settings_div {
+    min-height: 600px !important;
+  }
+}
+.btn_save {
+  position: absolute;
+  bottom: 0;
+}
 
+.back_btn_mobile {
+  display: hidden;
+}
 .info_text_field {
   height: 50px;
 }
@@ -161,9 +212,12 @@ export default Vue.extend({
 .rows_class {
   height: 50px;
 }
+.image_changer {
+  min-width: 200px !important;
+}
 
 .image_changer_img {
-  width: 150px !important;
+  min-width: 150px !important;
   height: 150px !important;
   margin-left: 25%;
 }
@@ -178,9 +232,14 @@ export default Vue.extend({
   font-size: 20px;
 }
 
+.info_changer {
+  min-width: 300px !important;
+}
+
 .main_settings_div {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .info_row {
@@ -194,7 +253,7 @@ export default Vue.extend({
 .settings_div {
   width: 100% !important;
   min-height: 500px;
-  background-color: rgba(0, 0, 0, 0.4) !important;
+  background-color: rgba(0, 0, 0, 1) !important;
   border-radius: 30px;
   margin: 0;
 }
@@ -203,6 +262,7 @@ export default Vue.extend({
   color: white;
   padding-left: 20px;
   padding-top: 5px;
+  display: inline-block;
 }
 .settings_header {
   height: 10%;
@@ -241,7 +301,7 @@ export default Vue.extend({
 }
 
 .item_class {
-  background-color: rgba(0, 0, 0, 0.4) !important;
+  background-color: rgba(0, 0, 0, 1) !important;
 }
 
 .title_class {
