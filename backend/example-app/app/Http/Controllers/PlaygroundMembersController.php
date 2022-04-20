@@ -29,7 +29,7 @@ class PlaygroundMembersController extends Controller
     {
         $request->validate([
             'joined' => 'required',
-            'left' => '',
+            'left' => '', //security issue??
             'user_id' => 'required',
             'playground_id' => 'required',
         ]);
