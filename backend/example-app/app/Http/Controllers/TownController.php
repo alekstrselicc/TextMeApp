@@ -27,11 +27,16 @@ class TownController extends Controller
      */
     public function store(Request $request)
     {
-        $town = new Town();
-        $town->town = $request->input('town');
-        //attach data to country with id 1, upgrade that
-            $country = Country::find(1);
-            $country->towns()->save($town);
+        // $town = new Town();
+        // $town->town = $request->input('town');
+        // //attach data to country with id 1, upgrade that
+        //     $country = Country::find(1);
+        //     $country->towns()->save($town);
+        $request->validate([
+            'town' => 'required|string',
+            'country_id' => 'required',
+        ]);
+        return Town::create($request->all());
 
     }
 

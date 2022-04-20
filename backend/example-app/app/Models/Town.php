@@ -10,7 +10,8 @@ class Town extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'town'
+        'town',
+        'country_id'
     ];
     public function country()
     {

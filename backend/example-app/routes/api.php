@@ -43,10 +43,9 @@ route::post('/register', [AuthController::class, 'register']);
 //login
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
-//in progress
-route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
+//in progress:
+
 //route::post('/user', [UserController::class, 'store']);
-route::apiResource('privatemessages', PrivateMessageController::class)->only(['index','show','store','destroy']);
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
@@ -64,4 +63,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('participants', ParticipantsController::class)->only(['index','show']);
         Route::post('/logout', 'AuthController@logout');
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
+        route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('privatemessages', PrivateMessageController::class)->only(['index','show','store','destroy']);
     });
