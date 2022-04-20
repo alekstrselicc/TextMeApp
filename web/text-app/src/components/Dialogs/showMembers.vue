@@ -1,23 +1,25 @@
 <template>
   <div class="show_members_main">
     <div class="members_main_div">
-      <v-btn v-bind="attrs" v-on="on" icon>
+      <v-btn v-bind="attrs" v-on="on" icon @click="show = !show">
         <v-icon size="35" color="white" class="icon_people">{{
           svgPath
         }}</v-icon>
       </v-btn>
     </div>
-    <v-card class="show_menu">
+    <v-card class="show_menu" v-if="show">
       <v-card-actions>
-        <v-btn
-          text
-          color="white"
-          @click="reveal = true"
-          class="pending_btn"
-          rounded
-        >
-          Pending requests
-        </v-btn>
+        <v-badge color="red" content="2" offset-y="12" offset-x="12">
+          <v-btn
+            text
+            color="white"
+            @click="reveal = true"
+            class="pending_btn"
+            rounded
+          >
+            Pending requests
+          </v-btn>
+        </v-badge>
       </v-card-actions>
 
       <v-card-text>
@@ -67,12 +69,33 @@
           style="height: 100%"
         >
           <v-card-text class="pb-0">
-            <p class="text-h4 white--text">Origin</p>
-            <p class="white--text">
-              late 16th century (as a noun denoting a place where alms were
-              distributed): from medieval Latin eleemosynarius, from late Latin
-              eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’
-            </p>
+            <h1 class="title_pedning">Pending requests</h1>
+            <v-list color="transparent" class="pending_request_list_div">
+              <v-list-item
+                v-for="(item, index) in pending_members"
+                :key="index"
+                class="item_pending"
+              >
+                <v-list-item-avatar size="50" class="ml-n2">
+                  <v-img :src="item.avatar"></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-text="item.name"
+                    color="white"
+                    class="white--text member_names"
+                  >
+                  </v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <v-icon color="white" size="30">{{ svgAccept }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-icon>
+                  <v-icon color="white" size="30">{{ svgDecline }}</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list>
           </v-card-text>
           <v-card-actions class="pt-0">
             <v-btn text color="white accent-4" @click="reveal = false">
@@ -87,7 +110,12 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mdiAccountGroup, mdiMinus } from "@mdi/js";
+import {
+  mdiAccountGroup,
+  mdiMinus,
+  mdiAccountMultiplePlus,
+  mdiAccountMultipleMinus,
+} from "@mdi/js";
 
 import AddMember from "@/components/Dialogs/addMember.vue";
 
@@ -98,8 +126,22 @@ export default Vue.extend({
     return {
       svgPath: mdiAccountGroup,
       svgPath1: mdiMinus,
-      show: true,
+
+      svgAccept: mdiAccountMultiplePlus,
+      svgDecline: mdiAccountMultipleMinus,
+
+      show: false,
       reveal: false,
+      pending_members: [
+        {
+          name: "Mika Kladnik",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        },
+        {
+          name: "Viktorija Male",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        },
+      ],
       members: [
         {
           name: "Janez_Novak123",
@@ -128,6 +170,10 @@ export default Vue.extend({
 </script>
 
 <style>
+.title_pedning {
+  color: white !important;
+}
+
 .main_list_members {
   margin-left: -15px !important;
   margin-top: -10px;
