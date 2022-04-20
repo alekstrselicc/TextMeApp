@@ -50,8 +50,8 @@ Route::post('/login', 'App\Http\Controllers\AuthController@login');
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
-        route::apiResource('privatechats', PrivateChatController::class)->only(['index','store','destroy']);
-        route::apiResource('usertype', UserTypeController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('private_chats', PrivateChatController::class)->only(['index','store','destroy']);
+        route::apiResource('user_type', UserTypeController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('channels', ChannelController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('status', StatusController::class)->only(['index','show','update']);
         route::apiResource('relationship', RelationshipController::class)->only(['index','show','update']);
@@ -64,6 +64,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/logout', 'AuthController@logout');
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
-        route::apiResource('privatemessages', PrivateMessageController::class)->only(['index','show','store','destroy']);
-        route::apiResource('playgroundmembers', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
+        route::apiResource('private_messages', PrivateMessageController::class)->only(['index','show','store','destroy']);
+        route::apiResource('playgroun_dmembers', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
     });
