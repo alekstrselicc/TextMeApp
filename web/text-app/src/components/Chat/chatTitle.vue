@@ -29,8 +29,8 @@ export default Vue.extend({
 
 <style>
 .mains {
-    height: 100px;
-    margin-top: -40px !important;
+  height: 100px;
+  margin-top: -40px !important;
 }
 
 .titles {
@@ -54,9 +54,8 @@ export default Vue.extend({
   margin-left: 4px;
 }
 @media (max-width: 960px) {
-    .mains{
-        margin-top: -40px;
-    }
+  .mains {
+    margin-top: -40px;
+  }
 }
-
 </style>

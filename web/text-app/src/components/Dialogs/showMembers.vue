@@ -1,8 +1,202 @@
-<template></template>
+<template>
+  <div class="show_members_main">
+    <div class="members_main_div">
+      <v-btn v-bind="attrs" v-on="on" icon>
+        <v-icon size="35" color="white" class="icon_people">{{
+          svgPath
+        }}</v-icon>
+      </v-btn>
+    </div>
+    <v-card class="show_menu">
+      <v-card-actions>
+        <v-btn
+          text
+          color="white"
+          @click="reveal = true"
+          class="pending_btn"
+          rounded
+        >
+          Pending requests
+        </v-btn>
+      </v-card-actions>
+
+      <v-card-text>
+        <v-list rounded color="transparent" class="main_list_members">
+          <div class="members_list">
+            <v-list-item
+              v-for="(item, index) in members"
+              :key="index"
+              class="list_item_members"
+            >
+              <v-badge
+                bordered
+                bottom
+                :color="item.status"
+                offset-x="25"
+                offset-y="25"
+              >
+                <v-list-item-avatar size="50" class="ml-n2">
+                  <v-img :src="item.avatar"></v-img>
+                </v-list-item-avatar>
+              </v-badge>
+              <v-list-item-content>
+                <v-list-item-title
+                  v-text="item.name"
+                  color="white"
+                  class="white--text member_names"
+                >
+                </v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-icon>
+                <v-btn icon>
+                  <v-icon class="white--text" large>{{ svgPath1 }}</v-icon>
+                </v-btn>
+              </v-list-item-icon>
+            </v-list-item>
+          </div>
+        </v-list>
+        <!-- Here is the button for adding members -->
+        <div class="add_member_btns_div">
+          <v-btn class="add_member_btns white--text" color="transparent">
+            <v-icon left class="icon_add">mdi-plus</v-icon> Add friend
+          </v-btn>
+        </div>
+        <div></div>
+      </v-card-text>
+
+      <v-expand-transition>
+        <v-card
+          v-if="reveal"
+          class="transition-fast-in-fast-out v-card--reveal"
+          style="height: 100%"
+        >
+          <v-card-text class="pb-0">
+            <p class="text-h4 white--text">Origin</p>
+            <p class="white--text">
+              late 16th century (as a noun denoting a place where alms were
+              distributed): from medieval Latin eleemosynarius, from late Latin
+              eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’
+            </p>
+          </v-card-text>
+          <v-card-actions class="pt-0">
+            <v-btn text color="white accent-4" @click="reveal = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-expand-transition>
+    </v-card>
+  </div>
+</template>
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+import { mdiAccountGroup, mdiMinus } from "@mdi/js";
+
+export default Vue.extend({
+  name: "showMember",
+  data() {
+    return {
+      svgPath: mdiAccountGroup,
+      svgPath1: mdiMinus,
+      show: true,
+      reveal: false,
+      members: [
+        {
+          name: "Janez_Novak123",
+          status: "green",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        },
+        {
+          name: "Mojca Mastnak",
+          status: "red",
+          avatar: "https://picsum.photos/350/165?random",
+        },
+        {
+          name: "Mojca Mastnak",
+          status: "red",
+          avatar: "https://picsum.photos/350/165?random",
+        },
+        {
+          name: "Mojca Mastnak",
+          status: "red",
+          avatar: "https://picsum.photos/350/165?random",
+        },
+      ],
+    };
+  },
+});
 </script>
 
-<style></style>
+<style>
+.main_list_members {
+  margin-left: -15px !important;
+  margin-top: -10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 280px;
+  width: 290px;
+}
+
+.add_member_btns {
+  font-size: 20px !important;
+}
+.add_member_btns_div {
+  text-align: center;
+}
+
+.show_members_main {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 130px;
+}
+.pending_btn {
+  background-color: #007abe !important;
+}
+.member_names {
+  font-size: 20px;
+}
+
+.list_item_members {
+  width: 290px !important;
+}
+
+.v-card--reveal {
+  top: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+  background-color: black !important;
+  border-radius: 10px 10px 20px 20px !important;
+}
+
+.members_main_div {
+  position: absolute;
+  right: 0;
+  margin-top: -25px;
+  margin-right: 20px;
+}
+.icon_people {
+  border: 1px solid white;
+  border-radius: 50%;
+  width: 50px !important;
+  height: 50px !important;
+  padding-bottom: 7px;
+}
+.show_menu {
+  border: 1px solid black !important;
+  border-radius: 10px 10px 20px 20px !important;
+  background-color: black !important;
+  width: 300px;
+  height: 400px;
+  margin-top: 25px;
+}
+
+@media (max-width: 960px) {
+  .show_members_main {
+    margin-top: 80px !important;
+  }
+}
+</style>
