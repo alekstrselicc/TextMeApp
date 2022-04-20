@@ -15,7 +15,30 @@
         </div>
       </template>
       <!-- Here is going to be the data -->
-      <v-card class="card_add_playground"></v-card>
+      <v-card class="card_add_playground">
+        <div class="title_div"><h1 class="title_h1">Adding playground</h1></div>
+        <div class="enter_name_div">
+          <v-text-field label="Enter name" solo class="dleat"></v-text-field>
+        </div>
+
+        <div class="choose_image_div">
+          <v-avatar size="80" color="grey" class="image_avatar"></v-avatar>
+          <v-btn class="image_btn">Choose image</v-btn>
+        </div>
+        <div class="center_btn">
+          <v-btn class="add_btn_div" rounded>Add</v-btn>
+        </div>
+
+        <v-divider></v-divider>
+
+        <div class="title_find_div"><h1>Find playground</h1></div>
+        <div class="link_find">
+          <v-text-field label="Link..." solo></v-text-field>
+        </div>
+        <div class="center_btn">
+          <v-btn class="add_btn_div" rounded>Add</v-btn>
+        </div>
+      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -39,5 +62,61 @@ export default Vue.extend({
   height: 500px;
   background-color: black !important;
   border-radius: 30px !important;
+}
+.title_div {
+  width: 100%;
+  text-align: center;
+}
+.title_h1 {
+  color: white !important;
+}
+.enter_name_div {
+  width: 60% !important;
+  margin-left: 20%;
+  margin-top: 10px;
+}
+.enter_name_div .v-text-field.v-text-field--solo .v-input__control {
+  min-height: 40px !important;
+  border-radius: 15px !important;
+}
+.title_find_div {
+  color: white !important;
+  text-align: center;
+}
+.link_find {
+  width: 60% !important;
+  margin-left: 20%;
+  margin-top: 10px;
+}
+.link_find .v-text-field.v-text-field--solo .v-input__control {
+  min-height: 40px !important;
+  border-radius: 15px !important;
+}
+
+.image_avatar {
+  margin-left: 120px;
+}
+.center_btn {
+  width: 100% !important;
+  height: 50px !important;
+  text-align: center;
+}
+.add_btn_div {
+  color: white !important;
+  background-color: #007abe !important;
+  margin-top: 10px;
+}
+
+@media (max-width: 960px) {
+  .title_h1 {
+    font-size: 28px;
+  }
+  .image_avatar {
+    margin-left: 10px;
+    margin-top: -10px;
+  }
+  .title_find_div {
+    margin-top: 20px;
+  }
 }
 </style>
