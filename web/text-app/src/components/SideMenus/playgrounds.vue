@@ -25,9 +25,15 @@
             </v-list-item-content>
           </template>
 
-          <v-list-item v-for="child in item.items" :key="child.title" dense>
+          <v-list-item
+            v-for="child in item.items"
+            :key="child.title"
+            dense
+            link
+            @click="menuActionClick(child.action)"
+          >
             <v-list-item-icon>
-              <v-icon v-text="child.action" color="white"></v-icon>
+              <v-icon v-text="child.icon_img" color="white"></v-icon>
             </v-list-item-icon>
             <v-list-item-content class="white--text">
               <v-list-item-title
@@ -41,15 +47,17 @@
       </div>
     </v-list>
     <AddMember />
+    <AddChannel />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import AddMember from "@/components/Dialogs/addPlayground.vue";
+import AddChannel from "@/components/Dialogs/addChannel.vue";
 
 export default Vue.extend({
-  components: { AddMember },
+  components: { AddMember, AddChannel },
   data() {
     return {
       items: [
@@ -57,8 +65,16 @@ export default Vue.extend({
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           title: "Gaming",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
 
@@ -66,8 +82,16 @@ export default Vue.extend({
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
           title: "Summer BBQ",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
 
@@ -75,32 +99,64 @@ export default Vue.extend({
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           title: "Oui oui",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
           title: "Birthday gift",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
           title: "Recipe to try",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           title: "Gaming",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
 
@@ -108,8 +164,16 @@ export default Vue.extend({
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
           title: "Summer BBQ",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
 
@@ -117,27 +181,58 @@ export default Vue.extend({
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           title: "Oui oui",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
           title: "Birthday gift",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
           title: "Recipe to try",
           items: [
-            { title: "chill channel", action: "mdi-message-text" },
-            { title: "Add channel", action: "mdi-plus" },
+            {
+              title: "chill channel",
+              icon_img: "mdi-message-text",
+              action: "",
+            },
+            {
+              title: "Add channel",
+              icon_img: "mdi-plus",
+              action: "add_channel",
+            },
           ],
         },
       ],
+      methods: {
+        menuActionClick(action) {
+          if (action === "add_channel") {
+            alert("treba delat");
+          }
+        },
+      },
     };
   },
 });

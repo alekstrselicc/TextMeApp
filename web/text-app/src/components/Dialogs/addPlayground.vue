@@ -107,6 +107,10 @@ export default Vue.extend({
   margin-top: 10px;
 }
 
+.title_find_div {
+  margin-top: 20px;
+}
+
 @media (max-width: 960px) {
   .title_h1 {
     font-size: 28px;

@@ -34,14 +34,12 @@
             </v-list-item>
           </v-list-item-group>
         </div>
-        <v-btn class="white--text custom_add_friend_button" color="white" text
-          ><v-icon left class="icon_add">mdi-plus</v-icon>Add friend</v-btn
-        >
       </v-list>
 
       <!-- Here comes the profile linker -->
       <ProfileButton />
     </v-layout>
+    <AddFriend />
   </div>
 </template>
 
@@ -49,9 +47,10 @@
 import Vue from "vue";
 
 import ProfileButton from "@/components/profileButton.vue";
+import AddFriend from "@/components/Dialogs/addFriend.vue";
 
 export default Vue.extend({
-  components: { ProfileButton },
+  components: { ProfileButton, AddFriend },
   data() {
     return {
       selectedItem: 1,
@@ -113,7 +112,7 @@ export default Vue.extend({
   margin-left: 35px;
   height: 50px !important;
 }
-.icon_add{
+.icon_add {
   font-size: 40px !important;
 }
 
@@ -171,13 +170,12 @@ export default Vue.extend({
   .group_items_friends {
     margin-top: 5px;
   }
-  .custom_add_friend_button{
+  .custom_add_friend_button {
     font-size: 24px !important;
     text-transform: capitalize !important;
     margin-top: 20px;
     margin-left: 25px !important;
     height: 50px !important;
   }
-
 }
 </style>
