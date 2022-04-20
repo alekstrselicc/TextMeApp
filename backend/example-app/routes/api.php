@@ -9,6 +9,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\PrivateChatController;
+use App\Http\Controllers\PrivateMessageController;
 use App\Http\Controllers\RelationshipController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ThemeController;
@@ -45,6 +46,7 @@ Route::post('/login', 'App\Http\Controllers\AuthController@login');
 //in progress
 route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
 //route::post('/user', [UserController::class, 'store']);
+route::apiResource('privatemessages', PrivateMessageController::class)->only(['index','show','store','destroy']);
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {

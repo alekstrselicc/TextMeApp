@@ -81,4 +81,8 @@ class User extends Authenticatable
     {
         return $this->BelongsToMany(Channel::class,'messages','user_id','channel_id')->withPivot('messages', 'created_at');
     }
+    public function p_chats()
+    {
+        return $this->BelongsToMany(privateChat::class,'private_messages','user_id','private_chat_id')->withPivot('message', 'created_at');
+    }
 }
