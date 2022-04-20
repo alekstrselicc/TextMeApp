@@ -28,33 +28,16 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id, $user_id)
+    public function store(Request $request)
     {
-        // $channel = new Channel();
-        // $channel->channel = $request->input('channel');
-        // $channel->save();
-        // $channel->users()->attach($id,$request->input('messages'));
-        $message = new Message();
-        $message->messages = $request->input('messages');
-        $message->save();
-
-        //$channel = Channel::find($id); //not sure, ask!
-        //$channel->save();
-
-        //$user_id = User::find($user_id); //not sure, ask!
-        
-        //trenutni datum
-        $currentDate = Carbon::now()->toDateString();
-        
-        $user = new User();
-        $user->channels()->attach(3,[
-            'messages' => $message,
-            'created_at' => $currentDate,
-            'user_id' => $user_id,
-            'channel_id' => $id
-          ]);
-          
-        //$user->channels()->attach($request->channels);
+        //$currentDate = Carbon::now();
+        $request->validate([
+            'messages' => 'required|string',
+            'created_at' => 'required',
+            'user_id' => 'required',
+            'channel_id' => 'required',
+        ]);
+        return Message::create($request->all());
     }
 
     /**
@@ -65,21 +48,8 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        return Message::find($id);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -88,6 +58,6 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $messsage = Message::destroy($id);
     }
 }
