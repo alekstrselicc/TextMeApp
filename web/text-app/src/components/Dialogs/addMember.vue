@@ -1,19 +1,21 @@
 <template>
   <div>
-    <v-dialog v-model="dialogF" max-width="500">
+    <v-dialog v-model="dialogM" max-width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          v-bind="attrs"
-          v-on="on"
-          class="white--text custom_add_friend_button"
-          color="white"
-          text
-          ><v-icon left class="icon_add">mdi-plus</v-icon>Add friend</v-btn
-        >
+        <div class="add_member_btns_div">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            class="add_member_btns white--text"
+            color="transparent"
+          >
+            <v-icon left class="icon_add">mdi-plus</v-icon> Add member
+          </v-btn>
+        </div>
       </template>
       <!-- Here is going to be the data -->
       <v-card class="card_add_friend">
-        <div class="title_div"><h1 class="title_h1">Adding friend</h1></div>
+        <div class="title_div"><h1 class="title_h1">Adding member</h1></div>
         <div class="subtitle_div"><h2>Searh by mail</h2></div>
         <div class="search_email_div">
           <v-text-field label="Enter mail" solo></v-text-field>
@@ -33,23 +35,16 @@
 
 <script lang="ts">
 import Vue from "vue";
-
 export default Vue.extend({
   data() {
     return {
-      dialogF: false,
+      dialogM: false,
     };
   },
 });
 </script>
 
-<style>
-.divider_add {
-  border: 1px solid white !important;
-  width: 80%;
-  margin-left: 50px;
-}
-
+<style scoped>
 .card_add_friend {
   width: 500px;
   border: 1px solid black !important;
@@ -68,7 +63,6 @@ export default Vue.extend({
   text-align: center !important;
 }
 .subtitle_div {
-  margin-top: 20px;
   color: white !important;
   text-align: center;
 }

@@ -57,12 +57,7 @@
           </div>
         </v-list>
         <!-- Here is the button for adding members -->
-        <div class="add_member_btns_div">
-          <v-btn class="add_member_btns white--text" color="transparent">
-            <v-icon left class="icon_add">mdi-plus</v-icon> Add friend
-          </v-btn>
-        </div>
-        <div></div>
+        <AddMember />
       </v-card-text>
 
       <v-expand-transition>
@@ -94,8 +89,11 @@
 import Vue from "vue";
 import { mdiAccountGroup, mdiMinus } from "@mdi/js";
 
+import AddMember from "@/components/Dialogs/addMember.vue";
+
 export default Vue.extend({
   name: "showMember",
+  components: { AddMember },
   data() {
     return {
       svgPath: mdiAccountGroup,
@@ -143,6 +141,7 @@ export default Vue.extend({
   font-size: 20px !important;
 }
 .add_member_btns_div {
+  margin-top: 10px;
   text-align: center;
 }
 

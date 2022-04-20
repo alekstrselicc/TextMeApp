@@ -29,7 +29,7 @@
           <v-btn class="add_btn_div" rounded>Add</v-btn>
         </div>
 
-        <v-divider></v-divider>
+        <v-divider color="white" class="divider_add_play"></v-divider>
 
         <div class="title_find_div"><h1>Find playground</h1></div>
         <div class="link_find">
@@ -74,6 +74,12 @@ export default Vue.extend({
   width: 60% !important;
   margin-left: 20%;
   margin-top: 10px;
+}
+.divider_add_play {
+  border: 1px solid white !important;
+  width: 80%;
+  margin-left: 50px;
+  margin-top: 20px;
 }
 .enter_name_div .v-text-field.v-text-field--solo .v-input__control {
   min-height: 40px !important;
