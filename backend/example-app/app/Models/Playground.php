@@ -18,4 +18,8 @@ class Playground extends Model
     {
          return $this->hasMany(Channel::class);
     }
+    public function users()
+    {
+        return $this->BelongsToMany(User::class,'playground_members','user_id','playground_id')->withPivot('joined', 'left');
+    }
 }

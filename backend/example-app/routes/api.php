@@ -8,6 +8,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\PlaygroundController;
+use App\Http\Controllers\PlaygroundMembersController;
 use App\Http\Controllers\PrivateChatController;
 use App\Http\Controllers\PrivateMessageController;
 use App\Http\Controllers\RelationshipController;
@@ -32,20 +33,19 @@ use App\Models\userType;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//SAMPLES
 // route::get('/playgrounds', [PlaygroundController::class, 'index']);
 // route::post('/playgrounds', [PlaygroundController::class, 'store']);
 // route::get('/playground/{id}', [PlaygroundController::class, 'show']);
+//route::resource('playgrounds', PlaygroundController::class);
 
 //public routes
-//route::resource('playgrounds', PlaygroundController::class);
 route::post('/register', [AuthController::class, 'register']);
 
 //login
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
 //in progress:
-
-//route::post('/user', [UserController::class, 'store']);
 
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
@@ -65,4 +65,5 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('privatemessages', PrivateMessageController::class)->only(['index','show','store','destroy']);
+        route::apiResource('playgroundmembers', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
     });
