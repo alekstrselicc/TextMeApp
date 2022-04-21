@@ -31,8 +31,9 @@
           >
         </v-app-bar>
 
-        <!-- Here is going to be the chat for mobile and desktop -->
-        <Chat />
+        <!-- Here is going to be the chat for mobile and desktop  -->
+
+        <router-view />
       </v-flex>
 
       <!-- Friends drawer -->
@@ -59,15 +60,16 @@
 import Vue from "vue";
 import Playground from "@/components/SideMenus/playgrounds.vue";
 import Friend from "@/components/SideMenus/friends.vue";
-import Chat from "@/components/Chat/chat.vue";
-
 export default Vue.extend({
   name: "main",
-  components: { Playground, Friend, Chat },
+  components: { Playground, Friend },
   data() {
     return {
       drawer1: false,
       drawer2: false,
+      showChat: false,
+      showSettings: false,
+      showProfile: false,
     };
   },
 });
@@ -84,6 +86,16 @@ export default Vue.extend({
   border-radius: 30px;
   margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.4) !important;
+}
+.chat_none {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.profile_none {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .small_bar {

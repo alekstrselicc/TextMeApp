@@ -5,7 +5,7 @@
       <div
         v-for="(item, index) in chat"
         :key="index"
-        class="main_msg justify-start row"
+        class="main_msg justify-start rows"
       >
         <div class="image_user">
           <v-avatar><v-img :src="item.avatar"></v-img></v-avatar>
@@ -184,9 +184,10 @@ export default Vue.extend({
   margin-left: 20px;
   margin-top: 20px;
 }
-.row {
+.rows,
+.message_main {
   display: table;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 .image_user {
   display: table-cell;
