@@ -46,20 +46,19 @@
         </v-list-group>
       </div>
     </v-list>
-    <AddMember />
-    <AddChannel />
+    <AddPlayground />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import AddMember from "@/components/Dialogs/addPlayground.vue";
-import AddChannel from "@/components/Dialogs/addChannel.vue";
+import AddPlayground from "@/components/Dialogs/addPlayground.vue";
 
 export default Vue.extend({
-  components: { AddMember, AddChannel },
+  components: { AddPlayground },
   data() {
     return {
+      showChannel: true,
       items: [
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
@@ -229,7 +228,7 @@ export default Vue.extend({
       methods: {
         menuActionClick(action) {
           if (action === "add_channel") {
-            alert("treba delat");
+            this.showChannel = true;
           }
         },
       },

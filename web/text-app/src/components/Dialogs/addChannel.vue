@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="main_add_channel" v-if="dialogC"></div>
 </template>
 
 <script lang="ts">
@@ -14,4 +14,11 @@ export default Vue.extend({
 });
 </script>
 
-<style></style>
+<style>
+.main_add_channel {
+  border: 1px solid red;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+}
+</style>
