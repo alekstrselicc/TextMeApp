@@ -7,12 +7,8 @@
     </v-flex>
 
     <!-- Channel title-->
-    <v-flex class="settings_btn">
-      <v-btn @click="showSettings = true" icon
-        ><v-icon color="blue" large>mdi-wrench</v-icon></v-btn
-      >
-    </v-flex>
-    <PlaygroundSettings v-if="showSettings" />
+
+    <PlaygroundSettings />
   </div>
 </template>
 

@@ -81,6 +81,4 @@ export default Vue.extend({
   min-height: 40px !important;
   border-radius: 15px !important;
 }
-@media (max-width: 960px) {
-}
 </style>

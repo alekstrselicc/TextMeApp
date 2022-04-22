@@ -69,11 +69,6 @@ export default Vue.extend({
               icon_img: "mdi-message-text",
               action: "",
             },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
-            },
           ],
         },
 
@@ -85,11 +80,6 @@ export default Vue.extend({
               title: "chill channel",
               icon_img: "mdi-message-text",
               action: "",
-            },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
             },
           ],
         },
@@ -103,11 +93,6 @@ export default Vue.extend({
               icon_img: "mdi-message-text",
               action: "",
             },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
-            },
           ],
         },
         {
@@ -119,11 +104,6 @@ export default Vue.extend({
               icon_img: "mdi-message-text",
               action: "",
             },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
-            },
           ],
         },
         {
@@ -134,11 +114,6 @@ export default Vue.extend({
               title: "chill channel",
               icon_img: "mdi-message-text",
               action: "",
-            },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
             },
           ],
         },
@@ -151,11 +126,6 @@ export default Vue.extend({
               icon_img: "mdi-message-text",
               action: "",
             },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
-            },
           ],
         },
 
@@ -167,11 +137,6 @@ export default Vue.extend({
               title: "chill channel",
               icon_img: "mdi-message-text",
               action: "",
-            },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
             },
           ],
         },
@@ -185,11 +150,6 @@ export default Vue.extend({
               icon_img: "mdi-message-text",
               action: "",
             },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
-            },
           ],
         },
         {
@@ -201,11 +161,6 @@ export default Vue.extend({
               icon_img: "mdi-message-text",
               action: "",
             },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
-            },
           ],
         },
         {
@@ -216,11 +171,6 @@ export default Vue.extend({
               title: "chill channel",
               icon_img: "mdi-message-text",
               action: "",
-            },
-            {
-              title: "Add channel",
-              icon_img: "mdi-plus",
-              action: "add_channel",
             },
           ],
         },
@@ -286,7 +236,7 @@ export default Vue.extend({
     font-size: 30px !important;
   }
   .group_items_bigger {
-    max-height: 600px !important;
+    max-height: 400px !important;
     overflow: auto;
   }
   .custom_button_bigger {
@@ -303,6 +253,11 @@ export default Vue.extend({
 
   .custom_playground_text {
     font-size: 20px !important;
+  }
+}
+@media (min-height: 800px) {
+  .group_items_bigger {
+    max-height: 600px !important;
   }
 }
 </style>

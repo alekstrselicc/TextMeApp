@@ -1,56 +1,93 @@
 <template>
-  <v-card class="main_settings_playground">
-    <v-card-text>
-      <v-row>
-        <div class="exit_btn_settings_playground">
-          <v-btn class="exit_btn" icon>
-            <v-icon color="white">mdi-arrow-left</v-icon>
-          </v-btn>
-        </div>
-        <div class="playground_settings_title">
-          <h1>Playground settings</h1>
-        </div>
-      </v-row>
+  <v-dialog v-model="dialogS" max-width="500">
+    <template v-slot:activator="{ on, attrs }">
+      <v-flex class="settings_btn">
+        <v-btn icon
+          ><v-icon color="blue" v-bind="attrs" v-on="on" large
+            >mdi-wrench</v-icon
+          ></v-btn
+        >
+      </v-flex>
+    </template>
 
-      <v-row class="first_one">
-        <v-col class="first_cols">
-          <v-row>
-            <v-avatar class="playground_avatar_change">
-              <v-img :src="playground_avatar"> </v-img>
-            </v-avatar>
-          </v-row>
-
-          <v-row>
-            <v-btn class="btn_find_img" rounded>Change image</v-btn>
-          </v-row>
-
-          <div class="hidden-md-and-up">
-            <v-btn class="toggle_btns fir" rounded @click="change_name = true"
-              >Change Name</v-btn
-            >
-            <v-btn class="toggle_btns sec" rounded @click="add_channel = true"
-              >Channel</v-btn
-            >
+    <v-card class="main_settings_playground">
+      <v-card-text>
+        <v-row>
+          <div class="playground_settings_title">
+            <h1>Playground settings</h1>
           </div>
+        </v-row>
 
-          <div class="hidden-sm-and-down">
+        <v-row class="first_one">
+          <v-col class="first_cols">
             <v-row>
-              <div class="change_name_div"><h1>Change name</h1></div>
+              <v-avatar class="playground_avatar_change">
+                <v-img :src="playground_avatar"> </v-img>
+              </v-avatar>
             </v-row>
+
             <v-row>
-              <v-text-field
-                class="playground_name_change"
-                solo
-                v-model="playground_name"
-              ></v-text-field>
+              <v-btn class="btn_find_img" rounded>Change image</v-btn>
             </v-row>
-          </div>
-        </v-col>
-        <v-col class="second_col hidden-sm-and-down">
-          <div class="channel_list_title">
-            <h1>Channel list:</h1>
-          </div>
-          <div class="list_of_channels">
+
+            <div class="hidden-md-and-up">
+              <v-btn class="toggle_btns fir" rounded @click="change_name = true"
+                >Change Name</v-btn
+              >
+              <v-btn class="toggle_btns sec" rounded @click="add_channel = true"
+                >Channel</v-btn
+              >
+            </div>
+
+            <div class="hidden-sm-and-down">
+              <v-row>
+                <div class="change_name_div"><h1>Change name</h1></div>
+              </v-row>
+              <v-row>
+                <v-text-field
+                  class="playground_name_change"
+                  solo
+                  v-model="playground_name"
+                ></v-text-field>
+              </v-row>
+            </div>
+          </v-col>
+          <v-col class="second_col hidden-sm-and-down">
+            <div class="channel_list_title">
+              <h1>Channel list:</h1>
+            </div>
+            <div class="list_of_channels">
+              <v-list color="transparent">
+                <v-list-item
+                  v-for="(item, index) in playground_channels"
+                  :key="index"
+                >
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon_img" color="white"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      class="white--text channel_list_items"
+                      v-text="item.name"
+                    >
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+              <AddChannel />
+            </div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-expand-transition>
+        <v-card
+          v-if="add_channel"
+          class="transition-fast-in-fast-out add_cha_exp"
+          style="height: 100%"
+        >
+          <v-card-text class="">
+            <h1 class="title_pedning">Channel list</h1>
             <v-list color="transparent">
               <v-list-item
                 v-for="(item, index) in playground_channels"
@@ -69,69 +106,39 @@
               </v-list-item>
             </v-list>
             <AddChannel />
-          </div>
-        </v-col>
-      </v-row>
-    </v-card-text>
+          </v-card-text>
 
-    <v-expand-transition>
-      <v-card
-        v-if="add_channel"
-        class="transition-fast-in-fast-out add_cha_exp"
-        style="height: 100%"
-      >
-        <v-card-text class="">
-          <h1 class="title_pedning">Channel list</h1>
-          <v-list color="transparent">
-            <v-list-item
-              v-for="(item, index) in playground_channels"
-              :key="index"
-            >
-              <v-list-item-icon>
-                <v-icon v-text="item.icon_img" color="white"></v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title
-                  class="white--text channel_list_items"
-                  v-text="item.name"
-                >
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <AddChannel />
-        </v-card-text>
+          <v-card-actions class="pt-0">
+            <v-btn text color="white accent-4" @click="add_channel = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
 
-        <v-card-actions class="pt-0">
-          <v-btn text color="white accent-4" @click="add_channel = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-
-      <v-card
-        v-if="change_name"
-        class="transition-fast-in-fast-out add_cha_exp"
-        style="height: 100%"
-      >
-        <v-card-text class="">
-          <h1 class="title_pedning">Change name</h1>
-          <v-row>
-            <v-text-field
-              class="playground_name_change"
-              solo
-              v-model="playground_name"
-            ></v-text-field>
-          </v-row>
-        </v-card-text>
-        <v-card-actions class="pt-0">
-          <v-btn text color="white accent-4" @click="change_name = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-expand-transition>
-  </v-card>
+        <v-card
+          v-if="change_name"
+          class="transition-fast-in-fast-out add_cha_exp"
+          style="height: 100%"
+        >
+          <v-card-text class="">
+            <h1 class="title_pedning">Change name</h1>
+            <v-row>
+              <v-text-field
+                class="playground_name_change"
+                solo
+                v-model="playground_name"
+              ></v-text-field>
+            </v-row>
+          </v-card-text>
+          <v-card-actions class="pt-0">
+            <v-btn text color="white accent-4" @click="change_name = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-expand-transition>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
@@ -148,6 +155,7 @@ export default Vue.extend({
       ],
       add_channel: false,
       change_name: false,
+      dialogS: false,
     };
   },
 });
@@ -155,7 +163,7 @@ export default Vue.extend({
 
 <style>
 .add_cha_exp {
-  top: 0;
+  bottom: 0;
   opacity: 1 !important;
   position: absolute;
   width: 100%;
@@ -263,14 +271,16 @@ export default Vue.extend({
 .main_settings_playground {
   border: 1px solid black !important;
   position: absolute;
-  width: 90%;
+  width: 80%;
   height: 60%;
   left: 0;
   right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  top: 0;
+  bottom: 0;
+  margin: auto !important;
   background-color: black !important;
   border-radius: 30px;
+  z-index: 10;
 }
 .playground_settings_title {
   color: white !important;
