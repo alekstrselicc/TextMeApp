@@ -7,6 +7,7 @@
         }}</v-icon>
       </v-btn>
     </div>
+
     <v-card class="show_menu" v-if="show">
       <v-card-actions>
         <v-badge color="red" content="2" offset-y="12" offset-x="12">

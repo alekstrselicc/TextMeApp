@@ -10,7 +10,6 @@
     <ChatSend />
 
     <ShowMember />
-    <PlaygroundSettings />
   </v-container>
 </template>
 
@@ -19,9 +18,6 @@ import ChatTitle from "@/components/Chat/chatTitle.vue";
 import ChatSend from "@/components/Chat/chatMessage.vue";
 import ChatLog from "@/components/Chat/chatLog.vue";
 import ShowMember from "@/components/Dialogs/showMembers.vue";
-import AddChannel from "@/components/Dialogs/addChannel.vue";
-import PlaygroundSettings from "@/components/Settings/playgroundSettings.vue";
-
 import Vue from "vue";
 export default Vue.extend({
   name: "chat",
@@ -30,7 +26,6 @@ export default Vue.extend({
     ChatLog,
     ChatSend,
     ShowMember,
-    PlaygroundSettings,
   },
 });
 </script>

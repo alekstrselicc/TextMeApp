@@ -8,20 +8,26 @@
 
     <!-- Channel title-->
     <v-flex class="settings_btn">
-      <v-btn icon><v-icon color="blue" large>mdi-wrench</v-icon></v-btn>
+      <v-btn @click="showSettings = true" icon
+        ><v-icon color="blue" large>mdi-wrench</v-icon></v-btn
+      >
     </v-flex>
+    <PlaygroundSettings v-if="showSettings" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import PlaygroundSettings from "@/components/Settings/playgroundSettings.vue";
 
 export default Vue.extend({
   name: "chatTitle",
+  components: { PlaygroundSettings },
   data() {
     return {
       title: "Gaming",
       subtitle: "Chill channel",
+      showSettings: false,
     };
   },
 });
