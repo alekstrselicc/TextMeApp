@@ -11,7 +11,7 @@
 
     <!-- Clickable text -->
     <v-flex class="btn_text">
-      <a href="/profile" class="btn_text_edit">Monika Bog</a>
+      <a href="profile" class="btn_text_edit">Monika Bog</a>
     </v-flex>
 
     <!-- Status menu -->
