@@ -18,6 +18,7 @@
         <div class="search_email_div">
           <v-text-field label="Enter mail" solo></v-text-field>
         </div>
+
         <v-divider color="white" class="divider_add"></v-divider>
         <div class="subtitle_div"><h2>Searh by id</h2></div>
         <div class="search_email_div">

@@ -221,7 +221,7 @@ export default Vue.extend({
 .members_main_div {
   position: absolute;
   right: 0;
-  margin-top: -25px;
+  margin-top: -35px;
   margin-right: 20px;
 }
 .icon_people {
@@ -237,7 +237,7 @@ export default Vue.extend({
   background-color: black !important;
   width: 300px;
   height: 400px;
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
 @media (max-width: 960px) {
