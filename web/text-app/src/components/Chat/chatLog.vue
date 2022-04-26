@@ -175,12 +175,15 @@ export default Vue.extend({
   methods: {
     scrollToEnd() {
       var cont = document.querySelector(".main_chat");
-      var scrolls = cont.scrollHeight;
+      var scrolls = cont.scrollHeight + 1000;
       cont.scrollTop = scrolls;
     },
   },
 
   mounted() {
+    this.scrollToEnd();
+  },
+  updated() {
     this.scrollToEnd();
   },
 });
@@ -189,7 +192,7 @@ export default Vue.extend({
 <style>
 .main_chat {
   width: 100% !important;
-  height: calc(100vh - 340px);
+  height: calc(100vh - 340px) !important;
   max-height: 900px;
   overflow-y: scroll;
   overflow-x: hidden;

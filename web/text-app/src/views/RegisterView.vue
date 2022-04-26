@@ -4,13 +4,17 @@
       <v-card-title class="title_regiser">Sign up</v-card-title>
 
       <v-layout row wrap class="main_layout ml-6">
-        <v-flex lg6
-          ><input
+        <v-flex lg6>
+          <input
             type="text"
             class="form_inputss"
             id="first_name"
             placeholder="First name..."
-        /></v-flex>
+            v-bind="attrs"
+            v-on="on"
+          />
+        </v-flex>
+
         <v-flex lg6
           ><input
             type="text"
@@ -128,6 +132,7 @@ export default Vue.extend({
       days: ["1", "2", "3", "4", "5", "6"],
       months: ["jan", "feb", "mar"],
       years: ["1200", "2000"],
+      showFirstName: false,
     };
   },
 });
@@ -183,7 +188,7 @@ export default Vue.extend({
   height: 57px;
 }
 .country_selector {
-  width: 280px;
+  width: 90% !important;
 }
 
 .register_submit_class {
@@ -249,6 +254,9 @@ export default Vue.extend({
     margin-right: 110px;
     margin-top: -3px;
   }
+  .country_selector {
+    width: 90% !important;
+  }
 }
 
 @media (max-height: 850px) {
@@ -262,6 +270,21 @@ export default Vue.extend({
   .v-text-field.v-text-field--solo .v-input__control {
     width: 120px;
     min-height: 30px !important;
+  }
+  .register_submit_class {
+    height: 50px !important;
+    width: 80% !important;
+    margin-left: 30px;
+    margin-bottom: 5px;
+  }
+  .birth_date {
+    font-size: 18px;
+  }
+  .day_selector {
+    min-width: 70px;
+  }
+  .month_selector {
+    min-width: 70px !important;
   }
 }
 </style>

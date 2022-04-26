@@ -128,7 +128,7 @@ export default Vue.extend({
 .main_info {
   width: 100%;
   height: 80%;
-  margin-top: -100px;
+  margin-top: -40px;
 }
 
 .v-card--desc {
