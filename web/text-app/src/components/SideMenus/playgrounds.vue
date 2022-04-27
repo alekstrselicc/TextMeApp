@@ -53,136 +53,26 @@
 <script lang="ts">
 import Vue from "vue";
 import AddPlayground from "@/components/Dialogs/addPlayground.vue";
+import axios from "axios";
 
 export default Vue.extend({
   components: { AddPlayground },
   data() {
     return {
-      showChannel: true,
-      items: [
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Gaming",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          title: "Summer BBQ",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          title: "Oui oui",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-          title: "Birthday gift",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-          title: "Recipe to try",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Gaming",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          title: "Summer BBQ",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          title: "Oui oui",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-          title: "Birthday gift",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-          title: "Recipe to try",
-          items: [
-            {
-              title: "chill channel",
-              icon_img: "mdi-message-text",
-              action: "",
-            },
-          ],
-        },
-      ],
-      methods: {
-        menuActionClick(action) {
-          if (action === "add_channel") {
-            this.showChannel = true;
-          }
-        },
-      },
+      items: [],
     };
+  },
+  created() {
+    axios.get("http://127.0.0.1:8000/api/playgrounds").then((response) => {
+      this.items = response.data;
+    });
+  },
+  methods: {
+    menuActionClick(action) {
+      if (action === "add_channel") {
+        this.showChannel = true;
+      }
+    },
   },
 });
 </script>

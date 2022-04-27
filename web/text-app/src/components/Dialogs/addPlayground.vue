@@ -18,7 +18,7 @@
       <v-card class="card_add_playground">
         <div class="title_div"><h1 class="title_h1">Adding playground</h1></div>
         <div class="enter_name_div">
-          <v-text-field label="Enter name" solo class="dleat"></v-text-field>
+          <v-text-field label="Enter name" v-model="title" solo></v-text-field>
         </div>
 
         <div class="choose_image_div">
@@ -26,7 +26,9 @@
           <v-btn class="image_btn">Choose image</v-btn>
         </div>
         <div class="center_btn">
-          <v-btn class="add_btn_div" rounded>Add</v-btn>
+          <v-btn class="add_btn_div" rounded @click="addPlayground()"
+            >Add</v-btn
+          >
         </div>
 
         <v-divider color="white" class="divider_add_play"></v-divider>
@@ -45,12 +47,22 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 
 export default Vue.extend({
   data() {
     return {
       dialog: false,
+      title: "",
     };
+  },
+
+  methods: {
+    addPlayground() {
+      axios.post("http://127.0.0.1:8000/api/playgrounds", {
+        title: this.title,
+      });
+    },
   },
 });
 </script>
