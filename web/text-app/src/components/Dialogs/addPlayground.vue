@@ -26,7 +26,7 @@
           <v-btn class="image_btn">Choose image</v-btn>
         </div>
         <div class="center_btn">
-          <v-btn class="add_btn_div" rounded @click="addPlayground()"
+          <v-btn class="add_btn_div" rounded @click="addPlayground()" to="/"
             >Add</v-btn
           >
         </div>
@@ -59,6 +59,7 @@ export default Vue.extend({
 
   methods: {
     addPlayground() {
+      this.dialog = false;
       axios.post("http://127.0.0.1:8000/api/playgrounds", {
         title: this.title,
       });

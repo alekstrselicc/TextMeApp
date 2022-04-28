@@ -7,6 +7,7 @@
         <v-flex lg6>
           <input
             type="text"
+            v-model="form.first_name"
             class="form_inputss"
             id="first_name"
             placeholder="First name..."
@@ -18,6 +19,7 @@
         <v-flex lg6
           ><input
             type="text"
+            v-model="form.last_name"
             class="form_inputss"
             id="last_name"
             placeholder="Last name..."
@@ -28,6 +30,7 @@
         <v-flex lg6
           ><input
             type="text"
+            v-model="form.email"
             class="form_inputss"
             id="email"
             placeholder="Email..."
@@ -35,6 +38,7 @@
         <v-flex lg6
           ><input
             type="text"
+            v-model="form.email_conf"
             class="form_inputss"
             id="confirm_mail"
             placeholder="Confirm email..."
@@ -44,6 +48,7 @@
         <v-flex lg6
           ><input
             type="password"
+            v-model="form.password"
             class="form_inputss"
             id="password"
             placeholder="Password..."
@@ -51,6 +56,7 @@
         <v-flex lg6
           ><input
             type="password"
+            v-model="form.password_conf"
             class="form_inputss"
             id="confirm_password"
             placeholder="Confirm password..."
@@ -124,6 +130,7 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import Vue from "vue";
 export default Vue.extend({
   name: "Register",
@@ -133,7 +140,28 @@ export default Vue.extend({
       months: ["jan", "feb", "mar"],
       years: ["1200", "2000"],
       showFirstName: false,
+
+      form: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        email_conf: "",
+        password: "",
+        password_conf: "",
+      },
     };
+  },
+  methods: {
+    sendFrom() {
+      axios
+        .post("http://127.0.0.1:8000/api/register", this.from)
+        .then(() => {
+          console.log("saved");
+        })
+        .catch((error) => {
+          this.error = error.response.data.errors;
+        });
+    },
   },
 });
 </script>
