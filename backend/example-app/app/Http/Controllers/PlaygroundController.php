@@ -28,7 +28,8 @@ class PlaygroundController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required'
+            'title' => 'required',
+            'img' => 'required'
         ]);
         return Playground::create($request->all());
     }

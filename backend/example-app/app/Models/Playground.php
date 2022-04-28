@@ -11,7 +11,8 @@ class Playground extends Model
     public $timestamps = false;
     //protected $table = 'playgrounds';
     protected $fillable = [
-        'title'
+        'title',
+        'img'
     ];
     
     public function channels()
