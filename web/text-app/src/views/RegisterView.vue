@@ -7,7 +7,7 @@
         <v-flex lg6>
           <input
             type="text"
-            v-model="form.first_name"
+            v-model="first_name"
             class="form_inputss"
             id="first_name"
             placeholder="First name..."
@@ -19,7 +19,7 @@
         <v-flex lg6
           ><input
             type="text"
-            v-model="form.last_name"
+            v-model="last_name"
             class="form_inputss"
             id="last_name"
             placeholder="Last name..."
@@ -30,7 +30,7 @@
         <v-flex lg6
           ><input
             type="text"
-            v-model="form.email"
+            v-model="email"
             class="form_inputss"
             id="email"
             placeholder="Email..."
@@ -38,7 +38,7 @@
         <v-flex lg6
           ><input
             type="text"
-            v-model="form.email_conf"
+            v-model="email_conf"
             class="form_inputss"
             id="confirm_mail"
             placeholder="Confirm email..."
@@ -48,7 +48,7 @@
         <v-flex lg6
           ><input
             type="password"
-            v-model="form.password"
+            v-model="password"
             class="form_inputss"
             id="password"
             placeholder="Password..."
@@ -56,7 +56,7 @@
         <v-flex lg6
           ><input
             type="password"
-            v-model="form.password_conf"
+            v-model="password_conf"
             class="form_inputss"
             id="confirm_password"
             placeholder="Confirm password..."
@@ -93,7 +93,7 @@
       <v-layout row wrap class="main_layout ml-6 mt-n5">
         <v-flex lg6 md6
           ><v-select
-            :items="days"
+            :items="countrys"
             solo
             class="country_selector theme--dark"
             placeholder="Select country..."
@@ -104,6 +104,7 @@
             type="text"
             class="form_inputss custom_phone"
             id="phone"
+            v-model="phone"
             placeholder="Phone..."
         /></v-flex>
       </v-layout>
@@ -120,7 +121,7 @@
           ><v-btn
             type="submit"
             class="register_submit_class justify-center"
-            to="/login"
+            @click="sendFrom()"
             >Sign up</v-btn
           ></v-flex
         >
@@ -139,27 +140,34 @@ export default Vue.extend({
       days: ["1", "2", "3", "4", "5", "6"],
       months: ["jan", "feb", "mar"],
       years: ["1200", "2000"],
+      countrys: ["Slovenia", "Germany", "UK", "United states"],
       showFirstName: false,
 
-      form: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        email_conf: "",
-        password: "",
-        password_conf: "",
-      },
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      country: "",
+      phone: "",
+      birth: "",
+      errors: [],
     };
   },
   methods: {
     sendFrom() {
       axios
-        .post("http://127.0.0.1:8000/api/register", this.from)
-        .then(() => {
+        .post("http://127.0.0.1:8000/api/register", {
+          first_name: this.first_name,
+          last_name: this.last_name,
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
           console.log("saved");
         })
         .catch((error) => {
           this.error = error.response.data.errors;
+          console.log(error);
         });
     },
   },

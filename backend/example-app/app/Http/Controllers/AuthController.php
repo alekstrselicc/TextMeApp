@@ -17,11 +17,11 @@ class AuthController extends Controller
         $fields = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|string|confirmed|unique:users,email',
-            'password' => 'required|string|confirmed',
-            'country' => 'required|string',
-            'phone' => 'required|string',
-            'birth' => 'required|date'
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|',
+            //'country' => 'required|string',
+            //'phone' => 'required|string',
+            //'birth' => 'required|date'
         ]);
 
         $user = User::create([
@@ -29,16 +29,13 @@ class AuthController extends Controller
             'last_name' => $fields['last_name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
-            'country' => $fields['country'],
-            'phone' => $fields['phone'],
-            'birth' => $fields['birth'],
+            //'country' => $fields['country'],
+            //'phone' => $fields['phone'],
+            //'birth' => $fields['birth'],
         ]);
 
-        $token = $user->createToken('keytoken');
-
         $response = [
-            'user' => $user,
-            'token' => $token
+            'user' => $user
         ];
 
         return response($response, 201);
@@ -47,12 +44,13 @@ class AuthController extends Controller
     public function login (Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
         if ($validator->fails())
         {
             return response(['errors'=>$validator->errors()->all()], 422);
         }
+        
         $user = User::where('email', $request->email)->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
@@ -67,6 +65,7 @@ class AuthController extends Controller
             $response = ["message" =>'User does not exist'];
             return response($response, 422);
         }
+        return response($response, 200);
     }
     
     public function logout (Request $request) {

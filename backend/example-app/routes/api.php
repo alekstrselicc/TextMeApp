@@ -41,22 +41,15 @@ use App\Models\userType;
 
 //public routes
 route::post('/register', [AuthController::class, 'register']);
-route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
 
 //login
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
 //in progress:
 
-<<<<<<< HEAD
-//only for testing
-route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
-
-=======
->>>>>>> 574818a8a1442f2c8b4e30fd055b1c8d6257c60a
 //protected routes
 Route::group(['middleware' => ['auth:api']], function () {
-        
+        route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('private_chats', PrivateChatController::class)->only(['index','store','destroy']);
         route::apiResource('user_type', UserTypeController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('channels', ChannelController::class)->only(['index','show','store','update','destroy']);

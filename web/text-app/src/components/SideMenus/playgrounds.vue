@@ -63,6 +63,9 @@ export default Vue.extend({
     };
   },
   created() {
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("authToken");
+
     axios.get("http://127.0.0.1:8000/api/playgrounds").then((response) => {
       this.items = response.data;
     });

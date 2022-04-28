@@ -3,44 +3,41 @@
     <v-card class="login_card rounded-xl" color="rgb(41, 41, 41, 0.6)">
       <v-card-title class="title_login">Login</v-card-title>
       <v-card-text>
-        <v-form ref="form">
-          <input
-            type="text"
-            class="form_inputs"
-            name="email"
-            v-model="email"
-            placeholder="Enter email..."
-          />
-          <span v-if="msg.email" class="email_error">{{ msg.email }}</span>
-          <input
-            type="password"
-            class="form_inputs"
-            name="password"
-            v-model="password"
-            placeholder="Password..."
-          />
-          <span v-if="msg.password" class="email_error">{{
-            msg.password
-          }}</span>
+        <input
+          type="text"
+          class="form_inputs"
+          name="email"
+          v-model="email"
+          placeholder="Enter email..."
+        />
+        <span v-if="msg.email" class="email_error">{{ msg.email }}</span>
+        <input
+          type="password"
+          class="form_inputs"
+          name="password"
+          v-model="password"
+          placeholder="Password..."
+        />
+        <span v-if="msg.password" class="email_error">{{ msg.password }}</span>
 
-          <v-checkbox
-            label="Remember me"
-            class="check_box_login"
-            color="white"
-          ></v-checkbox>
-          <v-btn type="submit" class="submit_login_btn" v-on:click="loginFunc()"
-            >Login</v-btn
-          >
-          <div class="member_text">
-            <p>Not a member yet? <a href="/register">Register</a></p>
-          </div>
-        </v-form>
+        <v-checkbox
+          label="Remember me"
+          class="check_box_login"
+          color="white"
+        ></v-checkbox>
+        <v-btn type="submit" class="submit_login_btn" v-on:click="loginFunc()"
+          >Login</v-btn
+        >
+        <div class="member_text">
+          <p>Not a member yet? <a href="/register">Register</a></p>
+        </div>
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import Vue from "vue";
 export default Vue.extend({
   name: "Login",
@@ -65,6 +62,16 @@ export default Vue.extend({
     loginFunc() {
       //getting data
       console.log(this.email, this.password);
+      axios
+        .post("http://127.0.0.1:8000/api/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log("logged in");
+          console.log("This is the new token: " + res.data.token);
+          localStorage.setItem("authToken", res.data.token);
+        });
     },
     validateEmail(value) {
       /* eslint-disable no-useless-escape */

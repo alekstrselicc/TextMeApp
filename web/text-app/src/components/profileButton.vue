@@ -11,7 +11,7 @@
 
     <!-- Clickable text -->
     <v-flex class="btn_text">
-      <a href="profile" class="btn_text_edit">Monika Bog</a>
+      <a href="profile" class="btn_text_edit">{{ name }}</a>
     </v-flex>
 
     <!-- Status menu -->
@@ -44,6 +44,7 @@ export default Vue.extend({
   name: "profileButton",
   components: { PendingInvites },
   data: () => ({
+    name: "",
     select: { name: "Online", image: require("../assets/online.png") },
     items: [
       {
