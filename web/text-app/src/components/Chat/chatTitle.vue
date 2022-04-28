@@ -7,21 +7,23 @@
     </v-flex>
 
     <!-- Channel title-->
-    <v-flex class="settings_btn">
-      <v-btn icon><v-icon color="blue" large>mdi-wrench</v-icon></v-btn>
-    </v-flex>
+
+    <PlaygroundSettings />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import PlaygroundSettings from "@/components/Settings/playgroundSettings.vue";
 
 export default Vue.extend({
   name: "chatTitle",
+  components: { PlaygroundSettings },
   data() {
     return {
       title: "Gaming",
       subtitle: "Chill channel",
+      showSettings: false,
     };
   },
 });
@@ -29,8 +31,8 @@ export default Vue.extend({
 
 <style>
 .mains {
-    height: 100px;
-    margin-top: -40px !important;
+  height: 100px;
+  margin-top: -40px !important;
 }
 
 .titles {
@@ -54,9 +56,8 @@ export default Vue.extend({
   margin-left: 4px;
 }
 @media (max-width: 960px) {
-    .mains{
-        margin-top: -40px;
-    }
+  .mains {
+    margin-top: -40px;
+  }
 }
-
 </style>

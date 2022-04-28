@@ -5,13 +5,20 @@
       <div
         v-for="(item, index) in chat"
         :key="index"
-        class="main_msg justify-start row"
+        class="main_msg justify-start rows"
       >
-        <div class="image_user">
-          <v-avatar><v-img :src="item.avatar"></v-img></v-avatar>
-        </div>
+        <v-row>
+          <div class="showing_name">{{ item.user }}</div>
+        </v-row>
+        <v-row>
+          <div class="image_user">
+            <v-avatar><v-img :src="item.avatar"></v-img></v-avatar>
+          </div>
 
-        <div class="msg_user">{{ item.msg }}</div>
+          <div class="msg_user">
+            {{ item.msg }} <v-img :src="item.img"></v-img>
+          </div>
+        </v-row>
       </div>
     </v-row>
   </div>
@@ -154,18 +161,29 @@ export default Vue.extend({
         msg: "hello, how are you? ",
         subtitle: "13/02/2022 From maribor",
         avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        img: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+      },
+      {
+        user: "Ales",
+        msg: "hello, how are you? ",
+        subtitle: "13/02/2022 From maribor",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        img: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
       },
     ],
   }),
   methods: {
     scrollToEnd() {
       var cont = document.querySelector(".main_chat");
-      var scrolls = cont.scrollHeight;
+      var scrolls = cont.scrollHeight + 1000;
       cont.scrollTop = scrolls;
     },
   },
 
   mounted() {
+    this.scrollToEnd();
+  },
+  updated() {
     this.scrollToEnd();
   },
 });
@@ -174,19 +192,24 @@ export default Vue.extend({
 <style>
 .main_chat {
   width: 100% !important;
-  height: calc(100vh - 340px);
+  height: calc(100vh - 340px) !important;
   max-height: 900px;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin-top: -150px;
 }
-
+.showing_name {
+  color: white;
+  margin-left: 70px;
+}
 .main_msg {
-  margin-left: 20px;
+  margin-left: 30px;
   margin-top: 20px;
 }
-.row {
+.rows,
+.message_main {
   display: table;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 .image_user {
   display: table-cell;
@@ -194,9 +217,10 @@ export default Vue.extend({
 }
 .msg_user {
   display: table-cell;
-  max-width: 180px;
+  max-width: 80%;
   font-size: 18px;
   padding: 7px;
+  padding-bottom: -5px !important;
   border: 1px solid white;
   background: white;
   border-radius: 20px;

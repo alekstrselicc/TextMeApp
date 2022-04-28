@@ -104,6 +104,7 @@ export default Vue.extend({
 }
 .divider_friends {
   margin-top: 10px;
+  border: 1px solid white !important;
 }
 .custom_add_friend_button {
   font-size: 28px !important;

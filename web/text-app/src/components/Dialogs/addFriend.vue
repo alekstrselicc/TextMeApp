@@ -12,13 +12,14 @@
         >
       </template>
       <!-- Here is going to be the data -->
-      <v-card class="card_add_playground">
+      <v-card class="card_add_friend">
         <div class="title_div"><h1 class="title_h1">Adding friend</h1></div>
         <div class="subtitle_div"><h2>Searh by mail</h2></div>
         <div class="search_email_div">
           <v-text-field label="Enter mail" solo></v-text-field>
         </div>
 
+        <v-divider color="white" class="divider_add"></v-divider>
         <div class="subtitle_div"><h2>Searh by id</h2></div>
         <div class="search_email_div">
           <v-text-field label="Enter id" solo></v-text-field>
@@ -44,7 +45,13 @@ export default Vue.extend({
 </script>
 
 <style>
-.card_add_playground {
+.divider_add {
+  border: 1px solid white !important;
+  width: 80%;
+  margin-left: 50px;
+}
+
+.card_add_friend {
   width: 500px;
   border: 1px solid black !important;
   height: 400px;
@@ -62,6 +69,7 @@ export default Vue.extend({
   text-align: center !important;
 }
 .subtitle_div {
+  margin-top: 20px;
   color: white !important;
   text-align: center;
 }
@@ -73,7 +81,5 @@ export default Vue.extend({
 .search_email_div .v-text-field.v-text-field--solo .v-input__control {
   min-height: 40px !important;
   border-radius: 15px !important;
-}
-@media (max-width: 960px) {
 }
 </style>

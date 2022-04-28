@@ -48,8 +48,9 @@ Route::post('/login', 'App\Http\Controllers\AuthController@login');
 //in progress:
 
 //protected routes
+route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
 Route::group(['middleware' => ['auth:api']], function () {
-        route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
+        
         route::apiResource('private_chats', PrivateChatController::class)->only(['index','store','destroy']);
         route::apiResource('user_type', UserTypeController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('channels', ChannelController::class)->only(['index','show','store','update','destroy']);

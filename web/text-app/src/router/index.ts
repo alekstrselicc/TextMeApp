@@ -1,12 +1,15 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-
+import MainView from "../views/MainView.vue";
+import Chat from "../components/Chat/chat.vue";
+import Settings from "../components/Settings/settings.vue";
+import Profile from "../components/Profile/profile.vue";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: HomeView,
   },
@@ -26,19 +29,26 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/RegisterView.vue"),
   },
   {
-    path: "/main",
+    path: "/",
     name: "main",
-    component: () => import("../views/MainView.vue"),
-  },
-  {
-    path: "/profile",
-    name: "profile",
-    component: () => import("../views/ProfileView.vue"),
-  },
-  {
-    path: "/settings",
-    name: "settings",
-    component: () => import("../views/SettingsView.vue"),
+    component: MainView, //this is the default
+    children: [
+      {
+        name: "profile",
+        path: "profile",
+        component: Profile,
+      },
+      {
+        name: "settings",
+        path: "settings",
+        component: Settings,
+      },
+      {
+        name: "chat",
+        path: "chat",
+        component: Chat,
+      },
+    ],
   },
 
   { path: "*", redirect: "/" },

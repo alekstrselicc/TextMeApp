@@ -1,6 +1,6 @@
 <template>
   <div class="main_send">
-      <ChatBar />
+    <ChatBar />
     <div class="main_box">
       <v-text-field
         class="search-input"
@@ -29,8 +29,7 @@ export default Vue.extend({
 </script>
 
 <style>
-
-.main_send{
+.main_send {
   width: 98% !important;
   height: 100px;
   position: absolute;
@@ -46,23 +45,21 @@ export default Vue.extend({
   margin-left: 15px;
   background-color: #007abe !important;
 }
-.main_layout_buttons{
+.main_layout_buttons {
+  width: 150px;
+  height: 40px !important;
+  margin-left: 5px;
+}
+
+@media (max-width: 960px) {
+  .main_layout_buttons {
     width: 150px;
     height: 40px !important;
     margin-left: 5px;
-}
-
-
-@media (max-width: 960px) {
-  .main_layout_buttons{
-      width: 150px;
-      height: 40px !important;
-      margin-left: 5px;
   }
-  .main_send{
+  .main_send {
     margin-bottom: 60px;
     width: 95% !important;
   }
-
 }
 </style>

@@ -11,12 +11,16 @@
 
     <!-- Clickable text -->
     <v-flex class="btn_text">
-      <a href="/profile" class="btn_text_edit">Monika Bog</a>
+      <a href="profile" class="btn_text_edit">Monika Bog</a>
     </v-flex>
 
     <!-- Status menu -->
     <v-flex class="btn_status">
-      <v-select v-model="select" :items="items" class="white--text select_status">
+      <v-select
+        v-model="select"
+        :items="items"
+        class="white--text select_status"
+      >
         <template v-slot:selection="{ item }">
           <img :src="item.image" class="image_status" />{{ item.name }}
         </template>
@@ -28,42 +32,35 @@
 
     <!-- Invites button -->
     <v-flex class="btn_invites">
-      <v-badge color="red" content="4" offset-y="10" offset-x="10">
-        <v-btn icon>
-          <v-icon color="white" large>mdi-account</v-icon>
-        </v-btn>
-      </v-badge>
+      <PendingInvites />
     </v-flex>
   </v-layout>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-
+import PendingInvites from "@/components/Dialogs/friendRequests.vue";
 export default Vue.extend({
   name: "profileButton",
+  components: { PendingInvites },
   data: () => ({
-    select: { name: "Online", image: require('../assets/online.png') },
+    select: { name: "Online", image: require("../assets/online.png") },
     items: [
       {
         name: "Online",
-        image:
-          require('../assets/online.png'),
+        image: require("../assets/online.png"),
       },
       {
         name: "Away",
-        image:
-          require('../assets/away.png'),
+        image: require("../assets/away.png"),
       },
       {
         name: "Busy",
-        image:
-          require('../assets/busy.png'),
+        image: require("../assets/busy.png"),
       },
       {
         name: "Offline",
-        image:
-          require('../assets/offline.png'),
+        image: require("../assets/offline.png"),
       },
     ],
   }),
@@ -80,7 +77,7 @@ export default Vue.extend({
   margin-right: 60px;
   margin-bottom: 20px;
 }
-.select_status{
+.select_status {
   width: 130px !important;
   margin-bottom: -5px;
   margin-right: 10px;
@@ -88,16 +85,16 @@ export default Vue.extend({
   background-color: transparent !important;
   font-size: 20px !important;
 }
-.v-text-field{
+.v-text-field {
   color: white !important;
 }
-.image_status{
+.image_status {
   width: 30px !important;
   height: 30px !important;
 }
 .v-input__slot:before {
   border-style: none !important;
-  }
+}
 .v-input__slot:after {
   border-style: none !important;
 }
@@ -127,34 +124,34 @@ export default Vue.extend({
   margin-bottom: 3px;
 }
 
-.custom_avatar{
-  width: 70px !important; 
+.custom_avatar {
+  width: 70px !important;
   height: 70px !important;
 }
 
-.v-application .primary--text{
+.v-application .primary--text {
   color: black !important;
 }
-.v-select__selections{
+.v-select__selections {
   color: white !important;
 }
 
 /* this if for the phone */
 @media (max-width: 960px) {
-  .btn_icon{
+  .btn_icon {
     margin-left: 40px;
     margin-top: 20px;
     max-width: 70px !important;
     height: 50px !important;
   }
-  .btn_text_edit{
+  .btn_text_edit {
     position: absolute;
     margin-top: 50px;
     margin-left: 40px;
     font-size: 20px !important;
     width: 150px !important;
   }
-  .custom_avatar{
+  .custom_avatar {
     width: 50px !important;
     height: 50px !important;
   }
@@ -165,20 +162,20 @@ export default Vue.extend({
     right: 0;
     margin-bottom: 4px;
   }
-  .select_status{
+  .select_status {
     color: white !important;
     width: 125px !important;
     font-size: 18px !important;
   }
 
-  .image_status{
+  .image_status {
     width: 20px !important;
     height: 20px !important;
   }
-  .v-application .primary--text{
+  .v-application .primary--text {
     color: white !important;
   }
-  .v-select__selections{
+  .v-select__selections {
     color: white !important;
   }
 
@@ -187,7 +184,6 @@ export default Vue.extend({
     position: absolute;
     margin-left: 220px;
     margin-top: 24px;
-  }  
-
+  }
 }
 </style>

@@ -2,8 +2,8 @@
   <div class="main_settings_div">
     <!-- Title and back btn -->
     <div class="settings_header">
-      <v-btn icon class="back_button"
-        ><v-icon large color="white">mdi-arrow-left</v-icon></v-btn
+      <v-btn icon class="back_button" :to="{ name: 'profile' }">
+        <v-icon large color="white">mdi-arrow-left</v-icon></v-btn
       >
       <v-icon large color="white" class="settings_icon">{{ svgPath }}</v-icon>
       <h1 class="title_settings">Settings</h1>
