@@ -41,6 +41,7 @@ use App\Models\userType;
 
 //public routes
 route::post('/register', [AuthController::class, 'register']);
+route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
 
 //login
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
@@ -67,7 +68,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('gender', GenderController::class)->only(['index','show','store','destroy']);
         route::apiResource('user', UserController::class)->only(['index','show','update','destroy']);
         route::apiResource('participants', ParticipantsController::class)->only(['index','show']);
-        route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
         Route::get('/logout', [AuthController::class, 'logout']);
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
