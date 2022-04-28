@@ -21,6 +21,13 @@ class GenderController extends Controller
     {
         return Gender::find($id);
     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'gender' => 'required'
+        ]);
+        return Gender::create($request->all());
+    }
 
     public function destroy($id)
     {

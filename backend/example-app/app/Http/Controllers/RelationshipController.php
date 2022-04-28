@@ -25,7 +25,10 @@ class RelationshipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'relationship' => 'required'
+        ]);
+        return Relationship::create($request->all());
     }
 
     /**

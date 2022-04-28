@@ -30,6 +30,7 @@ class User extends Authenticatable
         'user_type_id',
         'town_id',
         'theme_id',
+        'birth'
     ];
     public function status()
     {
