@@ -4,7 +4,7 @@
     <v-flex class="btn_icon">
       <v-btn icon>
         <v-avatar class="custom_avatar">
-          <img src="https://randomuser.me/api/portraits/men/1.jpg" />
+          <img :src="avatar" />
         </v-avatar>
       </v-btn>
     </v-flex>
@@ -40,6 +40,7 @@
 <script lang="ts">
 import Vue from "vue";
 import PendingInvites from "@/components/Dialogs/friendRequests.vue";
+import axios from "axios";
 export default Vue.extend({
   name: "profileButton",
   components: { PendingInvites },
@@ -65,6 +66,13 @@ export default Vue.extend({
       },
     ],
   }),
+  created() {
+    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+      console.log(res.data.last_name);
+      this.name = res.data.first_name + " " + res.data.last_name;
+      this.avatar = res.data.img;
+    });
+  },
 });
 </script>
 

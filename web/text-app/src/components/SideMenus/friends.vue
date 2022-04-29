@@ -54,7 +54,7 @@ export default Vue.extend({
   data() {
     return {
       selectedItem: 1,
-      items: [
+      itemss: [
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           title: "Janez_Novak",
@@ -74,6 +74,9 @@ export default Vue.extend({
       states: ["delat", "treba"],
     };
   },
+  //created() {
+
+  //},
 });
 </script>
 

@@ -28,7 +28,7 @@
                 <v-list-item v-for="(item, index) in about_info" :key="index">
                   <v-list-item-content>
                     <v-list-item-title
-                      v-text="item.name"
+                      v-text="item.name + item.info"
                       class="info_changer_class"
                     ></v-list-item-title>
                   </v-list-item-content>
@@ -80,11 +80,12 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 export default Vue.extend({
   data() {
     return {
-      avatar: "https://picsum.photos/350/165?random",
-      name: "Monika Bog",
+      avatar: "",
+      name: "",
       showD: false,
 
       about_info: [
@@ -99,10 +100,38 @@ export default Vue.extend({
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.",
     };
   },
+  created() {
+    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+      console.log(res.data.last_name);
+      this.name = res.data.first_name + " " + res.data.last_name;
+      this.avatar = res.data.img;
+      for (let index = 0; index < 6; index++) {
+        if (this.about_info[index].name === "Birth:") {
+          this.about_info[index].info = " " + res.data.birth;
+        } else if (this.about_info[index].name === "Gender:") {
+          console.log("still in progress");
+        } else if (this.about_info[index].name === "Relationship:") {
+          console.log("still in progress");
+        } else if (this.about_info[index].name === "Country:") {
+          this.about_info[index].info = " " + res.data.country;
+        } else if (this.about_info[index].name === "Town:") {
+          console.log("still in progress");
+        } else if (this.about_info[index].name === "Phone:") {
+          this.about_info[index].info = " " + res.data.mobile;
+        }
+      }
+    });
+  },
 });
 </script>
 
 <style>
+.sub_class_info {
+  color: white !important;
+  font-size: 20px !important;
+  margin-left: 60px;
+}
+
 .main_profile_layout {
   width: 100%;
   height: 100%;

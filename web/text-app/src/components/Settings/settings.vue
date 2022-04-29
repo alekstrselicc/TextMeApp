@@ -152,6 +152,9 @@ export default Vue.extend({
       if (action === "user_profile") {
         this.showCart();
         console.log(VueScreenSize.vssWidth);
+      } else if (action === "logout_profile") {
+        localStorage.removeItem("authToken");
+        this.$router.push("login");
       }
     },
     showCart() {

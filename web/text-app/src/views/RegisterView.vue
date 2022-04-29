@@ -70,6 +70,8 @@
             solo
             class="day_selector theme--dark"
             placeholder="D"
+            v-model="dayS"
+            @change="select_day"
           ></v-select
         ></v-flex>
         <v-flex sm2 xs2 offset-1
@@ -78,6 +80,8 @@
             solo
             class="month_selector theme--dark"
             placeholder="M"
+            v-model="monS"
+            @change="select_mon"
           ></v-select
         ></v-flex>
         <v-flex sm4 xs4 offset-1
@@ -86,6 +90,20 @@
             solo
             class="year_selector theme--dark"
             placeholder="Y"
+            v-model="yearS"
+            @change="select_year"
+          ></v-select
+        ></v-flex>
+      </v-layout>
+
+      <v-layout row wrap class="main_layout ml-6 mt-n2">
+        <v-flex lg3 md3 sm3 xs3
+          ><v-select
+            :items="genders"
+            solo
+            class="country_selector theme--dark"
+            placeholder="Gender..."
+            @change="select_gender"
           ></v-select
         ></v-flex>
       </v-layout>
@@ -97,6 +115,7 @@
             solo
             class="country_selector theme--dark"
             placeholder="Select country..."
+            @change="select_country"
           ></v-select
         ></v-flex>
         <v-flex lg6 md6
@@ -108,6 +127,7 @@
             placeholder="Phone..."
         /></v-flex>
       </v-layout>
+
       <div class="main_layout_terms">
         <v-checkbox
           label="I agree to the Terms of Use, Privacy Policy"
@@ -137,11 +157,16 @@ export default Vue.extend({
   name: "Register",
   data() {
     return {
-      days: ["1", "2", "3", "4", "5", "6"],
-      months: ["jan", "feb", "mar"],
-      years: ["1200", "2000"],
+      days: [],
+      months: [],
+      years: [],
+      genders: ["Male", "Female", "Other"],
       countrys: ["Slovenia", "Germany", "UK", "United states"],
       showFirstName: false,
+
+      day: "",
+      mon: "",
+      year: "",
 
       first_name: "",
       last_name: "",
@@ -149,11 +174,43 @@ export default Vue.extend({
       password: "",
       country: "",
       phone: "",
+      gender: "",
       birth: "",
+      img: "https://picsum.photos/350/165?random",
+
       errors: [],
     };
   },
+  created() {
+    for (let index = 1; index < 32; index++) {
+      this.days[index - 1] = index;
+    }
+    var i = 2022;
+    for (let index = 0; index < 123; index++) {
+      this.years[index] = i;
+      i--;
+    }
+    for (let index = 1; index < 13; index++) {
+      this.months[index - 1] = index;
+    }
+  },
   methods: {
+    select_day(e) {
+      this.day = e;
+    },
+    select_mon(e) {
+      this.mon = e;
+    },
+    select_year(e) {
+      this.year = e;
+    },
+    select_country(e) {
+      this.country = e;
+    },
+    select_gender(e) {
+      this.gender = e;
+    },
+
     sendFrom() {
       axios
         .post("http://127.0.0.1:8000/api/register", {
@@ -161,6 +218,11 @@ export default Vue.extend({
           last_name: this.last_name,
           email: this.email,
           password: this.password,
+          country: this.country,
+          mobile: this.phone,
+          birth: this.year + "-" + this.mon + "-" + this.day,
+          img: this.img,
+          gender: this.gender,
         })
         .then((response) => {
           console.log("saved");

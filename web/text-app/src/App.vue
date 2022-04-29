@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 //import NavBar from '@/components/NavBar.vue';
 
 export default Vue.extend({
@@ -20,6 +21,10 @@ export default Vue.extend({
   data: () => ({
     //
   }),
+  created() {
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("authToken");
+  },
 });
 </script>
 

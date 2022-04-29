@@ -7,6 +7,14 @@ import Settings from "../components/Settings/settings.vue";
 import Profile from "../components/Profile/profile.vue";
 Vue.use(VueRouter);
 
+const auth = (to, from, next) => {
+  if (localStorage.getItem("authToken")) {
+    return next();
+  } else {
+    return next("/login");
+  }
+};
+
 const routes: Array<RouteConfig> = [
   {
     path: "/home",
@@ -31,6 +39,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "main",
+    beforeEnter: auth,
     component: MainView, //this is the default
     children: [
       {

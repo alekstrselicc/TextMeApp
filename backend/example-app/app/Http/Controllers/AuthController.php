@@ -19,9 +19,11 @@ class AuthController extends Controller
             'last_name' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|',
-            //'country' => 'required|string',
-            //'phone' => 'required|string',
-            //'birth' => 'required|date'
+            'country' => 'required|string',
+            'mobile' => 'required|string',
+            'birth' => 'required|string',
+            'img' => 'string',
+            'gender' => 'required|string'
         ]);
 
         $user = User::create([
@@ -29,9 +31,11 @@ class AuthController extends Controller
             'last_name' => $fields['last_name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
-            //'country' => $fields['country'],
-            //'phone' => $fields['phone'],
-            //'birth' => $fields['birth'],
+            'country' => $fields['country'],
+            'mobile' => $fields['mobile'],
+            'birth' => $fields['birth'],
+            'img' => $fields['img'],
+            'gender' => $fields['gender'],
         ]);
 
         $response = [
