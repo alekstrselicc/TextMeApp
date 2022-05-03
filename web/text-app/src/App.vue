@@ -18,12 +18,13 @@ export default Vue.extend({
   components: {
     /*NavBar*/
   },
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
+
   created() {
-    axios.defaults.headers.common["Authorization"] =
-      "Bearer " + localStorage.getItem("authToken");
+    //axios.defaults.headers.common["Authorization"] =
+    //  "Bearer " + localStorage.getItem("authToken");
+    console.log("this is the name");
+    //console.log(process.env.CLIENT_ID);
   },
 });
 </script>

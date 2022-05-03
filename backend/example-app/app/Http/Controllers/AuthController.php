@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         return response($response, 201);
     }
-
+    /*
     public function login (Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
@@ -71,6 +71,7 @@ class AuthController extends Controller
         }
         return response($response, 200);
     }
+    */
     
     public function logout (Request $request) {
         $request->user()->token()->revoke();

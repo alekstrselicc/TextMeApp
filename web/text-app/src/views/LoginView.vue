@@ -61,17 +61,25 @@ export default Vue.extend({
   methods: {
     loginFunc() {
       //getting data
-      console.log(this.email, this.password);
+      console.log(this.$clientSecret, this.$clientId);
+      const formData = new URLSearchParams();
+      formData.append("username", this.email);
+      formData.append("password", this.password);
+      formData.append("client_secret", this.$clientSecret);
+      formData.append("client_id", this.$clientId);
+      formData.append("grant_type", "password");
+      formData.append("scope", "*");
       axios
-        .post("http://127.0.0.1:8000/api/login", {
-          email: this.email,
-          password: this.password,
-        })
+        .post("http://127.0.0.1:8000/api/oauth/token", formData)
         .then((res) => {
           console.log("logged in");
           console.log("This is the new token: " + res.data.token);
+          console.log(res.data);
           localStorage.setItem("authToken", res.data.token);
           this.$router.push("main");
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
     validateEmail(value) {
