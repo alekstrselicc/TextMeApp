@@ -96,18 +96,6 @@
         ></v-flex>
       </v-layout>
 
-      <v-layout row wrap class="main_layout ml-6 mt-n2">
-        <v-flex lg3 md3 sm3 xs3
-          ><v-select
-            :items="genders"
-            solo
-            class="country_selector theme--dark"
-            placeholder="Gender..."
-            @change="select_gender"
-          ></v-select
-        ></v-flex>
-      </v-layout>
-
       <v-layout row wrap class="main_layout ml-6 mt-n5">
         <v-flex lg6 md6
           ><v-select
@@ -160,7 +148,7 @@ export default Vue.extend({
       days: [],
       months: [],
       years: [],
-      genders: ["Male", "Female", "Other"],
+
       countrys: ["Slovenia", "Germany", "UK", "United states"],
       showFirstName: false,
 

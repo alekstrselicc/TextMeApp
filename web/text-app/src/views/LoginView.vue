@@ -71,6 +71,7 @@ export default Vue.extend({
           console.log("logged in");
           console.log("This is the new token: " + res.data.token);
           localStorage.setItem("authToken", res.data.token);
+          this.$router.push("main");
         });
     },
     validateEmail(value) {

@@ -48,9 +48,7 @@
             <v-row class="info_row">
               <v-col class="image_changer">
                 <v-avatar class="image_changer_img"
-                  ><v-img
-                    src="https://randomuser.me/api/portraits/men/1.jpg"
-                  ></v-img
+                  ><v-img :src="profile.img"></v-img
                 ></v-avatar>
                 <v-btn class="btn_changer_img" rounded>change image</v-btn>
               </v-col>
@@ -69,36 +67,30 @@
                 </v-row>
 
                 <v-row class="rows_class">
-                  <v-col class="info_col_class_first">RelationShip:</v-col>
-                  <v-col class="info_col_class">
-                    <v-text-field
-                      v-model="profile.relation"
-                      class="info_text_field"
-                      outlined
-                      rounded
-                    ></v-text-field
-                  ></v-col>
-                </v-row>
-                <v-row class="rows_class">
                   <v-col class="info_col_class_first">Country: </v-col>
                   <v-col class="info_col_class">
-                    <v-text-field
-                      v-model="profile.country"
-                      class="info_text_field"
-                      outlined
-                      rounded
-                    ></v-text-field
+                    <v-select
+                      :items="countries"
+                      item-text="country"
+                      item-value="id"
+                      solo
+                      @change="select_country"
+                      v-model="country"
+                      class="relatin_class"
+                    ></v-select
                   ></v-col>
                 </v-row>
                 <v-row class="rows_class">
                   <v-col class="info_col_class_first">Town: </v-col>
                   <v-col class="info_col_class">
-                    <v-text-field
-                      v-model="profile.town"
-                      class="info_text_field"
-                      outlined
-                      rounded
-                    ></v-text-field
+                    <v-select
+                      :items="towns"
+                      item-text="town"
+                      solo
+                      @change="select_town"
+                      v-model="town"
+                      class="relatin_class"
+                    ></v-select
                   ></v-col>
                 </v-row>
                 <v-row class="rows_class">
@@ -112,10 +104,45 @@
                     ></v-text-field
                   ></v-col>
                 </v-row>
+
+                <v-row class="rows_class">
+                  <v-col class="info_col_class_first">RelationShip</v-col>
+                  <v-col class="info_col_class">
+                    <v-select
+                      :items="relations"
+                      item-text="relationship"
+                      solo
+                      @change="selectRelation"
+                      v-model="relation"
+                      class="relatin_class"
+                    ></v-select>
+                    ></v-col
+                  >
+                </v-row>
+
+                <v-row class="rows_class">
+                  <v-col class="info_col_class_first">Gender</v-col>
+                  <v-col class="info_col_class">
+                    <v-select
+                      :items="genders"
+                      solo
+                      color="black"
+                      @change="selectGender"
+                      class="selections"
+                      v-model="gender"
+                    ></v-select>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
+
             <v-row class="btn_row">
-              <v-btn class="btn_save justify-center" rounded>save</v-btn>
+              <v-btn
+                class="btn_save justify-center"
+                rounded
+                @click="savaUserData()"
+                >save</v-btn
+              >
             </v-row>
           </div>
         </v-col>
@@ -128,9 +155,11 @@
 import Vue from "vue";
 import { mdiCog } from "@mdi/js";
 import VueScreenSize from "vue-screen-size";
+import axios from "axios";
 
 export default Vue.extend({
   name: "settings",
+
   data: () => ({
     svgPath: mdiCog,
     settings: [
@@ -138,12 +167,26 @@ export default Vue.extend({
       { name: "Logout", action: "logout_profile" },
     ],
     profile: {
-      username: "Monika Bog",
-      relation: "Single",
-      country: "Slovenia",
-      town: "Maribor",
-      phone: "0654321321",
+      username: "",
+      relation: null,
+      countryid: null,
+      town: "",
+      phone: "",
+      gender: null,
+      img: "",
+      id: "",
     },
+    relation: "",
+    gender: "",
+    genders: ["Male", "Female", "Other"],
+    relations: [],
+
+    country: "",
+    countries: [],
+
+    town: "",
+    towns: [],
+
     visible: false,
     visible_btn: true,
   }),
@@ -163,6 +206,71 @@ export default Vue.extend({
     hideCart() {
       this.visible = false;
     },
+
+    selectGender(e) {
+      if (e === "Male") {
+        this.profile.gender = 1;
+      } else {
+        this.profile.gender = 2;
+      }
+    },
+    selectRelation(e) {
+      if (e === "single") {
+        console.log("delat");
+        this.profile.relation = 1;
+      } else {
+        this.profile.relation = 2;
+      }
+    },
+    select_country(e) {
+      this.profile.countryid = e;
+      axios
+        .get("http://127.0.0.1:8000/api/towns/" + this.profile.countryid)
+        .then((res) => {
+          this.towns = res.data;
+        });
+    },
+    savaUserData() {
+      //First save the gender, then save the id of the gender to user
+      axios
+        .put("http://127.0.0.1:8000/api/user/" + this.profile.id, {
+          gender_id: this.profile.gender,
+          relationship_id: this.profile.relation,
+        })
+        .then(() => {
+          console.log("saveds");
+        });
+    },
+  },
+  created() {
+    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+      this.profile.username = res.data.first_name + " " + res.data.last_name;
+      this.profile.phone = res.data.mobile;
+      this.profile.img = res.data.img;
+      this.profile.id = res.data.id;
+      this.profile.gender = res.data.gender_id;
+      this.profile.relation = res.data.relationship_id;
+
+      if (this.profile.gender == 1) {
+        this.gender = "Male";
+      } else {
+        this.gender = "Female";
+      }
+      if (this.profile.relation == 1) {
+        this.relation = "single";
+      } else {
+        this.relation = "in-relationship";
+      }
+    });
+
+    axios.get("http://127.0.0.1:8000/api/relationship").then((res) => {
+      this.relations = res.data;
+    });
+
+    axios.get("http://127.0.0.1:8000/api/country").then((res) => {
+      this.countries = res.data;
+      console.log(res.data);
+    });
   },
 });
 </script>
@@ -172,6 +280,17 @@ export default Vue.extend({
   .col_settings {
     position: absolute;
   }
+}
+
+.v-select__selections {
+  color: black !important;
+}
+.selections {
+  min-height: 30px !important;
+}
+.selections,
+.v-text-field.v-text-field--solo .v-input__control {
+  min-height: 30px !important;
 }
 
 .image_changer {
