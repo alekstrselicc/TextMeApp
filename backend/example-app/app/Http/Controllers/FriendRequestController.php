@@ -24,10 +24,16 @@ class FriendRequestController extends Controller
     }
     public function show($id)
     {
-        return FriendRequest::find($id);
+        //return FriendRequest::find($id);
+        return FriendRequest::where('approver', '=', $id)->get(); 
     }
+
     public function destroy($id)
     {
         $playground = FriendRequest::destroy($id);
+    }
+
+    public function getOne($sender){
+        return FriendRequest::where('sender', '=', $sender)->get();
     }
 }

@@ -2,7 +2,13 @@
   <div>
     <v-dialog v-model="dialogF" max-width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-badge color="red" content="4" offset-y="10" offset-x="10">
+        <v-badge
+          v-if="check_pendings_count"
+          color="red"
+          :content="pendings_count"
+          offset-y="10"
+          offset-x="10"
+        >
           <v-btn v-bind="attrs" v-on="on" icon>
             <v-icon color="white" large>mdi-account</v-icon>
           </v-btn>
@@ -14,27 +20,29 @@
         <v-list color="transparent" class="whole_list">
           <v-list-item
             class="item_friend_re"
-            v-for="(item, index) in friend_requests"
+            v-for="(item, index) in friend_selected"
             :key="index"
           >
             <v-list-item-avatar size="50" class="ml-n2">
-              <v-img :src="item.avatar"></v-img>
+              <v-img :src="item.img"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title
                 color="white"
                 class="white--text member_names"
-                v-text="item.name"
+                v-text="item.first_name + ' ' + item.last_name"
+                v-value="item.email"
               ></v-list-item-title>
             </v-list-item-content>
-            <v-btn icon>
+
+            <v-btn @click="accept(item.id)" icon>
               <v-list-item-icon>
                 <v-icon color="white" size="30" class="icon_accept">{{
                   svgAccept
                 }}</v-icon>
               </v-list-item-icon>
             </v-btn>
-            <v-btn icon>
+            <v-btn @click="decline(item.id)" icon>
               <v-list-item-icon>
                 <v-icon color="white" size="30" class="icon_decline">{{
                   svgDecline
@@ -51,25 +59,102 @@
 <script lang="ts">
 import Vue from "vue";
 import { mdiAccountMultiplePlus, mdiAccountMultipleMinus } from "@mdi/js";
+import axios from "axios";
+
+let content = [];
+
 export default Vue.extend({
-  data() {
+  data(e) {
     return {
       svgAccept: mdiAccountMultiplePlus,
       svgDecline: mdiAccountMultipleMinus,
-      friend_requests: [
+      friend_requestss: [
         {
           name: "Nejc Mat",
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
         },
       ],
+
+      friend_requests: [],
+
+      friend_selected: [],
+
+      pendings_count: null,
+
+      tmp: [],
     };
   },
-  /*
-  methods: {},
-  created() {
-    //axios.get("")
+
+  methods: {
+    accept(e) {
+      console.log(e);
+    },
+    decline(e) {
+      axios
+        .get("http://127.0.0.1:8000/api/friend_request/find/" + e)
+        .then((res) => {
+          console.log(res.data);
+        });
+      /*
+      axios.get("http://127.0.0.1:8000/api/friend_request/" + e).then((res) => {
+        console.log("deleted");
+      });
+
+      */
+    },
   },
-  */
+
+  created() {
+    if (this.pendings_count == 0) {
+      this.check_pendings_count = false;
+    } else {
+      this.check_pendings_count = true;
+    }
+
+    axios.get("http://127.0.0.1:8000/api/friend_request").then(async (res) => {
+      //console.log(res.data);
+      this.friend_requests = res.data;
+      this.pendings_count = this.friend_requests.length - 1;
+      //console.log(this.pendings_count);
+
+      for (let indexx = 0; indexx < this.pendings_count; indexx++) {
+        await axios
+          .get(
+            "http://127.0.0.1:8000/api/user/" +
+              this.friend_requests[indexx].sender
+          )
+          .then((res) => {
+            content.push(res.data);
+          });
+      }
+      //console.log("tole je velikost: " + content.length);
+
+      var filterArray = content.reduce((accumalator, current) => {
+        if (
+          !accumalator.some(
+            (item) => item.id === current.id && item.name === current.name
+          )
+        ) {
+          accumalator.push(current);
+        }
+        return accumalator;
+      }, []);
+
+      this.friend_selected = filterArray;
+
+      /*
+      for (let index = 0; index < content.length; index++) {
+        console.log(content[index]);
+        console.log();
+      }
+
+    */
+    });
+
+    /*
+
+    */
+  },
 });
 </script>
 
