@@ -22,4 +22,12 @@ class FriendRequestController extends Controller
         ]);
         return FriendRequest::create($request->all());
     }
+    public function show($id)
+    {
+        return FriendRequest::find($id);
+    }
+    public function destroy($id)
+    {
+        $playground = FriendRequest::destroy($id);
+    }
 }

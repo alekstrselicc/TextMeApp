@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\MessageSent;
+use App\Events\WebsocketDemo;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CountryController;
@@ -44,6 +45,10 @@ use App\Models\userType;
 
 //public routes
 route::post('/register', [AuthController::class, 'register']);
+route::get('/somedata', function(){
+    broadcast(new WebsocketDemo('hello world'));
+    return response('ok',206);
+});
 
 //sending message 
 Route::post('new-message', function (Request $request) {
