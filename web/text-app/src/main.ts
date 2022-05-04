@@ -7,14 +7,13 @@ import vuetify from "./plugins/vuetify";
 
 import VueAxios from "vue-axios";
 import axios from "axios";
-
-const authBearer = $cookies.get("auth_bearer");
-
-if (authBearer) {
-  document.cookie = authBearer;
-}
+import VueCookies from "vue-cookies";
 
 Vue.use(VueAxios, axios);
+
+Vue.use(VueCookies, { expire: "7d" });
+
+//axios.defaults.baseURL = "http://localhost:8000/api/";
 
 Vue.config.productionTip = false;
 
@@ -22,41 +21,40 @@ Vue.prototype.$clientSecret = "s8fFcGCsOHGmLiG9TxjJaGjEuBKURInCqeVU9965";
 
 Vue.prototype.$clientId = "9";
 
+const authBearer = localStorage.getItem("authTokenAccess");
+
+if (authBearer) {
+  document.cookie = authBearer;
+}
+
+let ref = false;
+
 axios.interceptors.response.use(
-  (response) => {
-    // intercept the global error
+  (res) => res,
+  (error) => {
+    if (error.response.status === 401 && !ref) {
+      ref = true;
+      const formDataD = new URLSearchParams();
+      formDataD.append("client_secret", Vue.prototype.$clientSecret);
+      formDataD.append("client_id", Vue.prototype.$clientId);
+      formDataD.append("grant_type", "refresh_token");
+      formDataD.append("refresh_token", localStorage.getItem("refreshToken"));
+      formDataD.append("scope", "*");
 
-    return response;
-  },
-  function (error) {
-    if (window.location.href == "/#/login") return;
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true; // now it can be retried
+      axios
+        .post("http://127.0.0.1:8000/api/oauth/token", formDataD)
+        .then((res) => {
+          localStorage.setItem("authTokenAccess", res.data.access_token);
+          localStorage.setItem("refreshToken", res.data.refresh_token);
 
-      const value = "; " + document.cookie;
-      const parts = value.split("; " + "Authorization" + "=");
-      if (parts.length == 2) {
-        const authHeader = parts.pop().split(";").shift();
-        originalRequest.headers["Authorization"] = authHeader;
-        axios.defaults.headers.common.Authorization = authHeader;
-      }
-      return axios(originalRequest); // retry the request that errored out
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + localStorage.getItem("authTokenAccess");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-
-    if (
-      window.location.href != "/#/login" &&
-      error.response.status === 401 &&
-      !originalRequest._retry2
-    ) {
-      originalRequest._retry2 = true;
-      window.location.href = "/#/login";
-      // console.log("Retry secod time");
-      return;
-    }
-
-    // Do something with response error
-    return Promise.reject(error);
+    return error;
   }
 );
 

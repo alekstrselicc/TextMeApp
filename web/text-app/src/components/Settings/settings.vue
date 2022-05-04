@@ -196,7 +196,10 @@ export default Vue.extend({
         this.showCart();
         console.log(VueScreenSize.vssWidth);
       } else if (action === "logout_profile") {
-        localStorage.removeItem("authToken");
+        axios.defaults.headers.common["Authorization"] = "";
+        localStorage.removeItem("authTokenAccess");
+        localStorage.removeItem("refreshToken");
+
         this.$router.push("login");
       }
     },

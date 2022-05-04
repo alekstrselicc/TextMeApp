@@ -21,10 +21,9 @@ export default Vue.extend({
   data: () => ({}),
 
   created() {
-    //axios.defaults.headers.common["Authorization"] =
-    //  "Bearer " + localStorage.getItem("authToken");
     console.log("this is the name");
-    //console.log(process.env.CLIENT_ID);
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("authTokenAccess");
   },
 });
 </script>

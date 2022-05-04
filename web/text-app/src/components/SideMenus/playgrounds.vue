@@ -63,9 +63,14 @@ export default Vue.extend({
     };
   },
   created() {
-    axios.get("http://127.0.0.1:8000/api/playgrounds").then((response) => {
-      this.items = response.data;
-    });
+    axios
+      .get("http://127.0.0.1:8000/api/playgrounds")
+      .then((response) => {
+        this.items = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     menuActionClick(action) {

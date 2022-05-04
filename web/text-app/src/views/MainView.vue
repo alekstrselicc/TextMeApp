@@ -60,6 +60,8 @@
 import Vue from "vue";
 import Playground from "@/components/SideMenus/playgrounds.vue";
 import Friend from "@/components/SideMenus/friends.vue";
+import axios from "axios";
+
 export default Vue.extend({
   name: "main",
   components: { Playground, Friend },
