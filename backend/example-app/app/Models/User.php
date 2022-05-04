@@ -91,4 +91,10 @@ class User extends Authenticatable
     {
         return $this->BelongsToMany(Playground::class,'playground_members','user_id','playground_id')->withPivot('joined', 'left');
     }
+    public function friendRequest()
+    {
+
+        return $this->belongsTo(FriendRequest::class);
+
+    }
 }

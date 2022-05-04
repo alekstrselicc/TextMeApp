@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageSent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CountryController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\TownController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FriendRequestController;
+use App\Models\FriendRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\playground;
@@ -42,6 +45,13 @@ use App\Models\userType;
 //public routes
 route::post('/register', [AuthController::class, 'register']);
 
+//sending message 
+Route::post('new-message', function (Request $request) {
+    
+    event(new MessageSent($request->user, $request->message));
+    ;
+    });
+    
 //login
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
@@ -65,5 +75,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('private_messages', PrivateMessageController::class)->only(['index','show','store','destroy']);
-        route::apiResource('playgroun_dmembers', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
+        route::apiResource('playground_members', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
+        route::apiResource('friend_request', FriendRequestController::class)->only(['index','store']);
+
     });

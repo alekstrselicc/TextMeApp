@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Playground;
 use Illuminate\Http\Request;
+use App\Events\MessageSent;
 
 class ChannelController extends Controller
 {
@@ -74,4 +75,15 @@ class ChannelController extends Controller
     {
         $channel = Channel::destroy($id);
     }
+    
+    // public function sendMessage(Request $request)
+    // {
+    //     $message = auth()->user()->messages()->create([
+    //         'message' => $request->message
+    //     ]);
+
+    //     broadcast(new MessageSent($message->load('user')))->toOthers();
+
+    //     return ['status' => 'success'];
+    // }
 }
