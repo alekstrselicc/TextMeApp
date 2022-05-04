@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\FriendRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FriendRequestController extends Controller
 {
@@ -25,6 +25,14 @@ class FriendRequestController extends Controller
     public function show($id)
     {
         return FriendRequest::find($id);
+    }
+    public function showApproverRequests($id)
+    {
+        // $query = DB::table('friend_requests');
+        // $query->where('approver', '=', $approver);
+        // $result = $query->get();
+        // return $result;
+        return FriendRequest::where('approver', '=', $id)->get();
     }
     public function destroy($id)
     {

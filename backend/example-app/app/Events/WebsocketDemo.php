@@ -31,6 +31,6 @@ class WebsocketDemo implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('DemoChannel');
+        return new Channel('Demo');
     }
 }
