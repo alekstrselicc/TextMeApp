@@ -49,7 +49,7 @@ route::post('/register', [AuthController::class, 'register']);
 Route::post('new-message', function (Request $request) {
     
     event(new MessageSent($request->user, $request->message));
-    ;
+    return response($request,206);
     });
     
 //login
