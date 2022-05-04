@@ -23,7 +23,6 @@ class AuthController extends Controller
             'mobile' => 'required|string',
             'birth' => 'required|string',
             'img' => 'string',
-            'gender' => 'required|string'
         ]);
 
         $user = User::create([
@@ -35,7 +34,6 @@ class AuthController extends Controller
             'mobile' => $fields['mobile'],
             'birth' => $fields['birth'],
             'img' => $fields['img'],
-            'gender' => $fields['gender'],
         ]);
 
         $response = [

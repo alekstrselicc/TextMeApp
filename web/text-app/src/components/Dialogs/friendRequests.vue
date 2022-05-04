@@ -27,12 +27,20 @@
                 v-text="item.name"
               ></v-list-item-title>
             </v-list-item-content>
-            <v-list-item-icon>
-              <v-icon color="white" size="30">{{ svgAccept }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-icon>
-              <v-icon color="white" size="30">{{ svgDecline }}</v-icon>
-            </v-list-item-icon>
+            <v-btn icon>
+              <v-list-item-icon>
+                <v-icon color="white" size="30" class="icon_accept">{{
+                  svgAccept
+                }}</v-icon>
+              </v-list-item-icon>
+            </v-btn>
+            <v-btn icon>
+              <v-list-item-icon>
+                <v-icon color="white" size="30" class="icon_decline">{{
+                  svgDecline
+                }}</v-icon>
+              </v-list-item-icon>
+            </v-btn>
           </v-list-item>
         </v-list>
       </v-card>
@@ -56,6 +64,12 @@ export default Vue.extend({
       ],
     };
   },
+  /*
+  methods: {},
+  created() {
+    //axios.get("")
+  },
+  */
 });
 </script>
 
@@ -78,6 +92,10 @@ export default Vue.extend({
 .item_friend_re {
   max-width: 400px !important;
 }
+.icon_decline {
+  margin-left: 20px !important;
+}
+
 @media (max-width: 960px) {
   .request_title {
     font-size: 20px;

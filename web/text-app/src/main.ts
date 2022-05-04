@@ -21,12 +21,6 @@ Vue.prototype.$clientSecret = "s8fFcGCsOHGmLiG9TxjJaGjEuBKURInCqeVU9965";
 
 Vue.prototype.$clientId = "9";
 
-const authBearer = localStorage.getItem("authTokenAccess");
-
-if (authBearer) {
-  document.cookie = authBearer;
-}
-
 let ref = false;
 
 axios.interceptors.response.use(

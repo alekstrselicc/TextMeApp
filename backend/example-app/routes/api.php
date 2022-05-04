@@ -81,6 +81,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('private_messages', PrivateMessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('playground_members', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
-        route::apiResource('friend_request', FriendRequestController::class)->only(['index','store']);
+        route::apiResource('friend_request', FriendRequestController::class)->only(['index','store', 'show', 'destroy']);
 
     });

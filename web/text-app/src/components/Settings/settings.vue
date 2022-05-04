@@ -196,6 +196,9 @@ export default Vue.extend({
         this.showCart();
         console.log(VueScreenSize.vssWidth);
       } else if (action === "logout_profile") {
+        axios.get("http://127.0.0.1:8000/api/logout").then((res) => {
+          console.log("logged out ");
+        });
         axios.defaults.headers.common["Authorization"] = "";
         localStorage.removeItem("authTokenAccess");
         localStorage.removeItem("refreshToken");

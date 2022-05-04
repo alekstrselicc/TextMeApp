@@ -77,7 +77,8 @@ export default Vue.extend({
           localStorage.setItem("refreshToken", res.data.refresh_token);
 
           axios.defaults.headers.common["Authorization"] =
-            "Bearer" + localStorage.getItem("authTokenAccess");
+            "Bearer " + localStorage.getItem("authTokenAccess");
+
           this.$router.push("main");
         })
         .catch((error) => {
