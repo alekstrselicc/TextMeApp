@@ -26,7 +26,7 @@
               </v-badge>
               <v-list-item-content>
                 <v-list-item-title
-                  v-text="item.title"
+                  v-text="item.first_name + item.last_name"
                   color="white"
                   class="white--text item_title"
                 ></v-list-item-title>
@@ -48,6 +48,7 @@ import Vue from "vue";
 
 import ProfileButton from "@/components/profileButton.vue";
 import AddFriend from "@/components/Dialogs/addFriend.vue";
+import axios from "axios";
 
 export default Vue.extend({
   components: { ProfileButton, AddFriend },
@@ -71,12 +72,17 @@ export default Vue.extend({
           color: "yellow",
         },
       ],
+
+      items: [],
+
       states: ["delat", "treba"],
     };
   },
-  //created() {
-
-  //},
+  created() {
+    axios.get("http://127.0.0.1:8000/api/participants/" + 0).then((res) => {
+      this.items = res.data;
+    });
+  },
 });
 </script>
 
