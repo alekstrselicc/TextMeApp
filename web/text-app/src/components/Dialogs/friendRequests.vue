@@ -86,31 +86,6 @@ export default Vue.extend({
   },
 
   methods: {
-    accept(e) {
-      console.log(e);
-      axios
-        .post("http://127.0.0.1:8000/api/private_chats")
-        .then(async (res) => {
-          console.log("id" + res.data.id);
-
-          //this is for sender
-          await axios.post("http://127.0.0.1:8000/api/participants", {
-            user_id: 34,
-            private_chat_id: res.data.id,
-          });
-
-          //this is for approver
-          await axios.post("http://127.0.0.1:8000/api/participants", {
-            user_id: 35,
-            private_chat_id: res.data.id,
-          });
-        });
-
-      //create a private chat, create a friend
-
-      //first create a friend
-    },
-
     async decline(e) {
       await axios
         .get("http://127.0.0.1:8000/api/friend_request_approver/" + e)
@@ -125,6 +100,42 @@ export default Vue.extend({
               console.log("deleted");
             });
         });
+    },
+    async accept(e) {
+      axios
+        .post("http://127.0.0.1:8000/api/private_chats")
+        .then(async (res) => {
+          console.log("id" + res.data.id);
+
+          //this is for sender
+          await axios.post("http://127.0.0.1:8000/api/participants", {
+            user_id: e,
+            private_chat_id: res.data.id,
+          });
+
+          //this is for approver
+          await axios.post("http://127.0.0.1:8000/api/participants", {
+            user_id: Vue.prototype.$userId,
+            private_chat_id: res.data.id,
+          });
+        });
+
+      await axios
+        .get("http://127.0.0.1:8000/api/friend_request_approver/" + e)
+        .then((res) => {
+          //console.log(res.data[0].id);
+          axios
+            .delete(
+              "http://127.0.0.1:8000/api/friend_request/" + res.data[0].id
+            )
+            .then((res) => {
+              console.log(res);
+              console.log("deleted");
+            });
+        });
+
+      //create a private chat, create a friend
+      //first create a friend
     },
   },
 
@@ -211,3 +222,5 @@ export default Vue.extend({
   }
 }
 </style>
+
+function decline(e: any) { throw new Error("Function not implemented."); }

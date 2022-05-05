@@ -71,13 +71,18 @@ export default Vue.extend({
       formData.append("scope", "*");
       axios
         .post("http://127.0.0.1:8000/api/oauth/token", formData)
-        .then((res) => {
-          console.log("logged in");
+        .then(async (res) => {
+          //console.log(res);
           localStorage.setItem("authTokenAccess", res.data.access_token);
           localStorage.setItem("refreshToken", res.data.refresh_token);
 
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + localStorage.getItem("authTokenAccess");
+
+          await axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+            console.log("this is id: " + res.data.id);
+            Vue.prototype.$userId = res.data.id;
+          });
 
           this.$router.push("main");
         })

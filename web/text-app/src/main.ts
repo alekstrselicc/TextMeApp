@@ -20,7 +20,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$clientSecret = "s8fFcGCsOHGmLiG9TxjJaGjEuBKURInCqeVU9965";
 
 Vue.prototype.$clientId = "9";
-
+Vue.prototype.$userId = 0;
 let ref = false;
 
 axios.interceptors.response.use(
