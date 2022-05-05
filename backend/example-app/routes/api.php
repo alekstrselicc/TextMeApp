@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('country', CountryController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('gender', GenderController::class)->only(['index','show','store','destroy']);
         route::apiResource('user', UserController::class)->only(['index','show','update','destroy']);
-        route::apiResource('participants', ParticipantsController::class)->only(['index','show']);
+        route::apiResource('participants', ParticipantsController::class)->only(['index','show', 'update', 'store']);
         Route::get('/logout', [AuthController::class, 'logout']);
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
