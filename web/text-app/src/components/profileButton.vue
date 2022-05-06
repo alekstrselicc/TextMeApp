@@ -3,9 +3,17 @@
     <!-- Clickable icon -->
     <v-flex class="btn_icon">
       <v-btn icon>
-        <v-avatar class="custom_avatar">
-          <img :src="avatar" />
-        </v-avatar>
+        <v-badge
+          bordered
+          bottom
+          :color="status_color"
+          offset-x="15"
+          offset-y="25"
+        >
+          <v-avatar class="custom_avatar">
+            <img :src="avatar" />
+          </v-avatar>
+        </v-badge>
       </v-btn>
     </v-flex>
 
@@ -17,16 +25,13 @@
     <!-- Status menu -->
     <v-flex class="btn_status">
       <v-select
-        v-model="select"
-        :items="items"
+        v-model="status_name"
+        :items="status_items"
+        item-text="status"
         class="white--text select_status"
+        @change="onSelect"
+        top
       >
-        <template v-slot:selection="{ item }">
-          <img :src="item.image" class="image_status" />{{ item.name }}
-        </template>
-        <template v-slot:item="{ item }">
-          <img :src="item.image" class="image_status" />{{ item.name }}
-        </template>
       </v-select>
     </v-flex>
 
@@ -46,31 +51,64 @@ export default Vue.extend({
   components: { PendingInvites },
   data: () => ({
     name: "",
-    select: { name: "Online", image: require("../assets/online.png") },
-    items: [
-      {
-        name: "Online",
-        image: require("../assets/online.png"),
-      },
-      {
-        name: "Away",
-        image: require("../assets/away.png"),
-      },
-      {
-        name: "Busy",
-        image: require("../assets/busy.png"),
-      },
-      {
-        name: "Offline",
-        image: require("../assets/offline.png"),
-      },
-    ],
+
+    status_id: null,
+    status_name: "",
+    status_items: [],
+    statuss: { status: "" },
+
+    status_color: "",
   }),
+
+  watch: {},
+
+  methods: {
+    check(e) {
+      if (e == "away") {
+        this.id_status = 4;
+        this.status_color = "yellow";
+      } else if (e == "online") {
+        this.id_status = 1;
+        this.status_color = "green";
+      } else if (e == "busy") {
+        this.id_status = 3;
+        this.status_color = "red";
+      } else {
+        this.id_status = 2;
+        this.status_color = "grey";
+      }
+    },
+    onSelect(e) {
+      //console.log("Kaj je to: " + e);
+
+      this.check(e);
+      axios.put("http://127.0.0.1:8000/api/user/" + 35, {
+        //here we need to get the id of the selected
+        status_id: this.id_status,
+      });
+    },
+  },
   created() {
-    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+    axios.get("http://127.0.0.1:8000/api/user").then(async (res) => {
       console.log(res.data.last_name);
       this.name = res.data.first_name + " " + res.data.last_name;
       this.avatar = res.data.img;
+      this.status_id = res.data.status_id;
+      //console.log("tole je pa zgori: " + res.data.status_id);
+      await axios
+        .get("http://127.0.0.1:8000/api/status/" + this.status_id)
+        .then((res) => {
+          // console.log("skos se nalaga: " + res.data.status);
+          this.status_name = res.data.status;
+          this.status_id = res.data.id;
+          this.check(res.data.status);
+          //this.status.name =
+        });
+    });
+
+    //this is for getting all the data
+    axios.get("http://127.0.0.1:8000/api/status").then((res) => {
+      this.status_items = res.data;
     });
   },
 });
@@ -104,6 +142,10 @@ export default Vue.extend({
 .v-input__slot:before {
   border-style: none !important;
 }
+.theme--light.v-select .v-select__selections {
+  color: white !important;
+}
+
 .v-input__slot:after {
   border-style: none !important;
 }

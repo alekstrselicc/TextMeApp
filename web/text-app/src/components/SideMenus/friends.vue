@@ -16,7 +16,7 @@
               <v-badge
                 bordered
                 bottom
-                :color="item.color"
+                :color="check_color(item.status_id)"
                 offset-x="25"
                 offset-y="25"
               >
@@ -78,8 +78,23 @@ export default Vue.extend({
       states: ["delat", "treba"],
     };
   },
+  methods: {
+    check_color(e) {
+      if (e == 1) {
+        return "green";
+      } else if (e == 2) {
+        return "grey";
+      } else if (e == 3) {
+        return "red";
+      } else {
+        return "yellow";
+      }
+    },
+  },
+
   created() {
     axios.get("http://127.0.0.1:8000/api/participants/" + 0).then((res) => {
+      console.log(res.data[2].status_id);
       this.items = res.data;
     });
   },

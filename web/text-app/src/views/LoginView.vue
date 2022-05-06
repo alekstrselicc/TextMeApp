@@ -84,6 +84,14 @@ export default Vue.extend({
             Vue.prototype.$userId = res.data.id;
           });
 
+          //treba se nastavit da bo status pokazal na online
+          await axios.put(
+            "http://127.0.0.1:8000/api/user/" + Vue.prototype.$userId,
+            {
+              status_id: 1,
+            }
+          );
+
           this.$router.push("main");
         })
         .catch((error) => {
