@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Playground;
 use Illuminate\Http\Request;
-use App\Events\MessageSent;
+use App\Models\playgroundMember;
+use Illuminate\Support\Facades\Auth;
 
 class ChannelController extends Controller
 {
@@ -16,6 +17,11 @@ class ChannelController extends Controller
      */
     //GET all channels of playgrounds
     public function index()
+    {
+        return Channel::all();
+    }
+    //GET all channels of playgrounds
+    public function ChannelByPlayground()
     {
         $playground = Playground::with('channels')->get();
         return $playground;
@@ -44,11 +50,45 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //GET all channels of particular playground
-    public function show($id)
+    //GET all channels of auth user
+    public function show()
     {
-        $channels = Playground::find($id)->channels;
-        return $channels;
+        $playground_member = playgroundMember::where("user_id" ,Auth::id())->get();
+
+        $array_of_playgrounds = [];  
+
+        for ($i=0; $i < count($playground_member); $i++) { 
+            array_push($array_of_playgrounds, $playground_member[$i]->playground_id); 
+        }
+
+        $playgrounds_by_user = [];
+
+        for ($i=0; $i < count($array_of_playgrounds); $i++) { 
+            array_push($playgrounds_by_user, Channel::where("playground_id", $array_of_playgrounds[$i])->get());    
+        }
+        //return all channels of auth user       
+        return $playgrounds_by_user;
+    }
+
+    public function userPlaygroundChannels($id)
+    {
+        $playground_member = playgroundMember::where("user_id" ,Auth::id())->get();
+        
+        $array_of_playgrounds = [];  
+
+        for ($i=0; $i < count($playground_member); $i++) { 
+            array_push($array_of_playgrounds, $playground_member[$i]->playground_id);
+        }
+
+        $array_of_channels = [];
+
+        for($i=0; $i < count($array_of_playgrounds); $i++){
+            if($id == $array_of_playgrounds[$i])
+            {
+                array_push($array_of_channels, Channel::where("playground_id", $array_of_playgrounds[$i])->get());
+            }
+        }
+        return $array_of_channels;
     }
 
     /**
