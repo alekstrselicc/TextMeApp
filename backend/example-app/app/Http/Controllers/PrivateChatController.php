@@ -26,9 +26,9 @@ class PrivateChatController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('name');
+        //$name = $request->input('name');
         //$last_login = $request->input(Carbon::now());
-        return privateChat::create($request->all());
+        return  $private_chat = privateChat::create($request->all());
     }
 
     /**

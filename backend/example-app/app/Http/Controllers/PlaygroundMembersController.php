@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Playground;
 use App\Models\playgroundMember;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User; 
 
 class PlaygroundMembersController extends Controller
 {
@@ -15,8 +17,8 @@ class PlaygroundMembersController extends Controller
      */
     public function index()
     {
-        $members = Playground::with('users')->get();
-        return $members;
+        //$members = Playground::with('users')->get();
+        return playgroundMember::all();
     }
 
     /**
@@ -42,9 +44,44 @@ class PlaygroundMembersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function sort()
     {
-        return playgroundMember::find($id);
+        $playground_member = playgroundMember::where("user_id" ,Auth::id())->get();
+        
+        $array_of_playgrounds = [];  
+
+        for ($i=0; $i < count($playground_member); $i++) { 
+            array_push($array_of_playgrounds, $playground_member[$i]->playground_id); 
+        }
+
+        //return $array_of_playgrounds;
+
+        $his_playgrounds= []; 
+
+        //all the playgrounds that he is in 
+        for ($i=0; $i < count($array_of_playgrounds); $i++) { 
+                array_push($his_playgrounds, playgroundMember::where("playground_id", $array_of_playgrounds[$i])->get());    
+        }
+        //return $chats;
+
+        $playground_member_table = []; 
+
+        for ($i=0; $i < count($his_playgrounds); $i++) { 
+            for ($j=0; $j < 2; $j++) { 
+                if($his_playgrounds[$i][$j]->user_id != Auth::id()){
+                    array_push($playground_member_table, $his_playgrounds[$i][$j]); 
+                }
+            }
+        }
+        
+        $show_playgrounds = []; 
+
+        for ($i=0; $i < count($playground_member_table); $i++) { 
+            array_push($show_playgrounds, Playground::find($playground_member_table[$i]->playground_id)); 
+        }
+        
+        return $show_playgrounds;
+       // return $show_playgrounds;
     }
 
     /**

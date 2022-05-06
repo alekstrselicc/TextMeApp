@@ -21,7 +21,7 @@ class AuthController extends Controller
             'password' => 'required|string|',
             'country' => 'required|string',
             'mobile' => 'required|string',
-            'birth' => 'required|string',
+            'birth' => 'required|date',
             'img' => 'string',
         ]);
 

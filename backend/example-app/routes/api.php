@@ -21,9 +21,11 @@ use App\Http\Controllers\TownController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FriendRequestController;
 use App\Models\FriendRequest;
+use App\Models\Participants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\playground;
+use App\Models\playgroundMember;
 use App\Models\Town;
 use App\Models\userType;
 
@@ -45,6 +47,10 @@ use App\Models\userType;
 
 //public routes
 route::post('/register', [AuthController::class, 'register']);
+
+route::get('/event', function() {
+    event(new WebsocketDemo('prvi broadcast message'));
+});
 
 route::get('/somedata', function(){
     broadcast(new WebsocketDemo('hello world'));
@@ -68,7 +74,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('playgrounds', PlaygroundController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('private_chats', PrivateChatController::class)->only(['index','store','destroy']);
         route::apiResource('user_type', UserTypeController::class)->only(['index','show','store','update','destroy']);
-        route::apiResource('channels', ChannelController::class)->only(['index','show','store','update','destroy']);
+        route::apiResource('channels', ChannelController::class)->only(['index','store','update','destroy']);
         route::apiResource('status', StatusController::class)->only(['index','show','update']);
         route::apiResource('relationship', RelationshipController::class)->only(['index','show','store','update']);
         route::apiResource('language', LanguageController::class)->only(['index','show','store']);
@@ -76,7 +82,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('country', CountryController::class)->only(['index','show','store','update','destroy']);
         route::apiResource('gender', GenderController::class)->only(['index','show','store','destroy']);
         route::apiResource('user', UserController::class)->only(['index','show','update','destroy']);
-        route::apiResource('participants', ParticipantsController::class)->only(['index','show']);
+        route::apiResource('participants', ParticipantsController::class)->only(['index','show','store']);
         Route::get('/logout', [AuthController::class, 'logout']);
         route::apiResource('messages', MessageController::class)->only(['index','show','store','destroy']);
         route::apiResource('towns', TownController::class)->only(['index','show','store','update','destroy']);
@@ -84,4 +90,9 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('playground_members', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
         route::apiResource('friend_request', FriendRequestController::class)->only(['index','store', 'show','destroy']);
         route::get('friend_request_approver/{approver}', [FriendRequestController::class, 'showApproverRequests']);
+        route::get('sort', [ParticipantsController::class, 'sort']); 
+        route::get('playgrounds_by_user', [PlaygroundMembersController::class, 'sort']); 
+        route::get('all_channels_by_playgrounds',[ChannelController::class, 'ChannelByPlayground'] );
+        route::get('channel',[ChannelController::class, 'show'] );
+        route::get('user_playground_channels/{id}',[ChannelController::class, 'userPlaygroundChannels'] );
     });
