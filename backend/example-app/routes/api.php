@@ -84,4 +84,5 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::apiResource('playground_members', PlaygroundMembersController::class)->only(['index','show','store','destroy']);
         route::apiResource('friend_request', FriendRequestController::class)->only(['index','store', 'show','destroy']);
         route::get('friend_request_approver/{approver}', [FriendRequestController::class, 'showApproverRequests']);
+        route::get('search_by_email/{email}', [FriendRequestController::class, 'findByEmail']); 
     });

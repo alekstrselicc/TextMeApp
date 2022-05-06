@@ -101,7 +101,12 @@ export default Vue.extend({
             });
         });
     },
-    async accept(e) {
+    accept(e) {
+      axios.post("http://127.0.0.1:8000/api/private_chats", {
+        user_id: e,
+      });
+
+      /*
       axios
         .post("http://127.0.0.1:8000/api/private_chats")
         .then(async (res) => {
@@ -136,6 +141,7 @@ export default Vue.extend({
 
       //create a private chat, create a friend
       //first create a friend
+    */
     },
   },
 
@@ -147,9 +153,9 @@ export default Vue.extend({
     }
 
     axios.get("http://127.0.0.1:8000/api/friend_request").then(async (res) => {
-      //console.log(res.data);
+      //console.log(res.data[0]);
       this.friend_requests = res.data;
-      this.pendings_count = this.friend_requests.length - 1;
+      this.pendings_count = this.friend_requests.length;
       //console.log(this.pendings_count);
 
       for (let indexx = 0; indexx < this.pendings_count; indexx++) {

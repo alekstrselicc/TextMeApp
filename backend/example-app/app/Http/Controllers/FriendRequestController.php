@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FriendRequest;
 use Illuminate\Http\Request;
+use App\Models\User; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth; 
 class FriendRequestController extends Controller
@@ -16,12 +17,22 @@ class FriendRequestController extends Controller
     {
         $request->validate([
             'status' => 'required',
-            'create_at' => '',
+            'created_at' => '',
             'sender' => 'required',
             'approver' => 'required',
         ]);
         return FriendRequest::create($request->all());
     }
+
+    public function findByEmail($email){
+        $user = User::where("email", $email)->get();
+        $res = [
+            'auth_id' => Auth::id(), 
+            'user_id' => $user[0]->id  
+        ];  
+        return $res; 
+    }
+
     public function show($id)
     {
         //return FriendRequest::find($id);

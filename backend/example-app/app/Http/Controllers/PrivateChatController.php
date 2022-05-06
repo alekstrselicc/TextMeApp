@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\privateChat;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Participants; 
+use App\Models\FriendRequest;
 
 class PrivateChatController extends Controller
 {
@@ -26,9 +29,21 @@ class PrivateChatController extends Controller
      */
     public function store(Request $request)
     {
-        //$name = $request->input('name');
-        //$last_login = $request->input(Carbon::now());
-        return privateChat::create($request->all());
+        $private_chat = privateChat::create();
+    
+        $response_sender = [
+            'user_id' => $request->user_id, 
+            'private_chat_id' => $private_chat->id
+        ]; 
+        $response_approver = [
+            'user_id' => Auth::id(), 
+            'private_chat_id' => $private_chat->id  
+        ]; 
+        Participants::create($response_sender);
+        Participants::create($response_approver);
+
+        $pend_id = FriendRequest::where("approver", Auth::id())->where("sender", $request->user_id)->get(); 
+        FriendRequest::destroy($pend_id[0]->id); 
     }
 
     /**

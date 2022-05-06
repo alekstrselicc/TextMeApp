@@ -24,20 +24,10 @@ class ParticipantsController extends Controller
     {
         //$participants = privateChat::with('users')->get();
         //return $participants;
-        
-
     }
 
     public function show($id)
     {
-        //$private_chat = privateChat::where("id", $id)->get();
-        //$private_chat = privateChat::with('users')->where("id", $id)->get();
-        //$user_in_private_chat = $private_chat->users;
-        //return $private_chat;
-        
-        
-        //$private_chats = participants::where("user_id","!=" ,Auth::id())->get(); 
-
         $private_chats = participants::where("user_id" ,Auth::id())->get();
         
         $array_of_chats = [];  
@@ -45,21 +35,12 @@ class ParticipantsController extends Controller
         for ($i=0; $i < count($private_chats); $i++) { 
             array_push($array_of_chats, $private_chats[$i]->private_chat_id); 
         }
-
-        
-
-        $chats = []; 
-
+        $chats = [];
         //all the chats that he is in 
         for ($i=0; $i < count($array_of_chats); $i++) { 
                 array_push($chats, participants::where("private_chat_id", $array_of_chats[$i])->get());    
         }
-
-       
-
         $friends = []; 
-
-        
         //all the friends that hes got 
         for ($i=0; $i < count($chats); $i++) { 
             for ($j=0; $j < 2; $j++) { 
@@ -68,14 +49,10 @@ class ParticipantsController extends Controller
                 }
             }
         }
-
         $show_friends = []; 
-
         for ($i=0; $i < count($friends); $i++) { 
             array_push($show_friends, User::find($friends[$i]->user_id)); 
         }
-
-
         return $show_friends;
     }
 

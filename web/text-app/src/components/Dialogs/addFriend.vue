@@ -16,7 +16,7 @@
         <div class="title_div"><h1 class="title_h1">Adding friend</h1></div>
         <div class="subtitle_div"><h2>Searh by mail</h2></div>
         <div class="search_email_div">
-          <v-text-field label="Enter mail" solo></v-text-field>
+          <v-text-field v-model="email" label="Enter mail" solo></v-text-field>
         </div>
 
         <v-divider color="white" class="divider_add"></v-divider>
@@ -25,7 +25,7 @@
           <v-text-field label="Enter id" solo></v-text-field>
         </div>
         <div class="btn_add_friende">
-          <v-btn class="add_friend_button">Add</v-btn>
+          <v-btn class="add_friend_button" @click="search()">Add</v-btn>
         </div>
       </v-card>
     </v-dialog>
@@ -34,12 +34,38 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 
 export default Vue.extend({
   data() {
     return {
       dialogF: false,
+      email: "",
     };
+  },
+
+  watch: {
+    searchEmail(value) {
+      this.email = value;
+    },
+  },
+  methods: {
+    search() {
+      axios
+        .get("http://127.0.0.1:8000/api/search_by_email/" + this.email)
+        .then((res) => {
+          axios
+            .post("http://127.0.0.1:8000/api/friend_request", {
+              status: "pending",
+              created_at: "9999-12-31 23:59:59",
+              sender: res.data.auth_id,
+              approver: res.data.user_id,
+            })
+            .then((res) => {
+              console.log("friend_requests sent");
+            });
+        });
+    },
   },
 });
 </script>
