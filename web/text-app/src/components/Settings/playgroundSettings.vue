@@ -169,6 +169,13 @@ export default Vue.extend({
   width: 100%;
   background-color: black !important;
 }
+.settings_btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 95px;
+  margin-right: 80px;
+}
 
 @media (max-width: 960px) {
   .main_settings_playground {
@@ -181,6 +188,9 @@ export default Vue.extend({
     font-size: 10px;
     margin-left: 10px;
     margin-top: 23px !important;
+  }
+  .settings_btn {
+    margin-top: 45px;
   }
 
   .first_cols {

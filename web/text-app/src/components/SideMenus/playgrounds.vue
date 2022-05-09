@@ -79,10 +79,10 @@ export default Vue.extend({
 
       //poslemo id od playgrounda pa channela preko na drugi vue
       //Vue.prototype.$channelID = e;
-      //this.$router.push({ path: "/chat/" + e });
+      this.$router.push({ path: "/chat/" + e });
 
       //alternativa
-      window.location.href = "/chat/" + e;
+      //window.location.href = "/chat/" + e;
     },
   },
 });

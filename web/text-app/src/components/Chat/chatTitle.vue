@@ -7,19 +7,17 @@
     </v-flex>
 
     <!-- Channel title-->
-
-    <PlaygroundSettings />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import PlaygroundSettings from "@/components/Settings/playgroundSettings.vue";
+
 import axios from "axios";
 
 export default Vue.extend({
   name: "chatTitle",
-  components: { PlaygroundSettings },
+  components: {},
 
   data() {
     return {
@@ -45,6 +43,27 @@ export default Vue.extend({
           });
       });
   },
+  watch: {
+    "$route.params.search": {
+      handler: function (search) {
+        axios
+          .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
+          .then(async (res) => {
+            this.subtitle = res.data[0].title;
+            await axios
+              .get(
+                "http://127.0.0.1:8000/api/playgrounds/" +
+                  res.data[0].playground_id
+              )
+              .then((res) => {
+                this.title = res.data.title;
+              });
+          });
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
 });
 </script>
 
@@ -58,11 +77,6 @@ export default Vue.extend({
   height: 50px !important;
   margin-left: 10px;
   margin-top: -20px;
-}
-.settings_btn {
-  position: absolute;
-  margin-left: 170px;
-  margin-top: -30px;
 }
 
 .main_title {
