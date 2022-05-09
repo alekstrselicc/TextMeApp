@@ -30,7 +30,7 @@
             :key="child.title"
             dense
             link
-            @click="menuActionClick(child.action)"
+            @click="menuActionClick(child.id)"
           >
             <v-list-item-icon>
               <v-icon v-text="child.icon_img" color="white"></v-icon>
@@ -74,10 +74,15 @@ export default Vue.extend({
       });
   },
   methods: {
-    menuActionClick(action) {
-      if (action === "add_channel") {
-        this.showChannel = true;
-      }
+    menuActionClick(e) {
+      //tukaj je potrebno potem redirectat na chat in potrebno poslat title od playgrounda in title od channela
+
+      //poslemo id od playgrounda pa channela preko na drugi vue
+      //Vue.prototype.$channelID = e;
+      //this.$router.push({ path: "/chat/" + e });
+
+      //alternativa
+      window.location.href = "/chat/" + e;
     },
   },
 });

@@ -54,6 +54,7 @@ class ChannelController extends Controller
     //GET all channels of auth user
     public function show($id)
     {
+        /*
         $playground_member = playgroundMember::where("user_id" ,Auth::id())->get();
 
         $array_of_playgrounds = [];  
@@ -69,6 +70,9 @@ class ChannelController extends Controller
         }
         //return all channels of auth user       
         return $playground_member;
+        */
+        
+        return Channel::where("id", $id)->get(); 
     }
 
     public function userPlaygroundChannels($id)

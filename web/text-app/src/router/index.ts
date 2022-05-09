@@ -54,7 +54,12 @@ const routes: Array<RouteConfig> = [
       },
       {
         name: "chat",
-        path: "chat",
+        path: "chat/:id",
+        component: Chat,
+      },
+      {
+        name: "chat",
+        path: "chat/user/:id",
         component: Chat,
       },
     ],

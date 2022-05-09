@@ -15,16 +15,35 @@
 <script lang="ts">
 import Vue from "vue";
 import PlaygroundSettings from "@/components/Settings/playgroundSettings.vue";
+import axios from "axios";
 
 export default Vue.extend({
   name: "chatTitle",
   components: { PlaygroundSettings },
+
   data() {
     return {
-      title: "Gaming",
-      subtitle: "Chill channel",
+      ids: null,
+      title: "",
+      subtitle: "",
       showSettings: false,
     };
+  },
+  created() {
+    //this.$http.get('')
+    console.log("What is this: " + this.$route.params.id);
+    axios
+      .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
+      .then(async (res) => {
+        this.subtitle = res.data[0].title;
+        await axios
+          .get(
+            "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
+          )
+          .then((res) => {
+            this.title = res.data.title;
+          });
+      });
   },
 });
 </script>
