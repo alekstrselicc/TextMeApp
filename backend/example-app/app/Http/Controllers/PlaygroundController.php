@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Playground;
+use App\Models\playgroundMember; 
+use Illuminate\Support\Facades\Auth; 
+use App\Models\Channel; 
+
 
 class PlaygroundController extends Controller
 {
@@ -31,7 +35,17 @@ class PlaygroundController extends Controller
             'title' => 'required',
             'img' => 'required'
         ]);
-        return Playground::create($request->all());
+
+        $play = Playground::create($request->all());
+
+        $member = [
+            'left' => '2002-03-12 13:13:13', 
+            'joined' => '2002-03-12 13:13:13',
+            'user_id' => Auth::id(), 
+            'playground_id' => $play->id
+        ]; 
+
+        playgroundMember::create($member); 
     }
 
     /**
@@ -59,6 +73,26 @@ class PlaygroundController extends Controller
         $playground = Playground::find($id);
         $playground->update($request->all());
         return $playground;
+    }
+
+    public function getWithChannels(){ 
+       
+        //returna vse playgorundes z njihovimi channeli
+        $playground = Playground::with('channels')->get();
+        
+        //returna vse memberje ki imajo user id od autha
+        $playground_member = playgroundMember::where("user_id" ,Auth::id())->get();
+
+        $the_return = []; 
+
+        for ($i=0; $i < count($playground_member); $i++) { 
+            for ($j=0; $j < count($playground); $j++) { 
+                if($playground_member[$i]->playground_id == $playground[$j]->id){
+                    array_push($the_return, $playground[$j]); 
+                }
+            }
+        }
+        return $the_return; 
     }
 
     /**

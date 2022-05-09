@@ -11,7 +11,8 @@ class Channel extends Model
     public $timestamps = false;
     protected $fillable = [
         'title',
-        'created_at'
+        'created_at',
+        'playground_id'
     ];
     public function playground()
     {

@@ -24,6 +24,11 @@ export default Vue.extend({
     console.log("this is the name");
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + localStorage.getItem("authTokenAccess");
+
+    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+      console.log("this is id: " + res.data.id);
+      Vue.prototype.$userId = res.data.id;
+    });
   },
 });
 </script>

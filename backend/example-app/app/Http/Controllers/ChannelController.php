@@ -36,12 +36,13 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
-        $channel = new Channel;
-        $channel->title = $request->input('title');
-        $channel->created_at = $request->input('created_at');
-        
-        $playground = Playground::find(1);
-        $playground->channels()->save($channel);
+        $res = $request->validate([
+            'title' => 'required', 
+            'created_at' => 'required', 
+            'playground_id' => 'required'
+        ]); 
+
+        Channel::create($request->all()); 
     }
 
     /**
@@ -51,7 +52,7 @@ class ChannelController extends Controller
      * @return \Illuminate\Http\Response
      */
     //GET all channels of auth user
-    public function show()
+    public function show($id)
     {
         $playground_member = playgroundMember::where("user_id" ,Auth::id())->get();
 
@@ -67,7 +68,7 @@ class ChannelController extends Controller
             array_push($playgrounds_by_user, Channel::where("playground_id", $array_of_playgrounds[$i])->get());    
         }
         //return all channels of auth user       
-        return $playgrounds_by_user;
+        return $playground_member;
     }
 
     public function userPlaygroundChannels($id)

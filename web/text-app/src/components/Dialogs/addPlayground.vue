@@ -62,6 +62,7 @@ export default Vue.extend({
       this.dialog = false;
       axios.post("http://127.0.0.1:8000/api/playgrounds", {
         title: this.title,
+        img: "https://picsum.photos/350/165?random",
       });
     },
   },
@@ -115,6 +116,10 @@ export default Vue.extend({
 .image_avatar {
   margin-left: 120px;
 }
+.image_btn {
+  min-width: 120px !important;
+}
+
 .center_btn {
   width: 100% !important;
   height: 50px !important;

@@ -26,7 +26,7 @@
           </template>
 
           <v-list-item
-            v-for="child in item.items"
+            v-for="child in item.channels"
             :key="child.title"
             dense
             link
@@ -64,9 +64,10 @@ export default Vue.extend({
   },
   created() {
     axios
-      .get("http://127.0.0.1:8000/api/playgrounds")
-      .then((response) => {
-        this.items = response.data;
+      .get("http://127.0.0.1:8000/api/getPlaygroundsWithChannels")
+      .then((res) => {
+        console.log(res.data);
+        this.items = res.data;
       })
       .catch((error) => {
         console.log(error);

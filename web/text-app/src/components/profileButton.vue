@@ -79,10 +79,12 @@ export default Vue.extend({
       }
     },
     onSelect(e) {
-      //console.log("Kaj je to: " + e);
+      console.log("Kaj je to: " + Vue.prototype.$userId);
 
       this.check(e);
-      axios.put("http://127.0.0.1:8000/api/user/" + 35, {
+
+      //tuki se bo naredo se en api za auth da bo delal pravilno
+      axios.put("http://127.0.0.1:8000/api/user/" + Vue.prototype.$userId, {
         //here we need to get the id of the selected
         status_id: this.id_status,
       });

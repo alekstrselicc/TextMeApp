@@ -16,8 +16,7 @@ class PlaygroundMembersController extends Controller
      */
     public function index()
     {
-        $members = Playground::with('users')->get();
-        return $members;
+        return playgroundMember::all(); 
     }
 
     /**
