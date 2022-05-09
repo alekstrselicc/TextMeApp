@@ -91,4 +91,5 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get('channel',[ChannelController::class, 'show'] ); //all channels of auth user
         route::get('user_playground_channels/{id}',[ChannelController::class, 'userPlaygroundChannels'] ); //all channels auth user where user is located on specific playground
         route::get('messages_by_channel/{id}',[MessageController::class, 'showMessagesOfChannel'] ); //show messages of particular channel
+        route::get('messages_of_private_chat/{id}',[PrivateMessageController::class, 'show'] ); //show messages of particular private chat
     });

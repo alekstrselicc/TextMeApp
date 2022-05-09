@@ -44,7 +44,18 @@ class PrivateMessageController extends Controller
      */
     public function show($id)
     {
-        return privateMessage::find($id);
+        //return privateMessage::find($id);
+        
+        $privat_chat = privateChat::where("private_chat_id", $id);
+
+        $array_of_messages = [];
+
+        for($i=0;$i<isset($privat_chat);$i++)
+        {
+            array_push($array_of_messages, privateMessage::where("private_chat_id",$id)->get());
+        }
+
+        return  $array_of_messages;
 
     }
     /**
