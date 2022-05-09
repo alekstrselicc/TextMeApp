@@ -21,7 +21,7 @@
                 offset-y="25"
               >
                 <v-list-item-avatar size="50" class="ml-n2">
-                  <v-img :src="item.avatar"></v-img>
+                  <v-img :src="item.img"></v-img>
                 </v-list-item-avatar>
               </v-badge>
               <v-list-item-content>
@@ -93,8 +93,8 @@ export default Vue.extend({
   },
 
   created() {
-    axios.get("http://127.0.0.1:8000/api/participants/" + 0).then((res) => {
-      console.log(res.data[2].status_id);
+    axios.get("http://127.0.0.1:8000/api/get_friends").then((res) => {
+      console.log(res.data);
       this.items = res.data;
     });
   },
