@@ -14,10 +14,14 @@
         "laravel-echo": "^1.11.7",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
+        "nodemon": "^2.0.16",
         "postcss": "^8.1.14",
         "pusher-js": "^7.1.0-beta"
     },
     "dependencies": {
+        "express": "^4.18.1",
+        "socket.io": "^4.5.0",
+        "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.4.0",
         "ws": "^8.6.0"
     }
 }

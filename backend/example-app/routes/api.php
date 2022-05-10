@@ -20,6 +20,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\TownController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FriendRequestController;
+use App\Http\Controllers\PlaygroundRequestController;
 use App\Models\FriendRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -93,5 +94,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get('user_playground_channels/{id}',[ChannelController::class, 'userPlaygroundChannels'] ); //all channels auth user where user is located on specific playground
         route::get('messages_by_channel/{id}',[MessageController::class, 'showMessagesOfChannel'] ); //show messages of particular channel
         route::get('messages_of_private_chat/{id}',[PrivateMessageController::class, 'show'] ); //show messages of particular private chat
-        route::get('getPlaygroundsWithChannels', [PlaygroundController::class, 'getWithChannels']); 
+        route::get('getPlaygroundsWithChannels', [PlaygroundController::class, 'getWithChannels']); //show channels of auth user whic are part of playground (2 arrays)
+        route::apiResource('playground_request', PlaygroundRequestController::class)->only(['index','store']);
     });

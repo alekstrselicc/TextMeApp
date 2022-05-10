@@ -128,6 +128,11 @@
                 </div>
             </div>
         </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+        </script>
+
         {{-- <script src="{{ asset('js/app.js') }}"> </script>
         <script>
             Echo.channel('DemoChannel').listen(WebsocketDemo, (e) => {
