@@ -170,9 +170,40 @@ export default Vue.extend({
   methods: {
     accept(e) {
       console.log("sprejel" + e);
+
+      axios
+        .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
+        .then(async (res) => {
+          await axios
+            .post("http://127.0.0.1:8000/api/playground_members", {
+              user_id: e,
+              playground_id: res.data[0].playground_id,
+              //sender: Vue.prototype.$userId,
+              joined: "2002-02-02 13:13:13",
+            })
+            .then((res) => {
+              console.log(res.data);
+            });
+        });
     },
     decline(e) {
       console.log("zavrnil" + e);
+
+      axios
+        .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
+        .then(async (res) => {
+          await axios
+            .post("http://127.0.0.1:8000/api/getPlaygroundRequestsId", {
+              playground_id: res.data[0].playground_id,
+              sender: e,
+            })
+            .then(async (res) => {
+              await axios.delete(
+                "http://127.0.0.1:8000/api/playground_request/" + res.data
+              );
+            });
+          //await axios.delete("http://127.0.0.1:8000/api/playground_request/" + )
+        });
     },
   },
 

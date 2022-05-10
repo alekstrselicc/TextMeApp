@@ -44,8 +44,8 @@ class FriendRequestController extends Controller
         return FriendRequest::where('approver', "=" , Auth::id())->where("sender", $id)->get(); 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $friend_request = FriendRequest::destroy($id);
+        FriendRequest::destroy($id);
     }
 }

@@ -95,7 +95,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get('messages_by_channel/{id}',[MessageController::class, 'showMessagesOfChannel'] ); //show messages of particular channel
         route::get('messages_of_private_chat/{id}',[PrivateMessageController::class, 'show'] ); //show messages of particular private chat
         route::get('getPlaygroundsWithChannels', [PlaygroundController::class, 'getWithChannels']); //show channels of auth user whic are part of playground (2 arrays)
-        route::apiResource('playground_request', PlaygroundRequestController::class)->only(['index','store', 'show']);
+        route::apiResource('playground_request', PlaygroundRequestController::class)->only(['index','store', 'show', 'destroy']);
         route::get('findByName/{name}', [PlaygroundController::class, 'findByName']); 
         route::get('findByChannel/{id}', [PlaygroundController::class, 'findByChannel'] ); 
+        route::post('getPlaygroundRequestsId', [PlaygroundRequestController::class, 'getPlaygroundRequestsId']); 
     });

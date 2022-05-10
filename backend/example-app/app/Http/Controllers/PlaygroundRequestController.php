@@ -33,4 +33,13 @@ class PlaygroundRequestController extends Controller
         
         return $playground_request_users; 
     }
+
+    public function getPlaygroundRequestsId(Request $request){
+        $req = PlaygroundRequest::where("sender", $request->sender)->where("playground_id", $request->playground_id)->get(); 
+        return $req[0]->id; 
+    }
+
+    public function destroy($id){
+        return PlaygroundRequest::destory($id); 
+    }
 }

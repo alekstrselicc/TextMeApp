@@ -6,6 +6,7 @@ use App\Models\Playground;
 use App\Models\playgroundMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PlaygroundRequest; 
 
 class PlaygroundMembersController extends Controller
 {
@@ -33,7 +34,17 @@ class PlaygroundMembersController extends Controller
             'user_id' => 'required',
             'playground_id' => 'required',
         ]);
-        return playgroundMember::create($request->all());
+        
+        //a member is created 
+        playgroundMember::create($request->all());
+
+        //destroy the pending request
+
+        $req = PlaygroundRequest::where("playground_id", $request->playground_id)->where("sender",$request->user_id)->get(); 
+
+        //return $req[0]->id; 
+
+        PlaygroundRequest::destroy($req[0]->id); 
     }
 
     /**
