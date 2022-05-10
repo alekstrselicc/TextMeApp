@@ -25,7 +25,6 @@ class ChannelController extends Controller
     {
         $playground = Playground::with('channels')->get();
         return $playground;
-
     }
 
     /**
