@@ -68,7 +68,7 @@
                   <v-list-item-content>
                     <v-list-item-title
                       class="white--text channel_list_items"
-                      v-text="item.name"
+                      v-text="item.title"
                     >
                     </v-list-item-title>
                   </v-list-item-content>
@@ -168,12 +168,18 @@ export default Vue.extend({
           .get(
             "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
           )
-          .then((res) => {
-            this.playground_name = res.data.title;
-            this.playground_avatar = res.data.img;
-            axios.get("http://127.0.0.1:8000/api/").then((res) => {
-              console.log(res.data);
-            });
+          .then((ress) => {
+            this.playground_name = ress.data.title;
+            this.playground_avatar = ress.data.img;
+            axios
+              .get(
+                "http://127.0.0.1:8000/api/AllChannelsOfPlayground/" +
+                  res.data[0].playground_id
+              )
+              .then((resss) => {
+                this.playground_channels = resss.data[0].channels;
+                console.log(this.playground_channels);
+              });
           });
       });
   },
