@@ -111,6 +111,11 @@ class PlaygroundController extends Controller
         return $the_return; 
     }
 
+    public function GetAllUsersFromPlayground()
+    {
+        $playground = playgroundMember::all();
+        return $playground;
+    }
     /**
      * Remove the specified resource from storage.
      *

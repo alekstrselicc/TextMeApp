@@ -96,6 +96,23 @@ class ChannelController extends Controller
         return $array_of_channels;
     }
 
+    //id playgrounda
+    public function AllChannelsOfPlayground($id)
+    {
+        $playground = Playground::with('channels')->where("id","=",$id)->get();
+        //$playground_id = Playground::where('playground_id',"=",$id)->get();
+
+        $playground_channels = [];
+
+        // for ($i=0; $i < count($playground); $i++) { 
+        //     if($playground->playground_id == $id)
+        //     {
+        //         array_push($playground_channels, Channel::where("playground_id", $playground_channels[$i]->get()));
+        //     }
+        // }
+        return $playground;
+    }
+
     /**
      * Update the specified resource in storage.
      *
