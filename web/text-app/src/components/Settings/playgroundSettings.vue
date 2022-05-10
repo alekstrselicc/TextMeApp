@@ -144,19 +144,38 @@
 <script lang="ts">
 import Vue from "vue";
 import AddChannel from "@/components/Dialogs/addChannel.vue";
+import axios from "axios";
 export default Vue.extend({
   components: { AddChannel },
   data() {
     return {
-      playground_name: "Summer BBQ",
-      playground_avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-      playground_channels: [
-        { name: "Chill channel", icon_img: "mdi-message-text" },
-      ],
+      playground_name: "",
+      playground_avatar: "",
+      playground_channels: [],
       add_channel: false,
       change_name: false,
       dialogS: false,
     };
+  },
+
+  methods: {},
+
+  created() {
+    axios
+      .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
+      .then(async (res) => {
+        await axios
+          .get(
+            "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
+          )
+          .then((res) => {
+            this.playground_name = res.data.title;
+            this.playground_avatar = res.data.img;
+            axios.get("http://127.0.0.1:8000/api/").then((res) => {
+              console.log(res.data);
+            });
+          });
+      });
   },
 });
 </script>

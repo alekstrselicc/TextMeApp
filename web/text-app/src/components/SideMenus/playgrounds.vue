@@ -15,7 +15,7 @@
         >
           <template v-slot:activator>
             <v-list-item-avatar>
-              <v-img :src="item.avatar"></v-img>
+              <v-img :src="item.img"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content class="white--text">

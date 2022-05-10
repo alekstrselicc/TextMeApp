@@ -40,6 +40,6 @@ class PlaygroundRequestController extends Controller
     }
 
     public function destroy($id){
-        return PlaygroundRequest::destory($id); 
+        return PlaygroundRequest::destroy($id); 
     }
 }

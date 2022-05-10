@@ -198,6 +198,7 @@ export default Vue.extend({
               sender: e,
             })
             .then(async (res) => {
+              console.log("id: " + res.data);
               await axios.delete(
                 "http://127.0.0.1:8000/api/playground_request/" + res.data
               );
