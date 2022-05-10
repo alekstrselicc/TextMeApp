@@ -46,6 +46,6 @@ class FriendRequestController extends Controller
 
     public function destroy($id)
     {
-        $playground = FriendRequest::destroy($id);
+        $friend_request = FriendRequest::destroy($id);
     }
 }

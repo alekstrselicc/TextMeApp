@@ -25,6 +25,7 @@ import Echo from 'laravel-echo';
     key: 'your-pusher-key',
     wsHost: window.location.hostname,
     wsPort: 6001,
+    encyrpted:false,
     forceTLS: false,
     disableStats: true,
  });
