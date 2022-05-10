@@ -29,6 +29,7 @@ import Vue from "vue";
 
 export default Vue.extend({
   data: () => ({
+    /*
     chat: [
       {
         user: "Ales",
@@ -171,6 +172,7 @@ export default Vue.extend({
         img: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
       },
     ],
+    */
   }),
   methods: {
     scrollToEnd() {

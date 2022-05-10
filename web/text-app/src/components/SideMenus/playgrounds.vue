@@ -11,6 +11,7 @@
           :key="item.title"
           color="white"
           class=""
+          @click="showSettings(item.id)"
         >
           <template v-slot:activator>
             <v-list-item-avatar>
@@ -83,6 +84,10 @@ export default Vue.extend({
 
       //alternativa
       //window.location.href = "/chat/" + e;
+    },
+    showSettings(e) {
+      console.log("delat");
+      this.$router.push("main");
     },
   },
 });

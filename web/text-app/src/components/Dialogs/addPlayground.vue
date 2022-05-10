@@ -26,7 +26,7 @@
           <v-btn class="image_btn">Choose image</v-btn>
         </div>
         <div class="center_btn">
-          <v-btn class="add_btn_div" rounded @click="addPlayground()" to="/"
+          <v-btn class="add_btn_div" rounded @click="addPlayground()"
             >Add</v-btn
           >
         </div>
@@ -35,10 +35,12 @@
 
         <div class="title_find_div"><h1>Find playground</h1></div>
         <div class="link_find">
-          <v-text-field label="Link..." solo></v-text-field>
+          <v-text-field label="Link..." v-model="name" solo></v-text-field>
         </div>
         <div class="center_btn">
-          <v-btn class="add_btn_div" rounded>Add</v-btn>
+          <v-btn class="add_btn_div" rounded @click="findPlayground()"
+            >Add</v-btn
+          >
         </div>
       </v-card>
     </v-dialog>
@@ -54,6 +56,7 @@ export default Vue.extend({
     return {
       dialog: false,
       title: "",
+      name: "",
     };
   },
 
@@ -64,6 +67,17 @@ export default Vue.extend({
         title: this.title,
         img: "https://picsum.photos/350/165?random",
       });
+    },
+    findPlayground() {
+      this.dialog = false;
+      axios
+        .get("http://127.0.0.1:8000/api/findByName/" + this.name)
+        .then((res) => {
+          axios.post("http://127.0.0.1:8000/api/playground_request", {
+            sender: Vue.prototype.$userId,
+            playground_id: res.data[0].id,
+          });
+        });
     },
   },
 });

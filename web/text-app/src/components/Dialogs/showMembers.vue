@@ -10,7 +10,7 @@
 
     <v-card class="show_menu" v-if="show">
       <v-card-actions>
-        <v-badge color="red" content="2" offset-y="12" offset-x="12">
+        <v-badge color="red" :content="count_pen" offset-y="12" offset-x="12">
           <v-btn
             text
             color="white"
@@ -78,23 +78,28 @@
                 class="item_pending"
               >
                 <v-list-item-avatar size="50" class="ml-n2">
-                  <v-img :src="item.avatar"></v-img>
+                  <v-img :src="item.img"></v-img>
                 </v-list-item-avatar>
 
                 <v-list-item-content>
                   <v-list-item-title
-                    v-text="item.name"
+                    v-text="item.first_name"
                     color="white"
                     class="white--text member_names"
                   >
                   </v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon color="white" size="30">{{ svgAccept }}</v-icon>
-                </v-list-item-icon>
-                <v-list-item-icon>
-                  <v-icon color="white" size="30">{{ svgDecline }}</v-icon>
-                </v-list-item-icon>
+                <v-btn icon @click="accept(item.id)">
+                  <v-list-item-icon>
+                    <v-icon color="white" size="30">{{ svgAccept }}</v-icon>
+                  </v-list-item-icon>
+                </v-btn>
+
+                <v-btn icon @click="decline(item.id)">
+                  <v-list-item-icon>
+                    <v-icon color="white" size="30">{{ svgDecline }}</v-icon>
+                  </v-list-item-icon>
+                </v-btn>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -119,6 +124,7 @@ import {
 } from "@mdi/js";
 
 import AddMember from "@/components/Dialogs/addMember.vue";
+import axios from "axios";
 
 export default Vue.extend({
   name: "showMember",
@@ -133,17 +139,11 @@ export default Vue.extend({
 
       show: false,
       reveal: false,
-      pending_members: [
-        {
-          name: "Mika Kladnik",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        },
-        {
-          name: "Viktorija Male",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        },
-      ],
-      members: [
+
+      pending_members: [],
+
+      count_pen: null,
+      memberss: [
         {
           name: "Janez_Novak123",
           status: "green",
@@ -166,6 +166,35 @@ export default Vue.extend({
         },
       ],
     };
+  },
+  methods: {
+    accept(e) {
+      console.log("sprejel" + e);
+    },
+    decline(e) {
+      console.log("zavrnil" + e);
+    },
+  },
+
+  created() {
+    //getting the playground members
+    //axios.get("http://127.0.0.1:8000/api/").then((res) => {});
+    //gettings the requests
+    axios
+      .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
+      .then((res) => {
+        console.log(res.data[0].playground_id);
+        axios
+          .get(
+            "http://127.0.0.1:8000/api/playground_request/" +
+              res.data[0].playground_id
+          )
+          .then((res) => {
+            console.log(res.data[0][0].first_name);
+            this.pending_members = res.data[0];
+            this.count_pen = res.data[0].length;
+          });
+      });
   },
 });
 </script>

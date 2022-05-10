@@ -19,7 +19,7 @@
 
     <!-- Clickable text -->
     <v-flex class="btn_text">
-      <a href="profile" class="btn_text_edit">{{ name }}</a>
+      <a href="/profile" class="btn_text_edit">{{ name }}</a>
     </v-flex>
 
     <!-- Status menu -->
@@ -79,10 +79,7 @@ export default Vue.extend({
       }
     },
     onSelect(e) {
-      console.log("Kaj je to: " + Vue.prototype.$userId);
-
       this.check(e);
-
       //tuki se bo naredo se en api za auth da bo delal pravilno
       axios.put("http://127.0.0.1:8000/api/user/" + Vue.prototype.$userId, {
         //here we need to get the id of the selected

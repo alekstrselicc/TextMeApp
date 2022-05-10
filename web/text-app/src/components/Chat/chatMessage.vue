@@ -36,6 +36,10 @@ export default Vue.extend({
   bottom: 0;
 }
 
+.main_send .main_box .v-text-field.v-text-field--solo .v-input__control {
+  min-height: 50px !important;
+}
+
 .main_box .v-input__icon--append .v-icon {
   color: white !important;
   font-size: 30px !important;

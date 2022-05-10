@@ -45,6 +45,13 @@ class PlaygroundController extends Controller
             'playground_id' => $play->id
         ]; 
 
+        $channel = [
+            'title' => 'General',
+            'created_at' => '2002-03-12 13:13:13', 
+            'playground_id' => $play->id
+        ]; 
+
+        Channel::create($channel);
         playgroundMember::create($member); 
     }
 
@@ -58,6 +65,15 @@ class PlaygroundController extends Controller
     public function show($id)
     {
         return Playground::find($id);
+    }
+
+    public function findByName($name)
+    {
+        return Playground::where("title", $name)->get();
+    }
+
+    public function findByChannel($id){
+        return Channel::where('id', $id)->get(); 
     }
 
     /**
