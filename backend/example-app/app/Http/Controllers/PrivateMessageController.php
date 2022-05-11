@@ -43,9 +43,7 @@ class PrivateMessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //return privateMessage::find($id);
-        
+    {   
         $privat_chat = privateChat::where("private_chat_id", $id);
 
         $array_of_messages = [];

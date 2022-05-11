@@ -42,8 +42,6 @@ class PlaygroundMembersController extends Controller
 
         $req = PlaygroundRequest::where("playground_id", $request->playground_id)->where("sender",$request->user_id)->get(); 
 
-        //return $req[0]->id; 
-
         PlaygroundRequest::destroy($req[0]->id); 
     }
 
@@ -62,8 +60,6 @@ class PlaygroundMembersController extends Controller
         for ($i=0; $i < count($playground_member); $i++) { 
             array_push($array_of_playgrounds, $playground_member[$i]->playground_id); 
         }
-
-        //return $array_of_playgrounds;
 
         $his_playgrounds= []; 
 

@@ -18,23 +18,18 @@ class ParticipantsController extends Controller
      */
     public function index()
     {
-        // $participants = privateChat::with('users')->get();
-        // return $participants;
         return Participants::all();
     }
 
     public function show($id)
     {
-        // $private_chat = privateChat::find($id);
-        // $user_in_private_chat = $private_chat->users->first();
-        // return $user_in_private_chat;
         return Participants::find($id);
     }
 
-    public function store(Request $request){
-        //$participants = privateChat::with('users')->get();
+    public function store(Request $request)
+    {
         return Participants::create($request->all());
-        }
+    }
 
     /**
      * Update the specified resource in storage.
@@ -98,25 +93,13 @@ class ParticipantsController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //id auth and sender
-        
-        //$privae_chat = privateChat::find($id);
+        //id auth and sender
         $user_id = Auth::id();
         $sender_id = $request->sender_id;
         $user_in_private_chat = [
             "user_id" => Auth::id(),
             "sender_id" => $request->sender_id
         ];
-
-        
-
- /*
-        //privateChat::update('users', $user_in_private_chat); 
-        
-        $res = privateChat::find($id)->update([
-            "users" => $user_in_private_chat
-        ]);
-        */
     }
 
     /**

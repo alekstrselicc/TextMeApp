@@ -121,18 +121,15 @@ class PlaygroundController extends Controller
         {
             array_push($playgrounds, playgroundMember::where("playground_id",$id)->get());
         }
-        //return $playgrounds;
+
         $users = [];
 
-        
         $playground_member = playgroundMember::where("user_id","!=",Auth::id())->get();
-        //return $playground_member;
 
         for($i = 0; $i < count($playground_member); $i++)
         {   
             array_push($users, $playground_member[$i]->user_id);
         }
-        //return $users;
         
         $array = [];
         

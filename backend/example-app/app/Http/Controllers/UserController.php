@@ -18,7 +18,6 @@ class UserController extends Controller
     public function index()
     {
         return Auth::user(); 
-        //return User::all(); 
     }
  
     /**
@@ -29,11 +28,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //to attach user to a massage ??
-        // $user = User::create($request->all());
-        // $message = Message::find($request->get('messages'));
-        // $user->channels()->attach($message);
-        // return $user;
+
     }
 
     /**
