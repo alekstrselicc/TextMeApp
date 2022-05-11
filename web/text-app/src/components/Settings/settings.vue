@@ -251,6 +251,7 @@ export default Vue.extend({
           relationship_id: this.profile.relation,
           country_id: this.profile.countryid,
           town_id: this.profile.town,
+          mobile: this.profile.phone,
         })
         .then(() => {
           console.log("saveds");
@@ -258,7 +259,7 @@ export default Vue.extend({
     },
   },
   created() {
-    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+    axios.get("http://127.0.0.1:8000/api/user").then(async (res) => {
       this.profile.username = res.data.first_name + " " + res.data.last_name;
       this.profile.phone = res.data.mobile;
       this.profile.img = res.data.img;
@@ -279,25 +280,23 @@ export default Vue.extend({
         this.relation = "in-relationship";
       }
 
-      console.log("this is the id: " + res.data.town_id);
-      this.town = { id: res.data.town_id };
-
-      //here we need to set with one is the right country and town
+      await axios
+        .get("http://127.0.0.1:8000/api/GetCountryByTown/" + res.data.town_id)
+        .then((ress) => {
+          this.country = { id: ress.data[0].id };
+          this.town = { id: res.data.town_id };
+        });
     });
 
     axios.get("http://127.0.0.1:8000/api/relationship").then((res) => {
       this.relations = res.data;
     });
-
     axios.get("http://127.0.0.1:8000/api/country").then((res) => {
       this.countries = res.data;
     });
-
-    /*
-    axios.get("http://127.0.0.1:8000/api/town").then((res) => {
+    axios.get("http://127.0.0.1:8000/api/towns").then((res) => {
       this.towns = res.data;
     });
-    */
   },
 });
 </script>

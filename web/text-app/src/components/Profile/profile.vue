@@ -100,8 +100,9 @@ export default Vue.extend({
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.",
     };
   },
+  methods: {},
   created() {
-    axios.get("http://127.0.0.1:8000/api/user").then((res) => {
+    axios.get("http://127.0.0.1:8000/api/user").then(async (res) => {
       console.log(res.data);
       this.name = res.data.first_name + " " + res.data.last_name;
       this.avatar = res.data.img;
@@ -109,13 +110,32 @@ export default Vue.extend({
         if (this.about_info[index].name === "Birth:") {
           this.about_info[index].info = " " + res.data.birth;
         } else if (this.about_info[index].name === "Gender:") {
-          console.log("still in progress");
+          if (res.data.gender_id == 1) {
+            this.about_info[index].info = " Male";
+          } else {
+            this.about_info[index].info = " Female";
+          }
         } else if (this.about_info[index].name === "Relationship:") {
-          console.log("still in progress");
+          if (res.data.relationship_id == 1) {
+            this.about_info[index].info = " Single";
+          } else {
+            this.about_info[index].info = " In-relationship";
+          }
         } else if (this.about_info[index].name === "Country:") {
-          this.about_info[index].info = " " + res.data.country;
+          //console.log("id: " + res.data.country_id);
+          await axios
+            .get(
+              "http://127.0.0.1:8000/api/GetCountryByTown/" + res.data.town_id
+            )
+            .then((response) => {
+              this.about_info[index].info = " " + response.data[0].country;
+            });
         } else if (this.about_info[index].name === "Town:") {
-          console.log("still in progress");
+          await axios
+            .get("http://127.0.0.1:8000/api/showTown/" + res.data.town_id)
+            .then((response) => {
+              this.about_info[index].info = " " + response.data.town;
+            });
         } else if (this.about_info[index].name === "Phone:") {
           this.about_info[index].info = " " + res.data.mobile;
         }

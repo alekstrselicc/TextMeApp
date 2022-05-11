@@ -16,9 +16,12 @@ class TownController extends Controller
     public function index()
     {
         $country = Country::with('towns')->get();
-        return $country;
+        return Town::all(); 
     }
 
+    public function showTown($id){
+        return Town::find($id); 
+    }
     /**
      * Store a newly created resource in storage.
      *
