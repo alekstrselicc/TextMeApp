@@ -12,7 +12,8 @@ class Channel extends Model
     protected $fillable = [
         'title',
         'created_at',
-        'playground_id'
+        'playground_id',
+        'accessibility'
     ];
     public function playground()
     {

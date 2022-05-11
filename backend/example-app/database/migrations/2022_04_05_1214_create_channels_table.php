@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->dateTime('created_at');
+            $table->string('accessibility');
             $table->unsignedBigInteger('playground_id');
             
             $table->foreign('playground_id')->references('id')->on('playgrounds')->onDelete('restrict');

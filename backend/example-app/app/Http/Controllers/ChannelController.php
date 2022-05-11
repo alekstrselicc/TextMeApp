@@ -38,7 +38,8 @@ class ChannelController extends Controller
         $res = $request->validate([
             'title' => 'required', 
             'created_at' => 'required', 
-            'playground_id' => 'required'
+            'playground_id' => 'required',
+            'accessibility' => 'required'
         ]); 
 
         Channel::create($request->all()); 
