@@ -56,8 +56,6 @@ class MessageController extends Controller
     //show all the messages from specific channelja
     public function showMessagesOfChannel($id)
     {
-        //$channel_member = Message::where("user_id" ,Auth::id())->get();
-
         $channel = Channel::where("channel_id", $id);
 
         $array_of_messages = [];

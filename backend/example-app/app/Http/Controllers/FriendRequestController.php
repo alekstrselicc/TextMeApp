@@ -35,7 +35,6 @@ class FriendRequestController extends Controller
 
     public function show($id)
     {
-        //return FriendRequest::find($id);
         return FriendRequest::where('approver', '=', $id)->get(); 
     }
     
