@@ -15,7 +15,7 @@
       <v-card class="card_add_channel">
         <div class="title_div"><h1 class="title_h1">Add channel</h1></div>
         <div class="search_email_div">
-          <v-text-field label="Enter name" solo></v-text-field>
+          <v-text-field label="Enter name" solo v-model="title"></v-text-field>
         </div>
 
         <div class="choose_btns">
@@ -27,7 +27,9 @@
         </div>
 
         <div class="btn_add_friende">
-          <v-btn class="add_friend_button" rounded>Add</v-btn>
+          <v-btn class="add_friend_button" rounded @click="sendChannel()"
+            >Add</v-btn
+          >
         </div>
       </v-card>
     </v-dialog>
@@ -36,6 +38,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 
 export default Vue.extend({
   data() {
@@ -45,7 +48,24 @@ export default Vue.extend({
       toggle_one: 0,
       toggle_exclusive: 2,
       toggle_multiple: [0, 1, 2],
+      title: "",
+      text: "",
     };
+  },
+
+  methods: {
+    sendChannel() {
+      axios
+        .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
+        .then(async (res) => {
+          axios.post("http://127.0.0.1:8000/api/channels", {
+            title: this.title,
+            accessibility: this.text,
+            playground_id: res.data[0].playground_id,
+            created_at: "2000-02-02",
+          });
+        });
+    },
   },
 });
 </script>
