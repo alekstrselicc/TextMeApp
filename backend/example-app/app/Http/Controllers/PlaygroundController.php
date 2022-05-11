@@ -7,7 +7,7 @@ use App\Models\Playground;
 use App\Models\playgroundMember; 
 use Illuminate\Support\Facades\Auth; 
 use App\Models\Channel; 
-
+use App\Models\User;
 
 class PlaygroundController extends Controller
 {
@@ -111,10 +111,36 @@ class PlaygroundController extends Controller
         return $the_return; 
     }
 
-    public function GetAllUsersFromPlayground()
+    public function GetAllUsersFromPlayground($id)
     {
         $playground = playgroundMember::all();
-        return $playground;
+        
+        $playgrounds = [];
+
+        for($i = 0; $i < isset($playground); $i++)
+        {
+            array_push($playgrounds, playgroundMember::where("playground_id",$id)->get());
+        }
+        //return $playgrounds;
+        $users = [];
+
+        $playground_member = playgroundMember::where("user_id","!=",Auth::id())->get();
+        //return $playground_member;
+
+        for($i = 0; $i < isset($playground_member); $i++)
+        {   
+            array_push($users, $playground_member[$i]->user_id);
+        }
+        //return $users;
+        
+        $array = [];
+        
+        for($i=0; $i < count($users); $i ++)
+        {
+            array_push($array, User::where("id",$users[$i])->get());
+
+        }
+        return $array;
     }
     /**
      * Remove the specified resource from storage.
