@@ -86,8 +86,9 @@
                     <v-select
                       :items="towns"
                       item-text="town"
+                      item-value="id"
                       solo
-                      @change="select_town"
+                      @change="selectTown"
                       v-model="town"
                       class="relatin_class"
                     ></v-select
@@ -181,10 +182,8 @@ export default Vue.extend({
     genders: ["Male", "Female", "Other"],
     relations: [],
 
-    country: "",
     countries: [],
 
-    town: "",
     towns: [],
 
     visible: false,
@@ -194,8 +193,11 @@ export default Vue.extend({
     actions(action) {
       if (action === "user_profile") {
         this.showCart();
-        console.log(VueScreenSize.vssWidth);
       } else if (action === "logout_profile") {
+        axios.put("http://127.0.0.1:8000/api/user/" + this.profile.id, {
+          status_id: 2,
+        });
+
         axios.get("http://127.0.0.1:8000/api/logout").then((res) => {
           console.log("logged out ");
         });
@@ -222,7 +224,6 @@ export default Vue.extend({
     },
     selectRelation(e) {
       if (e === "single") {
-        console.log("delat");
         this.profile.relation = 1;
       } else {
         this.profile.relation = 2;
@@ -236,12 +237,20 @@ export default Vue.extend({
           this.towns = res.data;
         });
     },
+    selectTown(e) {
+      this.profile.town = e;
+    },
+
+    //getTown(){},
+
     savaUserData() {
       //First save the gender, then save the id of the gender to user
       axios
         .put("http://127.0.0.1:8000/api/user/" + this.profile.id, {
           gender_id: this.profile.gender,
           relationship_id: this.profile.relation,
+          country_id: this.profile.countryid,
+          town_id: this.profile.town,
         })
         .then(() => {
           console.log("saveds");
@@ -256,6 +265,8 @@ export default Vue.extend({
       this.profile.id = res.data.id;
       this.profile.gender = res.data.gender_id;
       this.profile.relation = res.data.relationship_id;
+      this.profile.countryid = res.data.country_id;
+      this.profile.town = res.data.town_id;
 
       if (this.profile.gender == 1) {
         this.gender = "Male";
@@ -267,6 +278,11 @@ export default Vue.extend({
       } else {
         this.relation = "in-relationship";
       }
+
+      console.log("this is the id: " + res.data.town_id);
+      this.town = { id: res.data.town_id };
+
+      //here we need to set with one is the right country and town
     });
 
     axios.get("http://127.0.0.1:8000/api/relationship").then((res) => {
@@ -275,8 +291,13 @@ export default Vue.extend({
 
     axios.get("http://127.0.0.1:8000/api/country").then((res) => {
       this.countries = res.data;
-      console.log(res.data);
     });
+
+    /*
+    axios.get("http://127.0.0.1:8000/api/town").then((res) => {
+      this.towns = res.data;
+    });
+    */
   },
 });
 </script>
@@ -297,6 +318,9 @@ export default Vue.extend({
 .selections,
 .v-text-field.v-text-field--solo .v-input__control {
   min-height: 30px !important;
+}
+.theme--light.v-select .v-select__selections {
+  color: black !important;
 }
 
 .image_changer {

@@ -102,7 +102,7 @@ export default Vue.extend({
   },
   created() {
     axios.get("http://127.0.0.1:8000/api/user").then((res) => {
-      console.log(res.data.last_name);
+      console.log(res.data);
       this.name = res.data.first_name + " " + res.data.last_name;
       this.avatar = res.data.img;
       for (let index = 0; index < 6; index++) {

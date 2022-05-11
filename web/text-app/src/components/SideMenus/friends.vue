@@ -12,7 +12,12 @@
             color="white"
             class="item_group"
           >
-            <v-list-item v-for="(item, i) in items" :key="i" class="list_item">
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+              class="list_item"
+              @click="getChat(item.id)"
+            >
               <v-badge
                 bordered
                 bottom
@@ -55,26 +60,7 @@ export default Vue.extend({
   data() {
     return {
       selectedItem: 1,
-      itemss: [
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Janez_Novak",
-          color: "red",
-        },
-        {
-          avatar: "https://picsum.photos/350/165?random",
-          title: "Mojca Mastnak",
-          color: "yellow",
-        },
-        {
-          avatar: "https://picsum.photos/350/165?random",
-          title: "Mojca Mastnak",
-          color: "yellow",
-        },
-      ],
-
       items: [],
-
       states: ["delat", "treba"],
     };
   },
@@ -89,6 +75,9 @@ export default Vue.extend({
       } else {
         return "yellow";
       }
+    },
+    getChat(e) {
+      this.$router.push({ path: "/chat/user/" + e });
     },
   },
 

@@ -9,8 +9,8 @@
     <!-- Here is going to be the send message -->
     <ChatSend />
 
-    <PlaygroundSettings />
-    <ShowMember />
+    <PlaygroundSettings v-if="playgroundsettingsif" />
+    <ShowMember v-if="membersif" />
   </v-container>
 </template>
 
@@ -29,6 +29,27 @@ export default Vue.extend({
     ChatSend,
     ShowMember,
     PlaygroundSettings,
+  },
+  data() {
+    return {
+      playgroundsettingsif: true,
+      membersif: true,
+    };
+  },
+  watch: {
+    "$route.params.search": {
+      handler: function (search) {
+        if (this.$route.path.length < 9) {
+          this.playgroundsettingsif = true;
+          this.membersif = true;
+        } else {
+          this.playgroundsettingsif = false;
+          this.membersif = false;
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 });
 </script>

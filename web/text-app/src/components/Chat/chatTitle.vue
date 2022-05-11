@@ -27,38 +27,68 @@ export default Vue.extend({
       showSettings: false,
     };
   },
+  /*
+  methods: {
+    checkPath(e){
+      if(e == "")
+    }
+  }
+  */
   created() {
     //this.$http.get('')
-    console.log("What is this: " + this.$route.params.id);
-    axios
-      .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
-      .then(async (res) => {
-        this.subtitle = res.data[0].title;
-        await axios
-          .get(
-            "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
-          )
-          .then((res) => {
-            this.title = res.data.title;
-          });
-      });
+    if (this.$route.path.length < 9) {
+      axios
+        .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
+        .then(async (res) => {
+          this.subtitle = res.data[0].title;
+          await axios
+            .get(
+              "http://127.0.0.1:8000/api/playgrounds/" +
+                res.data[0].playground_id
+            )
+            .then((res) => {
+              this.title = res.data.title;
+            });
+        });
+    } else {
+      //console.log("What is this: " + this.$route.params.id);
+      axios
+        .get("http://127.0.0.1:8000/api/user/" + this.$route.params.id)
+        .then((res) => {
+          console.log("what is this");
+          console.log(res.data);
+        });
+    }
   },
   watch: {
     "$route.params.search": {
       handler: function (search) {
-        axios
-          .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
-          .then(async (res) => {
-            this.subtitle = res.data[0].title;
-            await axios
-              .get(
-                "http://127.0.0.1:8000/api/playgrounds/" +
-                  res.data[0].playground_id
-              )
-              .then((res) => {
-                this.title = res.data.title;
-              });
-          });
+        if (this.$route.path.length < 9) {
+          axios
+            .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
+            .then(async (res) => {
+              this.subtitle = res.data[0].title;
+              await axios
+                .get(
+                  "http://127.0.0.1:8000/api/playgrounds/" +
+                    res.data[0].playground_id
+                )
+                .then((res) => {
+                  this.title = res.data.title;
+                });
+            });
+        } else {
+          //console.log("What is this: " + this.$route.params.id);
+          axios
+            .get("http://127.0.0.1:8000/api/user/" + this.$route.params.id)
+            .then((res) => {
+              (this.title = ""),
+                (this.subtitle = ""),
+                console.log("what is this");
+              console.log(res.data);
+              this.title = res.data.first_name + " " + res.data.last_name;
+            });
+        }
       },
       deep: true,
       immediate: true,

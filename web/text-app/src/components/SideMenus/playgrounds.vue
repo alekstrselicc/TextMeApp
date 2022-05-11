@@ -76,18 +76,11 @@ export default Vue.extend({
   },
   methods: {
     menuActionClick(e) {
-      //tukaj je potrebno potem redirectat na chat in potrebno poslat title od playgrounda in title od channela
-
-      //poslemo id od playgrounda pa channela preko na drugi vue
-      //Vue.prototype.$channelID = e;
       this.$router.push({ path: "/chat/" + e });
-
-      //alternativa
-      //window.location.href = "/chat/" + e;
     },
     showSettings(e) {
       console.log("delat");
-      this.$router.push("main");
+      this.$router.push({ path: "/chat" });
     },
   },
 });
