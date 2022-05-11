@@ -2,7 +2,7 @@
   <v-layout class="btn_layout">
     <!-- Clickable icon -->
     <v-flex class="btn_icon">
-      <v-btn icon>
+      <v-btn icon @click="goToProfile()">
         <v-badge
           bordered
           bottom
@@ -63,6 +63,9 @@ export default Vue.extend({
   watch: {},
 
   methods: {
+    goToProfile() {
+      this.$router.push({ path: "/profile" });
+    },
     check(e) {
       if (e == "away") {
         this.id_status = 4;

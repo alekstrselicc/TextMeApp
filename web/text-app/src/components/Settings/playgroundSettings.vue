@@ -50,6 +50,11 @@
                   v-model="playground_name"
                 ></v-text-field>
               </v-row>
+              <v-row>
+                <v-btn class="save_name_btn" rounded @click="saveName"
+                  >Save</v-btn
+                >
+              </v-row>
             </div>
           </v-col>
           <v-col class="second_col hidden-sm-and-down">
@@ -129,6 +134,11 @@
                 v-model="playground_name"
               ></v-text-field>
             </v-row>
+            <v-row>
+              <v-btn class="save_name_btn" rounded @click="saveName"
+                >Save</v-btn
+              >
+            </v-row>
           </v-card-text>
           <v-card-actions class="pt-0">
             <v-btn text color="white accent-4" @click="change_name = false">
@@ -158,7 +168,21 @@ export default Vue.extend({
     };
   },
 
-  methods: {},
+  methods: {
+    saveName() {
+      axios
+        .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
+        .then(async (res) => {
+          await axios.put(
+            "http://127.0.0.1:8000/api/playgrounds/" +
+              res.data[0].playground_id,
+            {
+              title: this.playground_name,
+            }
+          );
+        });
+    },
+  },
 
   created() {
     axios
@@ -200,6 +224,11 @@ export default Vue.extend({
   top: 0;
   margin-top: 95px;
   margin-right: 80px;
+}
+.save_name_btn {
+  background-color: #007abe !important;
+  color: white !important;
+  margin: 0 auto;
 }
 
 @media (max-width: 960px) {
