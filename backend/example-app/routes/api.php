@@ -101,4 +101,5 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::post('getPlaygroundRequestsId', [PlaygroundRequestController::class, 'getPlaygroundRequestsId']); 
         route::get('GetAllUsersFromPlayground/{id}', [PlaygroundController::class, 'GetAllUsersFromPlayground']); 
         route::get('AllChannelsOfPlayground/{id}', [ChannelController::class, 'AllChannelsOfPlayground']);
+        route::get('GetCountryByTown/{id}', [TownController::class, 'GetCountryByTown']); //id town and you get country
     });

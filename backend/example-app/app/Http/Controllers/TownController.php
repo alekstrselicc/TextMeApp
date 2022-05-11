@@ -39,7 +39,35 @@ class TownController extends Controller
         return Town::create($request->all());
 
     }
+    //id town pa dobiš državo
+    public function GetCountryByTown($id)
+    {
+        $town = Town::all();
 
+        $towns = [];
+
+        for($i = 0; $i < isset($town); $i++)
+        {
+            array_push($towns, Town::where("id",$id)->first());
+        }
+
+        $countries = [];
+        
+        for($i = 0; $i < isset($towns); $i++)
+        {
+            array_push($countries, $towns[$i]->country_id);
+        }
+
+        $array = [];
+        
+        for($i=0; $i < count($countries); $i ++)
+        {
+            array_push($array, Country::where("id",$countries[$i])->first());
+
+        }
+        return $array;
+
+    }
     /**
      * Display the specified resource.
      *
