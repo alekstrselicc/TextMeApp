@@ -99,6 +99,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get('findByName/{name}', [PlaygroundController::class, 'findByName']); 
         route::get('findByChannel/{id}', [PlaygroundController::class, 'findByChannel'] ); 
         route::post('getPlaygroundRequestsId', [PlaygroundRequestController::class, 'getPlaygroundRequestsId']); 
-        route::get('GetAllUsersFromPlayground', [PlaygroundController::class, 'GetAllUsersFromPlayground']); 
+        route::get('GetAllUsersFromPlayground/{id}', [PlaygroundController::class, 'GetAllUsersFromPlayground']); 
         route::get('AllChannelsOfPlayground/{id}', [ChannelController::class, 'AllChannelsOfPlayground']);
     });

@@ -34,17 +34,17 @@
               <v-badge
                 bordered
                 bottom
-                :color="item.status"
+                :color="check_color(item.status_id)"
                 offset-x="25"
                 offset-y="25"
               >
                 <v-list-item-avatar size="50" class="ml-n2">
-                  <v-img :src="item.avatar"></v-img>
+                  <v-img :src="item.img"></v-img>
                 </v-list-item-avatar>
               </v-badge>
               <v-list-item-content>
                 <v-list-item-title
-                  v-text="item.name"
+                  v-text="item.first_name + item.last_name"
                   color="white"
                   class="white--text member_names"
                 >
@@ -143,6 +143,7 @@ export default Vue.extend({
       pending_members: [],
 
       count_pen: null,
+      members: [],
       memberss: [
         {
           name: "Janez_Novak123",
@@ -206,6 +207,17 @@ export default Vue.extend({
           //await axios.delete("http://127.0.0.1:8000/api/playground_request/" + )
         });
     },
+    check_color(e) {
+      if (e == 1) {
+        return "green";
+      } else if (e == 2) {
+        return "grey";
+      } else if (e == 3) {
+        return "red";
+      } else {
+        return "yellow";
+      }
+    },
   },
 
   created() {
@@ -214,15 +226,23 @@ export default Vue.extend({
     //gettings the requests
     axios
       .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
-      .then((res) => {
+      .then(async (res) => {
         console.log(res.data[0].playground_id);
-        axios
+
+        await axios
+          .get(
+            "http://127.0.0.1:8000/api/GetAllUsersFromPlayground/" +
+              res.data[0].playground_id
+          )
+          .then((res) => {
+            this.members = res.data;
+          });
+        await axios
           .get(
             "http://127.0.0.1:8000/api/playground_request/" +
               res.data[0].playground_id
           )
           .then((res) => {
-            console.log(res.data[0][0].first_name);
             this.pending_members = res.data[0];
             this.count_pen = res.data[0].length;
           });
