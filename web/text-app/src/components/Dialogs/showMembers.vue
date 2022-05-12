@@ -175,16 +175,13 @@ export default Vue.extend({
       axios
         .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
         .then(async (res) => {
-          await axios
-            .post("http://127.0.0.1:8000/api/playground_members", {
-              user_id: e,
-              playground_id: res.data[0].playground_id,
-              //sender: Vue.prototype.$userId,
-              joined: "2002-02-02 13:13:13",
-            })
-            .then((res) => {
-              console.log(res.data);
-            });
+          console.log(res.data[0].playground_id);
+          await axios.post("http://127.0.0.1:8000/api/playground_members", {
+            user_id: e,
+            playground_id: res.data[0].playground_id,
+            //sender: Vue.prototype.$userId,
+            joined: "2002-02-02 13:13:13",
+          });
         });
     },
     decline(e) {
@@ -224,6 +221,8 @@ export default Vue.extend({
     //getting the playground members
     //axios.get("http://127.0.0.1:8000/api/").then((res) => {});
     //gettings the requests
+    //console.log("novi");
+    this.members = [];
     axios
       .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
       .then(async (res) => {
@@ -247,6 +246,42 @@ export default Vue.extend({
             this.count_pen = res.data[0].length;
           });
       });
+  },
+
+  watch: {
+    "$route.params.search": {
+      handler: function (search) {
+        console.log("novi1:" + this.$route.params.id);
+        this.members = [];
+        axios
+          .get(
+            "http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id
+          )
+          .then(async (res) => {
+            console.log(res.data[0].playground_id);
+
+            await axios
+              .get(
+                "http://127.0.0.1:8000/api/GetAllUsersFromPlayground/" +
+                  res.data[0].playground_id
+              )
+              .then((res) => {
+                this.members = res.data;
+              });
+            await axios
+              .get(
+                "http://127.0.0.1:8000/api/playground_request/" +
+                  res.data[0].playground_id
+              )
+              .then((res) => {
+                this.pending_members = res.data[0];
+                this.count_pen = res.data[0].length;
+              });
+          });
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 });
 </script>

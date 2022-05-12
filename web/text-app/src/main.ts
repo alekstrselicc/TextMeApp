@@ -24,6 +24,12 @@ Vue.prototype.$userId = null;
 
 let ref = false;
 
+declare global {
+  interface Window {
+    Pusher: any;
+    Echo: any;
+  }
+}
 axios.interceptors.response.use(
   (res) => res,
   (error) => {
@@ -52,6 +58,19 @@ axios.interceptors.response.use(
     return error;
   }
 );
+
+import Echo from "laravel-echo";
+
+window.Pusher = require("pusher-js");
+
+window.Echo = new Echo({
+  broadcaster: "pusher",
+  key: "local",
+  wsHost: "127.0.0.1",
+  wsPort: 6001,
+  forceTLS: false,
+  disableStats: true,
+});
 
 new Vue({
   router,

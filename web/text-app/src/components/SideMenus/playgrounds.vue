@@ -67,7 +67,7 @@ export default Vue.extend({
     axios
       .get("http://127.0.0.1:8000/api/getPlaygroundsWithChannels")
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         this.items = res.data;
       })
       .catch((error) => {
@@ -79,7 +79,7 @@ export default Vue.extend({
       this.$router.push({ path: "/chat/" + e });
     },
     showSettings(e) {
-      console.log("delat");
+      //console.log("delat");
       this.$router.push({ path: "/chat" });
     },
   },

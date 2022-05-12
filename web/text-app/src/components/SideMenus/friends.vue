@@ -83,7 +83,7 @@ export default Vue.extend({
 
   created() {
     axios.get("http://127.0.0.1:8000/api/get_friends").then((res) => {
-      console.log(res.data);
+      //console.log(res.data);
       this.items = res.data;
     });
   },

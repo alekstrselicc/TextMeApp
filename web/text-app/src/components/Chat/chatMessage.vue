@@ -22,6 +22,8 @@
 import Vue from "vue";
 import ChatBar from "@/components/Chat/chatBar.vue";
 
+import io from "socket.io-client";
+
 export default Vue.extend({
   name: "chatMessage",
   components: { ChatBar },
