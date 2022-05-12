@@ -140,6 +140,31 @@ class PlaygroundController extends Controller
         }
         return $array;
     }
+    public function GetUserFromChannel($id)
+    {
+        $channel = Channel::where("id",$id)->get();
+        
+        $playground = [];
+        for($i = 0; $i < isset($channel); $i++)
+        {
+            array_push($playground, $channel[$i]->playground_id);
+        }
+
+        $array_playground_member = [];
+        for($i = 0; $i < count($playground); $i++){
+            array_push($array_playground_member, playgroundMember::where("playground_id",$playground[$i])->get("user_id"));
+        }
+        
+        $temp = $array_playground_member[0]; 
+
+        $users = []; 
+
+        for ($i=0; $i < count($temp); $i++) { 
+            array_push($users, User::where("id", $temp[$i]->user_id)->get()); 
+        }
+
+        return $users; 
+    }
     /**
      * Remove the specified resource from storage.
      *
