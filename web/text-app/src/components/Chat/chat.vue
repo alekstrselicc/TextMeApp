@@ -3,9 +3,6 @@
     <!-- Here is going to show the title -->
     <ChatTitle />
 
-    <!-- Chat log -->
-    <ChatLog />
-
     <!-- Here is going to be the send message -->
     <ChatSend />
 
@@ -17,7 +14,7 @@
 <script lang="ts">
 import ChatTitle from "@/components/Chat/chatTitle.vue";
 import ChatSend from "@/components/Chat/chatMessage.vue";
-import ChatLog from "@/components/Chat/chatLog.vue";
+
 import ShowMember from "@/components/Dialogs/showMembers.vue";
 import Vue from "vue";
 import PlaygroundSettings from "@/components/Settings/playgroundSettings.vue";
@@ -25,7 +22,6 @@ export default Vue.extend({
   name: "chat",
   components: {
     ChatTitle,
-    ChatLog,
     ChatSend,
     ShowMember,
     PlaygroundSettings,

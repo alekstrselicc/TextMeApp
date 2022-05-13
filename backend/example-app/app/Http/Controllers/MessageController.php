@@ -35,7 +35,7 @@ class MessageController extends Controller
     {
         //$currentDate = Carbon::now();
         $request->validate([
-            'messages' => 'required|string',
+            'messages' => 'required',
             'created_at' => 'required',
             'user_id' => 'required',
             'channel_id' => 'required',
@@ -53,6 +53,32 @@ class MessageController extends Controller
     {
         return Message::find($id);
     }
+
+
+    public function sendMessage(Request $request){
+        $user = Auth::user(); 
+        
+        $request->validate([
+            'message' => 'required|string',
+            'created_at' => 'required',
+            'channel_id' => 'required',
+        ]);
+        $request->user_id = Auth::user(); 
+
+        $message = $request->message;
+
+        Message::create($request->all());
+
+        broadcast(new MessageSent($user, $message));
+        
+    } 
+
+    public function fetchMessage($id){
+ 
+        return  Message::where("channel_id", $id)->get();     
+        //$msg = privateMessage::where("")
+    }
+
     //show all the messages from specific channelja
     public function showMessagesOfChannel($id)
     {

@@ -15,7 +15,7 @@ class PrivateMessageController extends Controller
      */
     public function index()
     {
-        $p_messages = privateChat::with('usrs')->get();
+        $p_messages = privateMessage::all(); 
         return $p_messages;
     }
 
@@ -34,24 +34,6 @@ class PrivateMessageController extends Controller
             'private_chat_id' => 'required',
         ]);
         return privateMessage::create($request->all());
-    }
-
-
-    public function sendMessage(Request $request){
-        $user = Auth::user(); 
-        $request->validate([
-            'message' => 'required|string',
-            'created_at' => 'required',
-            'user_id' => 'required',
-            'private_chat_id' => 'required',
-        ]);
-
-        $message = $request->message;
-
-        privateMessage::create($request->all());
-        
-        broadcast(new MessageSent($user, $message))->toOthers();
-        
     }
 
     /**

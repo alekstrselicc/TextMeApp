@@ -104,4 +104,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get('GetCountryByTown/{id}', [TownController::class, 'GetCountryByTown']); //id town and you get country
         route::get("showTown/{id}", [TownController::class, 'showTown']); 
         route::get("GetUserFromChannel/{id}", [PlaygroundController::class, 'GetUserFromChannel']); 
+        route::post("sendMessages", [MessageController::class, 'sendMessages']); 
+        route::get("fetchMessage/{id}", [MessageController::class, 'fetchMessage']); 
     });

@@ -100,7 +100,9 @@ export default Vue.extend({
 <style>
 .mains {
   height: 100px;
-  margin-top: -40px !important;
+  margin-top: 90px !important;
+  position: absolute;
+  top: 0;
 }
 
 .titles {

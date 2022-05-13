@@ -72,9 +72,9 @@ export default Vue.extend({
       this.dialog = false;
       axios
         .get("http://127.0.0.1:8000/api/findByName/" + this.name)
-        .then((res) => {
+        .then(async (res) => {
           console.log(res.data);
-          axios.post("http://127.0.0.1:8000/api/playground_request", {
+          await axios.post("http://127.0.0.1:8000/api/playground_request", {
             sender: Vue.prototype.$userId,
             playground_id: res.data[0].id,
           });
