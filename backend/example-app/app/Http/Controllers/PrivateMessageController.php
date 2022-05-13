@@ -18,6 +18,11 @@ class PrivateMessageController extends Controller
         $p_messages = privateChat::with('usrs')->get();
         return $p_messages;
     }
+    public function GetPrivateMessages()
+    {
+        $private_messages = privateMessage::all();
+        return $private_messages;
+    }
 
     /**
      * Store a newly created resource in storage.
