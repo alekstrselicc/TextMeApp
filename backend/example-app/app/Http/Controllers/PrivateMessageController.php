@@ -18,6 +18,11 @@ class PrivateMessageController extends Controller
         $p_messages = privateMessage::all(); 
         return $p_messages;
     }
+    public function GetPrivateMessages()
+    {
+        $private_messages = privateMessage::all();
+        return $private_messages;
+    }
 
     /**
      * Store a newly created resource in storage.
