@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Message;
 
-class MessageSent extends Event implements ShouldBroadcast{
+class MessageSent implements ShouldBroadcast{
     public $message, $user;
     /**
      * Create a new event instance.
@@ -33,6 +33,9 @@ class MessageSent extends Event implements ShouldBroadcast{
     {
         return new PrivateChannel('chat');
     }
+
+
+    
     public function broadcastWith()
     {
         return [

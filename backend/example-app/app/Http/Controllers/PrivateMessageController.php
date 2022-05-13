@@ -36,6 +36,24 @@ class PrivateMessageController extends Controller
         return privateMessage::create($request->all());
     }
 
+
+    public function sendMessage(Request $request){
+        $user = Auth::user(); 
+        $request->validate([
+            'message' => 'required|string',
+            'created_at' => 'required',
+            'user_id' => 'required',
+            'private_chat_id' => 'required',
+        ]);
+
+        $message = $request->message;
+
+        privateMessage::create($request->all());
+        
+        broadcast(new MessageSent($user, $message))->toOthers();
+        
+    }
+
     /**
      * Display the specified resource.
      *
