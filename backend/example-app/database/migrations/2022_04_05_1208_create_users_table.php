@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('mobile');
+            $table->string('mobile')->nullable();
+            $table->string('birth')->nullable();
             $table->string('img')->nullable();
-            $table->string('birth'); 
             $table->longText('user_description')->nullable();
             $table->string('password');
             $table->dateTime('last_login')->nullable();
