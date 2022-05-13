@@ -34,7 +34,6 @@ class PlaygroundMembersController extends Controller
             'user_id' => 'required',
             'playground_id' => 'required',
         ]);
-        
         //a member is created 
         playgroundMember::create($request->all());
 

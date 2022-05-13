@@ -48,7 +48,8 @@ class PlaygroundController extends Controller
         $channel = [
             'title' => 'General',
             'created_at' => '2002-03-12 13:13:13', 
-            'playground_id' => $play->id
+            'playground_id' => $play->id, 
+            'accessibility' => 'public'
         ]; 
 
         Channel::create($channel);

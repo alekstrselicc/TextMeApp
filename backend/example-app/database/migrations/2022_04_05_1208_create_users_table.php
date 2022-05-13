@@ -19,17 +19,19 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('mobile');
-            $table->longText('user_description');
+            $table->string('img')->nullable();
+            $table->string('birth'); 
+            $table->longText('user_description')->nullable();
             $table->string('password');
-            $table->dateTime('last_login');
-            $table->dateTime('registered_at');
-            $table->unsignedBigInteger('status_id');
-            $table->unsignedBigInteger('gender_id');
-            $table->unsignedBigInteger('language_id');
-            $table->unsignedBigInteger('relationship_id');
-            $table->unsignedBigInteger('user_type_id');
-            $table->unsignedBigInteger('town_id');
-            $table->unsignedBigInteger('theme_id');
+            $table->dateTime('last_login')->nullable();
+            $table->dateTime('registered_at')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->unsignedBigInteger('language_id')->nullable();
+            $table->unsignedBigInteger('relationship_id')->nullable();
+            $table->unsignedBigInteger('user_type_id')->nullable();
+            $table->unsignedBigInteger('town_id')->nullable();
+            $table->unsignedBigInteger('theme_id')->nullable();
 
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('restrict');
 

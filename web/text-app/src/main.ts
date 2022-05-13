@@ -17,9 +17,9 @@ Vue.use(VueCookies, { expire: "7d" });
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$clientSecret = "s8fFcGCsOHGmLiG9TxjJaGjEuBKURInCqeVU9965";
+Vue.prototype.$clientSecret = "Av1FPFuSdJofcvbiNx0UfaazaI0kFiti8YW07AFR";
 
-Vue.prototype.$clientId = "9";
+Vue.prototype.$clientId = "2";
 Vue.prototype.$userId = null;
 
 let ref = false;

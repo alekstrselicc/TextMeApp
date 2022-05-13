@@ -33,17 +33,20 @@ class PrivateChatController extends Controller
     
         $response_sender = [
             'user_id' => $request->user_id, 
-            'private_chat_id' => $private_chat->id
+            'private_chat_id' => $private_chat->id, 
+            'created_at' => '2002-02-02 13:13:13'
         ]; 
         $response_approver = [
             'user_id' => Auth::id(), 
-            'private_chat_id' => $private_chat->id  
+            'private_chat_id' => $private_chat->id,
+            'created_at' => '2002-02-02 13:13:13' 
         ]; 
         Participants::create($response_sender);
         Participants::create($response_approver);
 
-        $pend_id = FriendRequest::where("approver", Auth::id())->where("sender", $request->user_id)->get(); 
-        FriendRequest::destroy($pend_id[0]->id); 
+        $pend_id = FriendRequest::where("approver", Auth::id())->where("sender", $request->user_id)->first(); 
+        FriendRequest::destroy($pend_id->id); 
+        return $pend_id->id; 
     }
 
     /**

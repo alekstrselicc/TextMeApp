@@ -181,6 +181,7 @@ export default Vue.extend({
             playground_id: res.data[0].playground_id,
             //sender: Vue.prototype.$userId,
             joined: "2002-02-02 13:13:13",
+            left: "2002-02-02 13:13:13",
           });
         });
     },

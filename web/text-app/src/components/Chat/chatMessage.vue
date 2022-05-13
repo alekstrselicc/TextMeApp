@@ -17,7 +17,7 @@
             </div>
 
             <div class="msg_user">
-              {{ item.msg }} <v-img :src="item.img"></v-img>
+              {{ item.messages }} <v-img :src="item.img"></v-img>
             </div>
           </v-row>
         </div>
@@ -80,11 +80,10 @@ export default Vue.extend({
     fetchMessages() {
       console.log("pridobi podatke");
       axios
-        .get(
-          "http://127.0.0.1:8000/api/messages_by_channel/this.$route.params.id"
-        )
+        .get("http://127.0.0.1:8000/api/fetchMessage/" + this.$route.params.id)
         .then((res) => {
-          console.log(res.data);
+          console.log("who dis");
+          this.messages = res.data;
         });
     },
   },
@@ -92,6 +91,8 @@ export default Vue.extend({
     axios.get("http://127.0.0.1:8000/api/user").then((res) => {
       this.user_name = res.data.first_name;
     });
+
+    this.fetchMessages();
 
     window.Echo.join("chat").listen("MessageSent", (event) => {
       this.messages.push(event.message);

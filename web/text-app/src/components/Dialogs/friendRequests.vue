@@ -102,9 +102,14 @@ export default Vue.extend({
         });
     },
     accept(e) {
-      axios.post("http://127.0.0.1:8000/api/private_chats", {
-        user_id: e,
-      });
+      axios
+        .post("http://127.0.0.1:8000/api/private_chats", {
+          user_id: e,
+          last_send: "2000-02-02 13:13:13",
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
     },
   },
 
