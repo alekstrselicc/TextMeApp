@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('playground_members', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('joined');
-            $table->dateTime('left');
+            $table->dateTime('joined')->nullable();
+            $table->dateTime('left')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('playground_id');
 

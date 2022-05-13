@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('playgrounds', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('img')->nullable();
         });
     }
 
