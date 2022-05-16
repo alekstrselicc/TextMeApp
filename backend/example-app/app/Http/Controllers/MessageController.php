@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use App\Events\MessageSent; 
 
 class MessageController extends Controller
 {
@@ -59,25 +59,56 @@ class MessageController extends Controller
         $user = Auth::user(); 
         
         $request->validate([
-            'message' => 'required|string',
+            'messages' => 'required|string',
             'created_at' => 'required',
             'channel_id' => 'required',
         ]);
-        $request->user_id = Auth::user(); 
+        //$request->user_id = Auth::user(); 
 
-        $message = $request->message;
+        $message = $request->messages;
 
-        Message::create($request->all());
+        //Message::create($request->all());
 
-        broadcast(new MessageSent($user, $message));
+        broadcast(new MessageSent($request->all())); 
+
+        //return $message; 
         
     } 
 
+
     public function fetchMessage($id){
- 
-        return  Message::where("channel_id", $id)->get();     
+        //return Message::where("channel_id", $id)->get();     
         //$msg = privateMessage::where("")
+
+        $all_msg = Message::where("channel_id", $id)->get(); 
+        
+        $res = []; 
+
+        for ($i=0; $i < count($all_msg); $i++) { 
+            $user = User::where("id", $all_msg[$i]->user_id)->first(); 
+            $user_msg = Message::where("user_id", $all_msg[$i]->user_id)->get(); 
+
+            $obj = [
+                "user_id" => $user->id,
+                "user_name" => $user->first_name,
+                "user_img" =>$user->img, 
+                "messages" => $user_msg
+            ]; 
+            array_push($res, $obj); 
+        }
+
+        $result = array();
+        foreach ($res as $key => $value){
+          if(!in_array($value, $result))
+            $result[$key]=$value;
+        }
+
+        //print-r $result; 
+        //return $res[1]->obj["user_id"]; 
+        return $all_msg;
     }
+
+
 
     //show all the messages from specific channelja
     public function showMessagesOfChannel($id)

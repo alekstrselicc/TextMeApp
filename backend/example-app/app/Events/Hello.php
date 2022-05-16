@@ -10,22 +10,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class hello implements ShouldBroadcast
+class Hello implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $message; 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $message = null)
     {
-        //
+        $this->message = $message; 
     }
-    public function broadcastWith(){
+    public function broadcastWith(string $message = null){
         return [
-            'hello' => 'there'
+            'hello' => $message
         ]; 
     }
 

@@ -17,7 +17,7 @@
             </div>
 
             <div class="msg_user">
-              {{ item.messages }} <v-img :src="item.img"></v-img>
+              {{ item.msg }} <v-img :src="item.img"></v-img>
             </div>
           </v-row>
         </div>
@@ -62,28 +62,26 @@ export default Vue.extend({
   methods: {
     sendMessage() {
       console.log("This is going to be sent: " + this.message);
-      this.messages.push({
-        user: this.user_name,
-        avatar: "https://picsum.photos/350/165?random",
-        msg: this.message,
-      });
 
       axios.post("http://127.0.0.1:8000/api/sendMessages", {
-        message: this.message,
+        messages: this.message,
         channel_id: this.$route.params.id,
         created_at: "2002-02-02 13:13:13",
+        user_id: Vue.prototype.$userId,
       });
 
-      console.log("Velikost: " + this.messages.length);
       this.message = "";
+      //console.log("Velikost: " + this.messages.length);
+      //this.message = "";
     },
     fetchMessages() {
       console.log("pridobi podatke");
       axios
         .get("http://127.0.0.1:8000/api/fetchMessage/" + this.$route.params.id)
-        .then((res) => {
-          console.log("who dis");
+        .then(async (res) => {
+          //here is all the data
           this.messages = res.data;
+          //await axios.get("http://127.0.0.1:8000/api/user/")
         });
     },
   },
@@ -94,8 +92,12 @@ export default Vue.extend({
 
     this.fetchMessages();
 
-    window.Echo.join("chat").listen("MessageSent", (event) => {
-      this.messages.push(event.message);
+    window.Echo.channel("chat").listen("MessageSent", (e) => {
+      //console.log("ti si pac delavec");
+      console.log(e.messages);
+      this.messages.push({
+        msg: e.messages,
+      });
     });
   },
 });

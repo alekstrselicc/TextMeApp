@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Events\Hello; 
+use App\Events\MessageSent; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,3 @@ use App\Events\Hello;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/broadcast', function() {
-    broadcast(new Hello()); 
-}); 

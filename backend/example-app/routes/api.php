@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get("showTown/{id}", [TownController::class, 'showTown']); 
 
         route::get("GetUserFromChannel/{id}", [PlaygroundController::class, 'GetUserFromChannel']); 
-        route::post("sendMessages", [MessageController::class, 'sendMessages']); 
+        route::post("sendMessages", [MessageController::class, 'sendMessage']); 
         route::get("fetchMessage/{id}", [MessageController::class, 'fetchMessage']); 
 
         route::get("GetUserFromChannel/{id}", [PlaygroundController::class, 'GetUserFromChannel']);
