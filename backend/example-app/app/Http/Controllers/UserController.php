@@ -19,6 +19,9 @@ class UserController extends Controller
     {
         return Auth::user(); 
     }
+    public function getAll(){
+        return User::all(); 
+    }
  
     /**
      * Store a newly created resource in storage.

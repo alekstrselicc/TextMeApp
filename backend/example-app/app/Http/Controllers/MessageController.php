@@ -67,7 +67,7 @@ class MessageController extends Controller
 
         $message = $request->messages;
 
-        //Message::create($request->all());
+        Message::create($request->all());
 
         broadcast(new MessageSent($request->all())); 
 
@@ -103,9 +103,8 @@ class MessageController extends Controller
             $result[$key]=$value;
         }
 
-        //print-r $result; 
-        //return $res[1]->obj["user_id"]; 
-        return $all_msg;
+        //return Channel::where("id", $id)->with("users")->get();
+        return $all_msg; 
     }
 
 

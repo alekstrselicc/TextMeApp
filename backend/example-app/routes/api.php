@@ -110,4 +110,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
         route::get("GetUserFromChannel/{id}", [PlaygroundController::class, 'GetUserFromChannel']);
         route::get("GetPrivateMessages", [PrivateMessageController::class, 'GetPrivateMessages']); 
+
+        route::get("getAll", [UserController::class, "getAll"]); 
     });

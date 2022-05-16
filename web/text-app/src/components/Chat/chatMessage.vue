@@ -4,20 +4,21 @@
       <!-- Chat log need date, location, text, image of the person -->
       <v-row class="justify-start message_main">
         <div
-          v-for="(item, index) in messages"
+          v-for="(item, index) in test"
           :key="index"
           class="main_msg justify-start rows"
         >
           <v-row>
-            <div class="showing_name">{{ item.user }}</div>
+            <div class="showing_name">{{ item.name }}</div>
           </v-row>
           <v-row>
             <div class="image_user">
-              <v-avatar><v-img :src="item.avatar"></v-img></v-avatar>
+              <v-avatar><v-img :src="item.img"></v-img></v-avatar>
             </div>
 
             <div class="msg_user">
-              {{ item.msg }} <v-img :src="item.img"></v-img>
+              {{ item.message }}
+              <!--<v-img :src="item.avatar"></v-img> -->
             </div>
           </v-row>
         </div>
@@ -57,12 +58,30 @@ export default Vue.extend({
       message: "",
       messages: [],
       user_name: "",
+      test: [],
+      tmp: { img: null, name: null, message: null },
     };
   },
   methods: {
-    sendMessage() {
-      console.log("This is going to be sent: " + this.message);
+    filterData(data, users) {
+      //console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        this.tmp = { img: null, name: null, message: null };
+        for (let j = 0; j < users.length; j++) {
+          if (users[j].id == data[i].user_id) {
+            this.tmp = {
+              img: users[j].img,
+              name: users[j].first_name,
+              message: data[i].messages,
+            };
+            this.test.push(this.tmp);
+            break;
+          }
+        }
+      }
+    },
 
+    sendMessage() {
       axios.post("http://127.0.0.1:8000/api/sendMessages", {
         messages: this.message,
         channel_id: this.$route.params.id,
@@ -71,16 +90,19 @@ export default Vue.extend({
       });
 
       this.message = "";
-      //console.log("Velikost: " + this.messages.length);
-      //this.message = "";
     },
     fetchMessages() {
-      console.log("pridobi podatke");
       axios
         .get("http://127.0.0.1:8000/api/fetchMessage/" + this.$route.params.id)
         .then(async (res) => {
           //here is all the data
-          this.messages = res.data;
+          await axios
+            .get("http://127.0.0.1:8000/api/getAll")
+            .then((response) => {
+              this.filterData(res.data, response.data);
+            });
+          //this.messages = res.data;
+          //console.log(this.messages[0].user_id);
           //await axios.get("http://127.0.0.1:8000/api/user/")
         });
     },
@@ -96,7 +118,7 @@ export default Vue.extend({
       //console.log("ti si pac delavec");
       console.log(e.messages);
       this.messages.push({
-        msg: e.messages,
+        messages: e.messages,
       });
     });
   },
