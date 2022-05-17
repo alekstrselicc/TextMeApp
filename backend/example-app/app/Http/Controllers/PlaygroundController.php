@@ -115,32 +115,24 @@ class PlaygroundController extends Controller
 
     public function GetAllUsersFromPlayground($id)
     {
-        $playground = playgroundMember::all();
+        $channel = Channel::where("id", $id)->first(); 
+
+        $meb = playgroundMember::where("playground_id", $channel->playground_id)->get(); 
         
-        $playgrounds = [];
+        $users = User::all(); 
 
-        for($i = 0; $i < isset($playground); $i++)
-        {
-            array_push($playgrounds, playgroundMember::where("playground_id",$id)->get());
+        $arr = []; 
+
+        for ($i=0; $i < count($meb); $i++) { 
+            for ($j=0; $j < count($users); $j++) { 
+                if($meb[$i]->user_id == $users[$j]->id){
+                    array_push($arr, $users[$j]); 
+                }
+            }
         }
+        return $arr; 
 
-        $users = [];
 
-        $playground_member = playgroundMember::where("user_id","!=",Auth::id())->get();
-
-        for($i = 0; $i < count($playground_member); $i++)
-        {   
-            array_push($users, $playground_member[$i]->user_id);
-        }
-        
-        $array = [];
-        
-        for($i=0; $i < count($users); $i ++)
-        {
-            array_push($array, User::where("id",$users[$i])->first());
-
-        }
-        return $array;
     }
     public function GetUserFromChannel($id)
     {

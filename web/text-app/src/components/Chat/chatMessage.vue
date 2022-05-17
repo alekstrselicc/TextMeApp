@@ -2,7 +2,7 @@
   <div class="contents">
     <div class="main_chat" id="chat_id">
       <!-- Chat log need date, location, text, image of the person -->
-      <v-row class="justify-start message_main">
+      <v-row class="justify-start message_main flex-col-reverse">
         <div
           v-for="(item, index) in test"
           :key="index"
@@ -142,6 +142,11 @@ export default Vue.extend({
           });
       }
     },
+    scrollToEnd() {
+      var cont = document.querySelector(".main_chat");
+      var scrolls = cont.scrollHeight + 1000;
+      cont.scrollTop = scrolls;
+    },
   },
   created() {
     axios.get("http://127.0.0.1:8000/api/user").then((res) => {
@@ -175,44 +180,12 @@ export default Vue.extend({
       });
     }
   },
-  /*
-  watch: {
-    "$route.params.search": {
-      handler: function (search) {
-        this.fetchMessages();
-        if (this.$route.path.length < 9) {
-          window.Echo.channel("chat").listen("MessageSent", (e) => {
-            if (e.channel_id == this.$route.params.id) {
-              axios
-                .get("http://127.0.0.1:8000/api/user/" + e.user_id)
-                .then((res) => {
-                  this.test.push({
-                    message: e.messages,
-                    name: res.data.first_name,
-                    img: res.data.img,
-                  });
-                });
-            }
-          });
-        } else {
-          window.Echo.channel("privateChat").listen("PrivateMessages", (e) => {
-            axios
-              .get("http://127.0.0.1:8000/api/user/" + e.user_id)
-              .then((res) => {
-                this.test.push({
-                  message: e.messages,
-                  name: res.data.first_name,
-                  img: res.data.img,
-                });
-              });
-          });
-        }
-      },
-      deep: true,
-      immediate: true,
-    },
+  mounted() {
+    this.scrollToEnd();
   },
-  */
+  updated() {
+    this.scrollToEnd();
+  },
 });
 </script>
 
@@ -225,6 +198,9 @@ export default Vue.extend({
   height: 100px;
   position: absolute;
   bottom: 0;
+}
+.main_box {
+  width: 97% !important;
 }
 
 .main_send .main_box .v-text-field.v-text-field--solo .v-input__control {

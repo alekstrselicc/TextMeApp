@@ -225,18 +225,18 @@ export default Vue.extend({
     //console.log("novi");
     this.members = [];
     axios
+      .get(
+        "http://127.0.0.1:8000/api/GetAllUsersFromPlayground/" +
+          this.$route.params.id
+      )
+      .then((res) => {
+        this.members = res.data;
+      });
+    axios
       .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
       .then(async (res) => {
         console.log(res.data[0].playground_id);
 
-        await axios
-          .get(
-            "http://127.0.0.1:8000/api/GetAllUsersFromPlayground/" +
-              res.data[0].playground_id
-          )
-          .then((res) => {
-            this.members = res.data;
-          });
         await axios
           .get(
             "http://127.0.0.1:8000/api/playground_request/" +
@@ -256,19 +256,19 @@ export default Vue.extend({
         this.members = [];
         axios
           .get(
+            "http://127.0.0.1:8000/api/GetAllUsersFromPlayground/" +
+              this.$route.params.id
+          )
+          .then((res) => {
+            this.members = res.data;
+          });
+        axios
+          .get(
             "http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id
           )
           .then(async (res) => {
             console.log(res.data[0].playground_id);
 
-            await axios
-              .get(
-                "http://127.0.0.1:8000/api/GetAllUsersFromPlayground/" +
-                  res.data[0].playground_id
-              )
-              .then((res) => {
-                this.members = res.data;
-              });
             await axios
               .get(
                 "http://127.0.0.1:8000/api/playground_request/" +

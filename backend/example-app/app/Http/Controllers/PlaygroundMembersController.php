@@ -7,6 +7,7 @@ use App\Models\playgroundMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PlaygroundRequest; 
+use App\Models\Channel; 
 
 class PlaygroundMembersController extends Controller
 {
@@ -84,6 +85,14 @@ class PlaygroundMembersController extends Controller
         }
         
         return $show_playgrounds;
+    }
+
+    public function getMembersByPlayground($id){
+        $channel = Channel::where("id", $id)->first(); 
+
+        $meb = playgroundMember::where("playground_id", $channel->playground_id)->get(); 
+        
+        return $meb; 
     }
 
     /**
