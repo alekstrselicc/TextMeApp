@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\privateChat;
 use App\Models\privateMessage;
 use Illuminate\Http\Request;
+use App\Models\Participants;
+use App\Events\PrivateMessages; 
+use Illuminate\Support\Facades\Auth;
+
 
 class PrivateMessageController extends Controller
 {
@@ -24,6 +28,63 @@ class PrivateMessageController extends Controller
         return $private_messages;
     }
 
+    public function getPrivateMesagesChat($id){
+        /*
+        $par = Participants::where("user_id", $id)->first(); 
+        
+        $private_msg = privateMessage::where("private_chat_id", $par->private_chat_id)->get(); 
+        return $par->private_chat_id; 
+        */
+
+        $par = Participants::where("user_id", $id)->get();
+        $par1 = Participants::where("user_id", Auth::id())->get(); 
+        
+        $id = null; 
+        
+        for ($i=0; $i < count($par); $i++) { 
+            for ($j=0; $j < count($par1); $j++) { 
+                if($par[$i]->private_chat_id === $par1[$j]->private_chat_id){
+                    $id = $par[$i]->private_chat_id;  
+                    break; 
+                }
+            }
+        }
+        $private_msg = privateMessage::where("private_chat_id", $id)->get(); 
+        return $private_msg;  
+    }
+
+    public function sendPrivateMessage(Request $request){
+        $request->validate([
+            'messages' => 'required|string',
+            'created_at' => 'required',
+            'private_chat_id' => 'required', 
+            'user_id' => 'required',
+        ]); 
+
+        $message = $request->messages; 
+
+        privateMessage::create($request->all()); 
+
+        broadcast(new PrivateMessages($request->all()));
+
+    }
+
+    public function getPrivateChatId($id){
+        //the id is from the user 
+
+        //tukaj se dobi vse elemente, kjer je ta id vpisan 
+        $par = Participants::where("user_id", $id)->get();
+        $par1 = Participants::where("user_id", Auth::id())->get(); 
+        
+        for ($i=0; $i < count($par); $i++) { 
+            for ($j=0; $j < count($par1); $j++) { 
+                if($par[$i]->private_chat_id === $par1[$j]->private_chat_id){
+                    return $par[$i]->private_chat_id;  
+                }
+            }
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,7 +94,7 @@ class PrivateMessageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'message' => 'required|string',
+            'messages' => 'required|string',
             'created_at' => 'required',
             'user_id' => 'required',
             'private_chat_id' => 'required',

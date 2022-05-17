@@ -112,4 +112,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         route::get("GetPrivateMessages", [PrivateMessageController::class, 'GetPrivateMessages']); 
 
         route::get("getAll", [UserController::class, "getAll"]); 
+        route::get("getPrivateMesagesChat/{id}", [PrivateMessageController::class, "getPrivateMesagesChat"]); 
+        route::post("sendPrivateMessage", [PrivateMessageController::class, "sendPrivateMessage"]); 
+        route::get("getPrivateChatId/{id}", [PrivateMessageController::class, "getPrivateChatId"]); 
     });

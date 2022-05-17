@@ -82,6 +82,8 @@ export default Vue.extend({
           await axios.get("http://127.0.0.1:8000/api/user").then((res) => {
             console.log("this is id: " + res.data.id);
             Vue.prototype.$userId = res.data.id;
+            Vue.prototype.$userName = res.data.first_name;
+            Vue.prototype.$userImg = res.data.img;
           });
 
           //treba se nastavit da bo status pokazal na online

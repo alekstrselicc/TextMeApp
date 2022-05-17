@@ -21,6 +21,8 @@ Vue.prototype.$clientSecret = "Av1FPFuSdJofcvbiNx0UfaazaI0kFiti8YW07AFR";
 
 Vue.prototype.$clientId = "2";
 Vue.prototype.$userId = null;
+Vue.prototype.$userName = null;
+Vue.prototype.$userImg = null;
 
 let ref = false;
 

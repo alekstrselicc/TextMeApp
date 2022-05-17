@@ -10,7 +10,7 @@ class privateMessage extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'message',
+        'messages',
         'created_at',
         'user_id',
         'private_chat_id'

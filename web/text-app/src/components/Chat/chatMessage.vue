@@ -49,6 +49,9 @@ import Vue from "vue";
 import ChatBar from "@/components/Chat/chatBar.vue";
 import axios from "axios";
 import Echo from "laravel-echo";
+import { Console } from "console";
+
+Vue.prototype.$msg = null;
 
 export default Vue.extend({
   name: "chatMessage",
@@ -56,7 +59,6 @@ export default Vue.extend({
   data() {
     return {
       message: "",
-      messages: [],
       user_name: "",
       test: [],
       tmp: { img: null, name: null, message: null },
@@ -65,6 +67,7 @@ export default Vue.extend({
   methods: {
     filterData(data, users) {
       //console.log(data);
+      this.test = [];
       for (let i = 0; i < data.length; i++) {
         this.tmp = { img: null, name: null, message: null };
         for (let j = 0; j < users.length; j++) {
@@ -82,29 +85,62 @@ export default Vue.extend({
     },
 
     sendMessage() {
-      axios.post("http://127.0.0.1:8000/api/sendMessages", {
-        messages: this.message,
-        channel_id: this.$route.params.id,
-        created_at: "2002-02-02 13:13:13",
-        user_id: Vue.prototype.$userId,
-      });
-
-      this.message = "";
+      Vue.prototype.$msg = this.message;
+      if (this.$route.path.length < 9) {
+        console.log("kr poslji");
+        axios.post("http://127.0.0.1:8000/api/sendMessages", {
+          messages: this.message,
+          channel_id: this.$route.params.id,
+          created_at: "2002-02-02 13:13:13",
+          user_id: Vue.prototype.$userId,
+        });
+      } else {
+        console.log("h" + Vue.prototype.$msg);
+        axios
+          .get(
+            "http://127.0.0.1:8000/api/getPrivateChatId/" +
+              this.$route.params.id
+          )
+          .then(async (res) => {
+            await axios.post("http://127.0.0.1:8000/api/sendPrivateMessage", {
+              messages: this.message,
+              created_at: "2002-02-02 13:13:13",
+              user_id: Vue.prototype.$userId,
+              private_chat_id: res.data,
+            });
+            this.message = "";
+          });
+      }
     },
     fetchMessages() {
-      axios
-        .get("http://127.0.0.1:8000/api/fetchMessage/" + this.$route.params.id)
-        .then(async (res) => {
-          //here is all the data
-          await axios
-            .get("http://127.0.0.1:8000/api/getAll")
-            .then((response) => {
-              this.filterData(res.data, response.data);
-            });
-          //this.messages = res.data;
-          //console.log(this.messages[0].user_id);
-          //await axios.get("http://127.0.0.1:8000/api/user/")
-        });
+      this.test = [];
+      if (this.$route.path.length < 9) {
+        axios
+          .get(
+            "http://127.0.0.1:8000/api/fetchMessage/" + this.$route.params.id
+          )
+          .then(async (res) => {
+            //here is all the data
+            await axios
+              .get("http://127.0.0.1:8000/api/getAll")
+              .then((response) => {
+                this.filterData(res.data, response.data);
+              });
+          });
+      } else {
+        axios
+          .get(
+            "http://127.0.0.1:8000/api/getPrivateMesagesChat/" +
+              this.$route.params.id
+          )
+          .then(async (res) => {
+            await axios
+              .get("http://127.0.0.1:8000/api/getAll")
+              .then((response) => {
+                this.filterData(res.data, response.data);
+              });
+          });
+      }
     },
   },
   created() {
@@ -113,18 +149,70 @@ export default Vue.extend({
     });
 
     this.fetchMessages();
-
-    window.Echo.channel("chat").listen("MessageSent", (e) => {
-      //console.log("ti si pac delavec");
-      console.log(e.channel_id + " == " + this.$route.params.id);
-      if (e.channel_id == this.$route.params.id) {
-        console.log("no kr dej notr ");
-        this.test.push({
-          message: e.messages,
+    if (this.$route.path.length < 9) {
+      window.Echo.channel("chat").listen("MessageSent", (e) => {
+        if (e.channel_id == this.$route.params.id) {
+          axios
+            .get("http://127.0.0.1:8000/api/user/" + e.user_id)
+            .then((res) => {
+              this.test.push({
+                message: e.messages,
+                name: res.data.first_name,
+                img: res.data.img,
+              });
+            });
+        }
+      });
+    } else {
+      window.Echo.channel("privateChat").listen("PrivateMessages", (e) => {
+        axios.get("http://127.0.0.1:8000/api/user/" + e.user_id).then((res) => {
+          this.test.push({
+            message: e.messages,
+            name: res.data.first_name,
+            img: res.data.img,
+          });
         });
-      }
-    });
+      });
+    }
   },
+  /*
+  watch: {
+    "$route.params.search": {
+      handler: function (search) {
+        this.fetchMessages();
+        if (this.$route.path.length < 9) {
+          window.Echo.channel("chat").listen("MessageSent", (e) => {
+            if (e.channel_id == this.$route.params.id) {
+              axios
+                .get("http://127.0.0.1:8000/api/user/" + e.user_id)
+                .then((res) => {
+                  this.test.push({
+                    message: e.messages,
+                    name: res.data.first_name,
+                    img: res.data.img,
+                  });
+                });
+            }
+          });
+        } else {
+          window.Echo.channel("privateChat").listen("PrivateMessages", (e) => {
+            axios
+              .get("http://127.0.0.1:8000/api/user/" + e.user_id)
+              .then((res) => {
+                this.test.push({
+                  message: e.messages,
+                  name: res.data.first_name,
+                  img: res.data.img,
+                });
+              });
+          });
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+  */
 });
 </script>
 

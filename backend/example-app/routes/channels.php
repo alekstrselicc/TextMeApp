@@ -19,6 +19,11 @@ Broadcast::channel('chat', function ($user) {
     return $user;
 });
 
+Broadcast::channel('privateChat', function ($user) {
+    return $user;
+});
+
+
 
   
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
