@@ -116,10 +116,13 @@ export default Vue.extend({
 
     window.Echo.channel("chat").listen("MessageSent", (e) => {
       //console.log("ti si pac delavec");
-      console.log(e.messages);
-      this.messages.push({
-        messages: e.messages,
-      });
+      console.log(e.channel_id + " == " + this.$route.params.id);
+      if (e.channel_id == this.$route.params.id) {
+        console.log("no kr dej notr ");
+        this.test.push({
+          message: e.messages,
+        });
+      }
     });
   },
 });
