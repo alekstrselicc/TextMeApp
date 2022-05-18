@@ -7,8 +7,8 @@
 
       <div class="group_items_bigger">
         <v-list-group
-          v-for="item in items"
-          :key="item.title"
+          v-for="(item, index) in allPlaygrounds"
+          :key="index"
           color="white"
           class=""
           @click="showSettings(item.id)"
@@ -47,7 +47,7 @@
         </v-list-group>
       </div>
     </v-list>
-    <AddPlayground :getPlayData="getPlayground" />
+    <AddPlayground />
   </div>
 </template>
 
@@ -55,47 +55,27 @@
 import Vue from "vue";
 import AddPlayground from "@/components/Dialogs/addPlayground.vue";
 import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   components: { AddPlayground },
-  data() {
-    return {
-      items: [],
-    };
-  },
   created() {
-    axios
-      .get("http://127.0.0.1:8000/api/getPlaygroundsWithChannels")
-      .then((res) => {
-        //console.log(res.data);
-        this.items = res.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchPlaygrounds();
   },
+
+  computed: {
+    ...mapGetters(["allPlaygrounds"]),
+  },
+
   methods: {
+    ...mapActions(["fetchPlaygrounds"]),
+
     menuActionClick(e) {
       this.$router.push({ path: "/chat/" + e });
     },
     showSettings(e) {
       //console.log("delat");
       this.$router.push({ path: "/chat" });
-    },
-    getPlayground(titlee, img) {
-      this.items.push({
-        title: titlee,
-        img: img,
-      });
-      axios
-        .get("http://127.0.0.1:8000/api/getPlaygroundsWithChannels")
-        .then((res) => {
-          //console.log(res.data);
-          this.items = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
 });

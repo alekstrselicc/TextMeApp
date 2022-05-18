@@ -26,15 +26,7 @@
           <v-btn class="image_btn">Choose image</v-btn>
         </div>
         <div class="center_btn">
-          <v-btn
-            class="add_btn_div"
-            rounded
-            @click="addPlayground()"
-            v-on:click="
-              getPlayData(title, 'https://picsum.photos/350/165?random')
-            "
-            >Add</v-btn
-          >
+          <v-btn class="add_btn_div" rounded @click="submit()">Add</v-btn>
         </div>
 
         <v-divider color="white" class="divider_add_play"></v-divider>
@@ -44,9 +36,7 @@
           <v-text-field label="Link..." v-model="name" solo></v-text-field>
         </div>
         <div class="center_btn">
-          <v-btn class="add_btn_div" rounded @click="findPlayground()"
-            >Add</v-btn
-          >
+          <v-btn class="add_btn_div" rounded @click="find()">Add</v-btn>
         </div>
       </v-card>
     </v-dialog>
@@ -55,12 +45,9 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
+import { mapActions } from "vuex";
 
 export default Vue.extend({
-  props: {
-    getPlayData: Function,
-  },
   data() {
     return {
       dialog: false,
@@ -68,26 +55,19 @@ export default Vue.extend({
       name: "",
     };
   },
-
   methods: {
-    addPlayground() {
+    ...mapActions(["addPlayground"]),
+    ...mapActions(["fetchPlaygrounds"]),
+    ...mapActions(["findPlayground"]),
+
+    submit() {
+      this.addPlayground(this.title);
+      this.fetchPlaygrounds();
       this.dialog = false;
-      axios.post("http://127.0.0.1:8000/api/playgrounds", {
-        title: this.title,
-        img: "https://picsum.photos/350/165?random",
-      });
     },
-    findPlayground() {
+    find() {
       this.dialog = false;
-      axios
-        .get("http://127.0.0.1:8000/api/findByName/" + this.name)
-        .then(async (res) => {
-          console.log(res.data);
-          await axios.post("http://127.0.0.1:8000/api/playground_request", {
-            sender: Vue.prototype.$userId,
-            playground_id: res.data[0].id,
-          });
-        });
+      this.findPlayground(this.name);
     },
   },
 });

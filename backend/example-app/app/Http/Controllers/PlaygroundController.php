@@ -55,6 +55,8 @@ class PlaygroundController extends Controller
 
         Channel::create($channel);
         playgroundMember::create($member); 
+
+        return $play; 
     }
 
     /**

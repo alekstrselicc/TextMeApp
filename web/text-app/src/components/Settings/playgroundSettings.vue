@@ -2,7 +2,7 @@
   <v-dialog v-model="dialogS" max-width="500">
     <template v-slot:activator="{ on, attrs }">
       <v-flex class="settings_btn">
-        <v-btn icon
+        <v-btn icon @click="fetchPlaygroundData()"
           ><v-icon color="blue" v-bind="attrs" v-on="on" large
             >mdi-wrench</v-icon
           ></v-btn
@@ -47,7 +47,7 @@
                 <v-text-field
                   class="playground_name_change"
                   solo
-                  v-model="playground_name"
+                  v-model="name"
                 ></v-text-field>
               </v-row>
               <v-row>
@@ -64,7 +64,7 @@
             <div class="list_of_channels">
               <v-list color="transparent">
                 <v-list-item
-                  v-for="(item, index) in playground_channels"
+                  v-for="(item, index) in playgroundChannels"
                   :key="index"
                 >
                   <v-list-item-icon>
@@ -95,7 +95,7 @@
             <h1 class="title_pedning">Channel list</h1>
             <v-list color="transparent">
               <v-list-item
-                v-for="(item, index) in playground_channels"
+                v-for="(item, index) in playgroundChannels"
                 :key="index"
               >
                 <v-list-item-icon>
@@ -131,7 +131,7 @@
               <v-text-field
                 class="playground_name_change"
                 solo
-                v-model="playground_name"
+                v-model="name"
               ></v-text-field>
             </v-row>
             <v-row>
@@ -155,20 +155,33 @@
 import Vue from "vue";
 import AddChannel from "@/components/Dialogs/addChannel.vue";
 import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 export default Vue.extend({
   components: { AddChannel },
   data() {
     return {
-      playground_name: "",
-      playground_avatar: "",
-      playground_channels: [],
+      //playground_name: "",
+      //playground_avatar: "",
+      //playground_channels: [],
       add_channel: false,
       change_name: false,
       dialogS: false,
     };
   },
 
+  created() {
+    this.fetchPlaygroundData();
+  },
+
+  computed: {
+    ...mapGetters(["playgroundChannels"]),
+    ...mapGetters(["name"]),
+    ...mapGetters(["avatar"]),
+  },
+
   methods: {
+    ...mapActions(["fetchPlaygroundData"]),
+
     saveName() {
       axios
         .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
@@ -182,30 +195,6 @@ export default Vue.extend({
           );
         });
     },
-  },
-
-  created() {
-    axios
-      .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
-      .then(async (res) => {
-        await axios
-          .get(
-            "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
-          )
-          .then((ress) => {
-            this.playground_name = ress.data.title;
-            this.playground_avatar = ress.data.img;
-            axios
-              .get(
-                "http://127.0.0.1:8000/api/AllChannelsOfPlayground/" +
-                  res.data[0].playground_id
-              )
-              .then((resss) => {
-                this.playground_channels = resss.data[0].channels;
-                console.log(this.playground_channels);
-              });
-          });
-      });
   },
 });
 </script>

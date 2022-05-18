@@ -79,14 +79,12 @@ export default Vue.extend({
       this.$router.push({ path: "/chat/user/" + e });
     },
     getFriendData(data) {
-      console.log("tole je za mene ");
       console.log(data);
     },
   },
 
   created() {
     axios.get("http://127.0.0.1:8000/api/get_friends").then((res) => {
-      console.log("tole so prjatli");
       this.items = res.data;
     });
   },
