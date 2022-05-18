@@ -47,7 +47,7 @@
         </v-list-group>
       </div>
     </v-list>
-    <AddPlayground />
+    <AddPlayground :getPlayData="getPlayground" />
   </div>
 </template>
 
@@ -81,6 +81,21 @@ export default Vue.extend({
     showSettings(e) {
       //console.log("delat");
       this.$router.push({ path: "/chat" });
+    },
+    getPlayground(titlee, img) {
+      this.items.push({
+        title: titlee,
+        img: img,
+      });
+      axios
+        .get("http://127.0.0.1:8000/api/getPlaygroundsWithChannels")
+        .then((res) => {
+          //console.log(res.data);
+          this.items = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 });

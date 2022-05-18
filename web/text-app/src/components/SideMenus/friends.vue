@@ -42,7 +42,7 @@
       </v-list>
 
       <!-- Here comes the profile linker -->
-      <ProfileButton />
+      <ProfileButton :getData="getFriendData" />
     </v-layout>
     <AddFriend />
   </div>
@@ -61,7 +61,6 @@ export default Vue.extend({
     return {
       selectedItem: 1,
       items: [],
-      states: ["delat", "treba"],
     };
   },
   methods: {
@@ -79,11 +78,15 @@ export default Vue.extend({
     getChat(e) {
       this.$router.push({ path: "/chat/user/" + e });
     },
+    getFriendData(data) {
+      console.log("tole je za mene ");
+      console.log(data);
+    },
   },
 
   created() {
     axios.get("http://127.0.0.1:8000/api/get_friends").then((res) => {
-      //console.log(res.data);
+      console.log("tole so prjatli");
       this.items = res.data;
     });
   },

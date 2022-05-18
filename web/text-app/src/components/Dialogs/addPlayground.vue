@@ -26,7 +26,13 @@
           <v-btn class="image_btn">Choose image</v-btn>
         </div>
         <div class="center_btn">
-          <v-btn class="add_btn_div" rounded @click="addPlayground()"
+          <v-btn
+            class="add_btn_div"
+            rounded
+            @click="addPlayground()"
+            v-on:click="
+              getPlayData(title, 'https://picsum.photos/350/165?random')
+            "
             >Add</v-btn
           >
         </div>
@@ -52,6 +58,9 @@ import Vue from "vue";
 import axios from "axios";
 
 export default Vue.extend({
+  props: {
+    getPlayData: Function,
+  },
   data() {
     return {
       dialog: false,

@@ -158,7 +158,7 @@ export default Vue.extend({
 }
 
 .btn_text_edit {
-  font-size: 26px;
+  font-size: 24px;
   text-decoration: none !important;
   color: white !important;
   margin-left: 25px;

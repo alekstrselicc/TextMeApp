@@ -35,14 +35,14 @@
               ></v-list-item-title>
             </v-list-item-content>
 
-            <v-btn @click="accept(item.id)" icon>
+            <v-btn @click="accept(item.id, index)" icon>
               <v-list-item-icon>
                 <v-icon color="white" size="30" class="icon_accept">{{
                   svgAccept
                 }}</v-icon>
               </v-list-item-icon>
             </v-btn>
-            <v-btn @click="decline(item.id)" icon>
+            <v-btn @click="decline(item.id, index)" icon>
               <v-list-item-icon>
                 <v-icon color="white" size="30" class="icon_decline">{{
                   svgDecline
@@ -64,18 +64,13 @@ import axios from "axios";
 let content = [];
 
 export default Vue.extend({
-  data(e) {
+  props: {
+    getData: Function,
+  },
+  data() {
     return {
       svgAccept: mdiAccountMultiplePlus,
       svgDecline: mdiAccountMultipleMinus,
-      friend_requestss: [
-        {
-          name: "Nejc Mat",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        },
-      ],
-
-      friend_requests: [],
 
       friend_selected: [],
 
@@ -86,7 +81,7 @@ export default Vue.extend({
   },
 
   methods: {
-    async decline(e) {
+    async decline(e, index) {
       await axios
         .get("http://127.0.0.1:8000/api/friend_request_approver/" + e)
         .then((res) => {
@@ -96,19 +91,21 @@ export default Vue.extend({
               "http://127.0.0.1:8000/api/friend_request/" + res.data[0].id
             )
             .then((res) => {
-              console.log(res);
-              console.log("deleted");
+              this.friend_selected.splice(index, 1);
+              this.pendings_count = this.pendings_count - 1;
             });
         });
+      //this.friend_selected.splice(index, 1);
     },
-    accept(e) {
+    accept(e, index) {
       axios
         .post("http://127.0.0.1:8000/api/private_chats", {
           user_id: e,
           last_send: "2000-02-02 13:13:13",
         })
         .then((res) => {
-          console.log(res.data);
+          this.friend_selected.splice(index, 1);
+          this.pendings_count = this.pendings_count - 1;
         });
     },
   },
@@ -150,19 +147,7 @@ export default Vue.extend({
       }, []);
 
       this.friend_selected = filterArray;
-
-      /*
-      for (let index = 0; index < content.length; index++) {
-        console.log(content[index]);
-        console.log();
-      }
-
-    */
     });
-
-    /*
-
-    */
   },
 });
 </script>
