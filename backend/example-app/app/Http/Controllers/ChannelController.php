@@ -42,7 +42,7 @@ class ChannelController extends Controller
             'accessibility' => 'required'
         ]); 
 
-        Channel::create($request->all()); 
+        return Channel::create($request->all()); 
     }
 
     /**
@@ -81,7 +81,10 @@ class ChannelController extends Controller
     //id playgrounda
     public function AllChannelsOfPlayground($id)
     {
-        $playground = Playground::with('channels')->where("id","=",$id)->get();
+
+        $channel = Channel::where("id", $id)->first(); 
+
+        $playground = Playground::with('channels')->where("id","=",$channel->playground_id)->first();
         
         return $playground;
     }

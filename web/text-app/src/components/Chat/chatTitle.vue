@@ -36,6 +36,7 @@ export default Vue.extend({
   */
   created() {
     //this.$http.get('')
+    Vue.prototype.$channelId = this.$route.params.id;
     if (this.$route.path.length < 9) {
       axios
         .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)
@@ -63,6 +64,7 @@ export default Vue.extend({
   watch: {
     "$route.params.search": {
       handler: function (search) {
+        Vue.prototype.$channelId = this.$route.params.id;
         if (this.$route.path.length < 9) {
           axios
             .get("http://127.0.0.1:8000/api/channels/" + this.$route.params.id)

@@ -23,6 +23,7 @@ Vue.prototype.$clientId = "2";
 Vue.prototype.$userId = null;
 Vue.prototype.$userName = null;
 Vue.prototype.$userImg = null;
+Vue.prototype.$channelId = null;
 
 let ref = false;
 

@@ -39,6 +39,7 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 
 export default Vue.extend({
   data() {
@@ -54,17 +55,9 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapActions(["addingChannel"]),
     sendChannel() {
-      axios
-        .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
-        .then(async (res) => {
-          axios.post("http://127.0.0.1:8000/api/channels", {
-            title: this.title,
-            accessibility: this.text,
-            playground_id: res.data[0].playground_id,
-            created_at: "2000-02-02",
-          });
-        });
+      this.addingChannel(this.title);
     },
   },
 });

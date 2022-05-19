@@ -2,7 +2,7 @@
   <v-dialog v-model="dialogS" max-width="500">
     <template v-slot:activator="{ on, attrs }">
       <v-flex class="settings_btn">
-        <v-btn icon @click="fetchPlaygroundData()"
+        <v-btn icon
           ><v-icon color="blue" v-bind="attrs" v-on="on" large
             >mdi-wrench</v-icon
           ></v-btn
@@ -22,7 +22,7 @@
           <v-col class="first_cols">
             <v-row>
               <v-avatar class="playground_avatar_change">
-                <v-img :src="playground_avatar"> </v-img>
+                <v-img :src="avatar"> </v-img>
               </v-avatar>
             </v-row>
 
@@ -51,9 +51,7 @@
                 ></v-text-field>
               </v-row>
               <v-row>
-                <v-btn class="save_name_btn" rounded @click="saveName"
-                  >Save</v-btn
-                >
+                <v-btn class="save_name_btn" rounded @click="save">Save</v-btn>
               </v-row>
             </div>
           </v-col>
@@ -155,22 +153,18 @@
 import Vue from "vue";
 import AddChannel from "@/components/Dialogs/addChannel.vue";
 import axios from "axios";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default Vue.extend({
   components: { AddChannel },
+  created() {
+    this.fetchPlaygroundData();
+  },
   data() {
     return {
-      //playground_name: "",
-      //playground_avatar: "",
-      //playground_channels: [],
       add_channel: false,
       change_name: false,
       dialogS: false,
     };
-  },
-
-  created() {
-    this.fetchPlaygroundData();
   },
 
   computed: {
@@ -181,19 +175,10 @@ export default Vue.extend({
 
   methods: {
     ...mapActions(["fetchPlaygroundData"]),
+    ...mapActions(["saveName"]),
 
-    saveName() {
-      axios
-        .get("http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id)
-        .then(async (res) => {
-          await axios.put(
-            "http://127.0.0.1:8000/api/playgrounds/" +
-              res.data[0].playground_id,
-            {
-              title: this.playground_name,
-            }
-          );
-        });
+    save() {
+      this.saveName();
     },
   },
 });

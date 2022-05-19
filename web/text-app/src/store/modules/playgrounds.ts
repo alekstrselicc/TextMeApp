@@ -20,7 +20,6 @@ const actions = {
     const res = await axios.get(
       "http://127.0.0.1:8000/api/getPlaygroundsWithChannels"
     );
-    console.log(res.data);
     commit("setPlaygrounds", res.data);
   },
 
@@ -45,29 +44,46 @@ const actions = {
 
   async fetchPlaygroundData({ commit }) {
     const res = await axios.get(
-      "http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id
-    );
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
-    );
-    const responses = await axios.get(
       "http://127.0.0.1:8000/api/AllChannelsOfPlayground/" +
-        response.data[0].playground_id
+        Vue.prototype.$channelId
     );
-    console.log("tuki je treba neki izpitsa");
-    //console.log(responses.data[0].channels);
-    commit("setPlaygroundName", response.data.title);
-    commit("setPlaygroundAvatar", response.data.img);
-    commit("setChannels", responses.data[0].channels);
+    commit("setPlaygroundName", res.data.title);
+    commit("setPlaygroundAvatar", res.data.img);
+    commit("setChannels", res.data.channels);
   },
 
   async saveName({ commit }) {
-    const res = await axios.get(
-      "http://127.0.0.1:8000/api/findByChannel/" + this.$route.params.id
-    );
-    await axios.put(
-      "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id
-    );
+    axios
+      .get(
+        "http://127.0.0.1:8000/api/findByChannel/" + Vue.prototype.$channelId
+      )
+      .then(async (res) => {
+        await axios.put(
+          "http://127.0.0.1:8000/api/playgrounds/" + res.data[0].playground_id,
+          {
+            title: this.playground_name,
+          }
+        );
+      });
+  },
+
+  async addingChannel({ commit }, title) {
+    axios
+      .get(
+        "http://127.0.0.1:8000/api/findByChannel/" + Vue.prototype.$channelId
+      )
+      .then(async (res) => {
+        await axios
+          .post("http://127.0.0.1:8000/api/channels", {
+            title: title,
+            accessibility: "public",
+            playground_id: res.data[0].playground_id,
+            created_at: "2000-02-02",
+          })
+          .then((ress) => {
+            commit("addChannel", ress.data);
+          });
+      });
   },
 };
 
@@ -77,6 +93,7 @@ const mutations = {
   setPlaygroundName: (state, name) => (state.playground_name = name),
   setPlaygroundAvatar: (state, avatar) => (state.playground_avatar = avatar),
   setChannels: (state, channels) => (state.channels = channels),
+  addChannel: (state, channel) => state.channels.push(channel),
 };
 
 export default {
