@@ -180,6 +180,16 @@ export default Vue.extend({
       });
     }
   },
+  watch: {
+    "$route.params.search": {
+      handler: function (search) {
+        Vue.prototype.$channelId = this.$route.params.id;
+        this.fetchMessages();
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   mounted() {
     this.scrollToEnd();
   },
